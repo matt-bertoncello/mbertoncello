@@ -2,7 +2,9 @@ const cool = require('cool-ascii-faces')
 const express = require('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
-var mongodb = require('mongodb')
+var mongoose = require('mongoose')
+
+mongoose.Promise = global.Promise;
 
 require('dotenv').config();
 
@@ -15,19 +17,9 @@ const mongoDetails = {
 
 const uri = 'mongodb+srv://'+mongoDetails.user+':'+mongoDetails.password+'@'+mongoDetails.cluster+'-clgtv.gcp.mongodb.net/'+mongoDetails.dbName+'?authSource=admin&retryWrites=true';
 
-const MongoClient = require('mongodb').MongoClient;
-const assert = require('assert');
-
-// Use connect method to connect to the server
-MongoClient.connect(uri, { useNewUrlParser: true }, function(err, client) {
-  assert.equal(null, err);
-  console.log("Connected successfully to server");
-
-  const db = client.db(mongoDetails.dbName);
-
-  client.close();
-});
-
+mongoose.connect(uri, { useNewUrlParser: true })
+  .then(() =>  console.log('connection successful'))
+  .catch((err) => console.error(err));
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
