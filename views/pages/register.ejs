@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+  <% include ../partials/nav.ejs %>
+
+<h1> Register </h1>
+
+<form class='form-signin' role='form' action='/register' method='post' style='max-width:300px;'>
+  <h2 class='form-sign-in-heading'> Sign Up here
+    <input class='form-control' type='text' name='name' placeholder='Your Name'>
+    <input class='form-control' type='text' name='username' placeholder='Your Username'>
+    <input class='form-control' type='password' name='password' placeholder='Your Password'>
+    <button class='btn btn-lg btn-primary btn-block' type='sumbit'>Sign Up</button>
+</form>
+
+<a type='button' href='/login' >Login</a>
+
+</body>
+</html>
