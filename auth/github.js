@@ -1,11 +1,12 @@
 var passport = require('passport')
   , GitHubStrategy = require('passport-github').Strategy;
-var User = require('../models/user');
+var User = require('../models/User');
+require('dotenv').config();
 
 passport.use(new GitHubStrategy({
-    clientID: "e7b10decd2ed4ef13816",
-    clientSecret: "bb073a53914d014f328de98ad9fe5a3cff366912",
-    callbackURL: "http://127.0.0.1:3000/auth/github/callback"
+    clientID: process.env.GITHUB_CLIENT_ID,
+    clientSecret: process.env.GITHUB_CLIENT_SECRET,
+    callbackURL: process.env.ROOT_URL+"/auth/github/callback"
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOrCreate({userid: profile.id}, {name: profile.displayName,userid: profile.id}, function (err, user) {

@@ -1,6 +1,7 @@
 var passport = require('passport')
   , TwitterStrategy = require('passport-twitter').Strategy;
-var User = require('../models/user');
+var User = require('../models/User');
+require('dotenv').config();
 
 passport.serializeUser(function (user, fn) {
   fn(null, user);
@@ -13,9 +14,9 @@ passport.deserializeUser(function (id, fn) {
 });
 
 passport.use(new TwitterStrategy({
-    consumerKey: "nmbk1uqKB0rbWjBxrPv9iksEf",
-    consumerSecret: "QeBlJHanPy232ZbOhyPisfI8hLLUVMujXjuI7Sz0Ym4o6m7eGF",
-    callbackURL: "http://127.0.0.1:3000/auth/twitter/callback"
+    consumerKey: process.env.TWITTER_CLIENT_ID,
+    consumerSecret: process.env.TWITTER_CLIENT_SECRET,
+    callbackURL: process.env.ROOT_URL+"/auth/twitter/callback"
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOrCreate({name: profile.displayName}, {name: profile.displayName,userid: profile.id}, function(err, user) {

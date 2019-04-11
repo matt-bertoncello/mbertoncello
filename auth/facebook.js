@@ -1,11 +1,12 @@
 var passport = require('passport')
   , FacebookStrategy = require('passport-facebook').Strategy;
-var User = require('../models/user');
+var User = require('../models/User');
+require('dotenv').config();
 
 passport.use(new FacebookStrategy({
-    clientID: "159030901322260",
-    clientSecret: "0d641e47f5d55af221ec80346f3f2d43",
-    callbackURL: "http://127.0.0.1:3000/auth/facebook/callback"
+    clientID: process.env.FACEBOOK_CLIENT_ID,
+    clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    callbackURL: process.env.ROOT_URL+"/auth/facebook/callback"
   },
   function(accessToken, refreshToken, profile, done) {
     User.findOrCreate({name: profile.displayName}, {name: profile.displayName,userid: profile.id}, function(err, user) {
