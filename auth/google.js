@@ -1,6 +1,6 @@
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var user = require('../models/User');
+var User = require('../models/User');
 require('dotenv').config();
 
 passport.use(new GoogleStrategy({
@@ -9,10 +9,54 @@ passport.use(new GoogleStrategy({
     callbackURL: process.env.ROOT_URL + '/auth/google/callback'
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ userid: profile.id }, { name: profile.displayName, userid: profile.id }, function (err, user) {
-      return done(err, user);
-    });
-  }
-));
+        //check user table for anyone with a google ID of profile.id
+        User.findOne({
+            'google_id': profile.id
+        }, function(err, user) {
+            if (err) {
+                return done(err);
+            }
+            if (user) {
+              //found user. Return
+              return done(err, user);
+            }
+            if (!user) {
+              // No user was found, if email already exists, add this google_id to the account.
+              User.findOne({
+                  'email': profile.emails[0].value
+              }, function(err, user) {
+                  if (err) {
+                      return done(err);
+                  }
+                  if (user) {
+                    user.google_id = profile.id;
+                    user.save(function(err) {
+                      if (err) {
+                        return done(err)
+                      } else {
+                        //found user. Return
+                        return done(err, user);
+                      }
+                    });
+                  } else {
+                    // No email was found... so create a new user with values from Google (all the profile. stuff)
+                    user = new User({
+                      name: profile.displayName,
+                      email: profile.emails[0].value,
+                      username: profile.username,
+                      //now in the future searching on User.findOne({'google.id': profile.id } will match because of this next line
+                      google_id: profile.id
+                    });
+                    user.save(function(err) {
+                      if (err) console.log(err);
+                      return done(err, user);
+                    });
+                  }
+                });
+              }
+            }
+          )
+        }
+      ));
 
 module.exports = passport;

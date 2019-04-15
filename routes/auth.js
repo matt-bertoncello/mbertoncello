@@ -35,7 +35,7 @@ router.get('/twitter/callback',
 
 /* GOOGLE ROUTER */
 router.get('/google',
-  passportGoogle.authenticate('google', { scope: 'https://www.google.com/m8/feeds' }));
+  passportGoogle.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login','https://www.googleapis.com/auth/userinfo.email'] }));
 
 router.get('/google/callback',
   passportGoogle.authenticate('google', { failureRedirect: '/login' }),

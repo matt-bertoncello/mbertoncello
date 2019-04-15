@@ -8,7 +8,7 @@ passport.serializeUser(function (user, fn) {
 });
 
 passport.deserializeUser(function (id, fn) {
-  User.findOne({_id: id.doc._id}, function (err, user) {
+  User.findOne({twitter_id: id.doc}, function (err, user) {
     fn(err, user);
   });
 });
@@ -19,7 +19,7 @@ passport.use(new TwitterStrategy({
     callbackURL: process.env.ROOT_URL+"/auth/twitter/callback"
   },
   function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({name: profile.displayName}, {name: profile.displayName,userid: profile.id}, function(err, user) {
+    User.findOrCreate({name: profile.displayName}, {name: profile.displayName, userid: profile.id}, function(err, user) {
       if (err) {
         console.log(err);
         return done(err);
