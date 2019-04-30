@@ -8,9 +8,12 @@
 
   <% include ../partials/nav.ejs %>
 
-<h1> <% user.name %></h1>
+<h1>Name: <%= user.name %></h1>
+<h1>Google ID: <%= user.google.id %></h1>
+<h1>User ID: <%= user._id %></h1>
+<h1>Email: <%= user.email %></h1>
 
-<a type="button" href="/auth/logout" >Logout</a>
+<a type="button" href="/auth/logout">Logout</a>
 
 </body>
 </html>

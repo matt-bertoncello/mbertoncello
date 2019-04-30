@@ -6,12 +6,13 @@ require('dotenv').config();
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.ROOT_URL + '/auth/google/callback'
+    callbackURL: process.env.ROOT_URL + '/auth/google/callback',
+    passReqToCallback: true
   },
-  function(accessToken, refreshToken, profile, done) {
+  function(req, accessToken, refreshToken, profile, done) {
         //check user table for anyone with a google ID of profile.id
         User.findOne({
-            'google_id': profile.id
+            'google.id': profile.id
         }, function(err, user) {
             if (err) {
                 return done(err);
@@ -29,7 +30,8 @@ passport.use(new GoogleStrategy({
                       return done(err);
                   }
                   if (user) {
-                    user.google_id = profile.id;
+                    user.google.id = profile.id;
+                    user.google.accessToken = accessToken;
                     user.save(function(err) {
                       if (err) {
                         return done(err)
@@ -45,7 +47,10 @@ passport.use(new GoogleStrategy({
                       email: profile.emails[0].value,
                       username: profile.username,
                       //now in the future searching on User.findOne({'google.id': profile.id } will match because of this next line
-                      google_id: profile.id
+                      google: {
+                        id: profile.id,
+                        accessToken: accessToken
+                      }
                     });
                     user.save(function(err) {
                       if (err) console.log(err);

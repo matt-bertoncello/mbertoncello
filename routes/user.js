@@ -12,7 +12,9 @@ var router = express.Router();
 // });
 
 router.get('/',checkAuthentication,function(req,res){
-    res.render('user', { user: req.user });
+  console.log('[INFO] req.user data:');
+  console.log(req.user);
+  res.render('user', { user: req.user });
 });
 
 function checkAuthentication(req,res,next){

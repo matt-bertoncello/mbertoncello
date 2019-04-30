@@ -19,7 +19,7 @@ router.get('/facebook/callback',
   passportFacebook.authenticate('facebook', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect('/');
+    res.redirect('/user');
   });
 
 /* TWITTER ROUTER */
@@ -30,7 +30,7 @@ router.get('/twitter/callback',
   passportTwitter.authenticate('twitter', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect('/');
+    res.redirect('/user');
   });
 
 /* GOOGLE ROUTER */
@@ -40,7 +40,8 @@ router.get('/google',
 router.get('/google/callback',
   passportGoogle.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
-    res.redirect('/');
+    console.log(req.user);
+    res.redirect('/user');
   });
 
 /* GITHUB ROUTER */
@@ -51,7 +52,7 @@ router.get('/github/callback',
   passportGitHub.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
-    res.redirect('/');
+    res.redirect('/user');
   });
 
 module.exports = router;
