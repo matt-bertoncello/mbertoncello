@@ -6,11 +6,14 @@ var mongoose = require('mongoose')
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
-var auth = require('./routes/auth');
-var user = require('./routes/user');
 var auth_controller = require("./controllers/AuthController.js");
 mongoose.Promise = global.Promise;
 require('dotenv').config();
+
+/* Define routes */
+var auth = require('./routes/auth');
+var user = require('./routes/user');
+var index = require('./routes/index');
 
 /* Remove deprecated settings from mongoose */
 mongoose.set('useNewUrlParser', true);
@@ -44,11 +47,7 @@ express()
   .use(bodyParser.json())
   .use('/auth', auth)
   .use('/user', user)
+  .use('/', index)
   .set('views', path.join(__dirname, 'views/pages'))
   .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('index', { user: req.user }))
-  .get('/login', (req, res, next) => res.render('login'))
-  .get('/register', (req, res) => res.render('register'))
-  .post('/register', (req, res) => auth_controller.doRegister(req, res))
-  .post('/login', (req, res) => auth_controller.doLogin(req, res))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
