@@ -18,7 +18,7 @@ router.get('/facebook',
 router.get('/facebook/callback',
   passportFacebook.authenticate('facebook', { failureRedirect: '/login' }),
   function(req, res) {
-    // Successful authentication, redirect home.
+    console.log('[INFO] user logged-in via facebook: '+req.session.passport.user.email);
     res.redirect('/user');
   });
 
@@ -29,7 +29,7 @@ router.get('/twitter',
 router.get('/twitter/callback',
   passportTwitter.authenticate('twitter', { failureRedirect: '/login' }),
   function(req, res) {
-    // Successful authentication, redirect home.
+    console.log('[INFO] user logged-in via twitter: '+req.session.passport.user.email);
     res.redirect('/user');
   });
 
@@ -40,7 +40,7 @@ router.get('/google',
 router.get('/google/callback',
   passportGoogle.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
-    console.log(req.user);
+    console.log('[INFO] user logged-in via google: '+req.session.passport.user.email);
     res.redirect('/user');
   });
 
@@ -51,7 +51,7 @@ router.get('/github',
 router.get('/github/callback',
   passportGitHub.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
-    // Successful authentication, redirect home.
+    console.log('[INFO] user logged-in via github: '+req.session.passport.user.email);
     res.redirect('/user');
   });
 

@@ -6,7 +6,9 @@ var mongoose = require('mongoose')
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
+var uuid = require('uuid/v4');
 var auth_controller = require("./controllers/AuthController.js");
+const MongoStore = require('connect-mongo')(session);
 mongoose.Promise = global.Promise;
 require('dotenv').config();
 
@@ -38,9 +40,14 @@ mongoose.connect(uri)
 express()
   .use(express.static(path.join(__dirname, 'public')))
   .use(session({
+    genid: function(req) {
+      return uuid() // use UUIDs for session IDs
+    },
     secret: 'kjlhsdklh28o8712hkq3798w31jbk',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: true,
+    store: new MongoStore({ mongooseConnection: mongoose.connection, stringify: false}),
+    cookie: {secure: false}
   }))
   .use(passport.initialize())
   .use(passport.session())
