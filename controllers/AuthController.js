@@ -6,12 +6,12 @@ var userController = {};
 
 // Restrict access to root page
 userController.home = function(req, res) {
-  res.render('index', { user : req.user });
+  res.redirect('/');
 };
 
 // Go to registration page
 userController.register = function(req, res) {
-  res.render('register');
+  res.redirect('/register');
 };
 
 // Post registration
@@ -19,7 +19,7 @@ userController.doRegister = function(req, res) {
   User.register(new User({ username : req.body.username, name: req.body.name }), req.body.password, function(err, user) {
     if (err) {
       console.log('[INFO] user register unsuccessful')
-      return res.render('register', { user : user });
+      res.redirect('/register');
     }
 
     passport.authenticate('local')(req, res, function () {
