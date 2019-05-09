@@ -18,7 +18,8 @@ router.get('/',checkAuthentication,function(req,res){
 });
 
 function checkAuthentication(req,res,next){
-    if(req.session.passport.user){
+    /* If session has never been initialised on client side, also redirect to login page */
+    if(req.session.passport && req.session.passport.user){
         //req.isAuthenticated() will return true if user is logged in
         console.log('[SUCCESS] user is logged-in as: '+req.session.passport.user.email);
         next();
