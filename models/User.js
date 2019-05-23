@@ -22,6 +22,7 @@ var UserSchema = new mongoose.Schema({
   email: String,
   password: String,
   updated_at: { type: Date, default: Date.now },
+  provider: String
 });
 
 module.exports = mongoose.model('User', UserSchema);

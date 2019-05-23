@@ -52,7 +52,8 @@ passport.use(new FacebookStrategy({
                   facbook: {
                     id: profile.id,
                     accessToken: accessToken
-                  }
+                  },
+                  provider: 'facebook'
                 });
                 user.save(function(err) {
                   if (err) console.log(err);

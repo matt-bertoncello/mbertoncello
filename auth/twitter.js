@@ -16,16 +16,62 @@ passport.deserializeUser(function (id, fn) {
 passport.use(new TwitterStrategy({
     consumerKey: process.env.TWITTER_CLIENT_ID,
     consumerSecret: process.env.TWITTER_CLIENT_SECRET,
-    callbackURL: "/auth/twitter/callback"
+    callbackURL: "/auth/twitter/callback",
+    includeEmail: true,
+    passReqToCallback: true
   },
-  function(accessToken, refreshToken, profile, done) {
-    User.findOrCreate({name: profile.displayName}, {name: profile.displayName, userid: profile.id}, function(err, user) {
-      if (err) {
-        console.log(err);
-        return done(err);
-      }
-      done(null, user);
-    });
+  function(req, accessToken, refreshToken, profile, done) {
+    console.log(profile);
+    User.findOne({
+        'twitter.id': profile.id
+    }, function(err, user) {
+        if (err) {
+            return done(err);
+        }
+        if (user) {
+          //found user. Return
+          return done(err, user);
+        }
+        if (!user) {
+          // No user was found, if email already exists, add this google_id to the account.
+          User.findOne({
+              'email': profile.emails[0].value
+          }, function(err, user) {
+              if (err) {
+                  return done(err);
+              }
+              if (user) {
+                user.twitter = {
+                  id: profile.id
+                }
+                user.save(function(err) {
+                  if (err) {
+                    return done(err)
+                  } else {
+                    //found user. Return
+                    return done(err, user);
+                  }
+                });
+              } else {
+                // No email was found... so create a new user with values from Google (all the profile. stuff)
+                user = new User({
+                  name: profile.displayName,
+                  email: profile.emails[0].value,
+                  username: profile.username,
+                  //now in the future searching on User.findOne({'google.id': profile.id } will match because of this next line
+                  twitter: {
+                    id: profile.id
+                  },
+                  provider: 'twitter'
+                });
+                user.save(function(err) {
+                  if (err) console.log(err);
+                  return done(err, user);
+                });
+              }
+            });
+          }
+        })
   }
 ));
 

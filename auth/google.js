@@ -52,7 +52,8 @@ passport.use(new GoogleStrategy({
                       google: {
                         id: profile.id,
                         accessToken: accessToken
-                      }
+                      },
+                      provider: 'google'
                     });
                     user.save(function(err) {
                       if (err) console.log(err);

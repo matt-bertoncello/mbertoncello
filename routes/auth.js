@@ -24,7 +24,7 @@ router.get('/facebook/callback',
 
 /* TWITTER ROUTER */
 router.get('/twitter',
-  passportTwitter.authenticate('twitter'));
+  passportTwitter.authenticate('twitter', { scope: ['include_email=true']}));
 
 router.get('/twitter/callback',
   passportTwitter.authenticate('twitter', { failureRedirect: '/login' }),
