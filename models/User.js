@@ -7,9 +7,18 @@ var UserSchema = new mongoose.Schema({
     id: String,
     accessToken: String
   },
-  facebook_id: String,
-  twitter_id: String,
-  github_id: String,
+  facebook: {
+    id: String,
+    accessToken: String
+  },
+  twitter: {
+    id: String,
+    accessToken: String
+  },
+  github: {
+    id: String,
+    accessToken: String
+  },
   email: String,
   password: String,
   updated_at: { type: Date, default: Date.now },

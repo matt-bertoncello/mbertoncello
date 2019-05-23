@@ -30,8 +30,10 @@ passport.use(new GoogleStrategy({
                       return done(err);
                   }
                   if (user) {
-                    user.google.id = profile.id;
-                    user.google.accessToken = accessToken;
+                    user.google = {
+                      id: profile.id,
+                      accessToken: accessToken
+                    }
                     user.save(function(err) {
                       if (err) {
                         return done(err)
