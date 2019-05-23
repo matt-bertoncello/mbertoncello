@@ -5,14 +5,27 @@ var UserSchema = new mongoose.Schema({
   name: String,
   google: {
     id: String,
-    accessToken: String
+    accessToken: String,
+    displayName: String
   },
-  facebook_id: String,
-  twitter_id: String,
-  github_id: String,
+  facebook: {
+    id: String,
+    displayName: String
+  },
+  twitter: {
+    id: String,
+    username: String,
+    displayName: String
+  },
+  github: {
+    id: String,
+    username: String,
+    displayName: String
+  },
   email: String,
   password: String,
   updated_at: { type: Date, default: Date.now },
+  provider: String
 });
 
 module.exports = mongoose.model('User', UserSchema);
