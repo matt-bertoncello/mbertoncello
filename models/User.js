@@ -5,19 +5,22 @@ var UserSchema = new mongoose.Schema({
   name: String,
   google: {
     id: String,
-    accessToken: String
+    accessToken: String,
+    displayName: String
   },
   facebook: {
     id: String,
-    accessToken: String
+    displayName: String
   },
   twitter: {
     id: String,
-    accessToken: String
+    username: String,
+    displayName: String
   },
   github: {
     id: String,
-    accessToken: String
+    username: String,
+    displayName: String
   },
   email: String,
   password: String,

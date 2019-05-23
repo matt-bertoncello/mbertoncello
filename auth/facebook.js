@@ -8,9 +8,10 @@ passport.use(new FacebookStrategy({
     clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     callbackURL: "/auth/facebook/callback",
     passReqToCallback : true,
-    profileFields: ['id', 'emails', 'name']
+    profileFields: ['id', 'emails']
   },
   function(req, accessToken, refreshToken, profile, done) {
+    console.log(profile);
     User.findOne({
         'facbook.id': profile.id
     }, function(err, user) {
@@ -19,7 +20,11 @@ passport.use(new FacebookStrategy({
         }
         if (user) {
           //found user. Return
-          return done(err, user);
+          user.facebook.displayName = profile.displayName;
+          user.save(function(err) {
+            if (err) console.log(err);
+            return done(err, user);
+          });
         }
         if (!user) {
           // No user was found, if email already exists, add this facebook_id to the account.
@@ -31,15 +36,12 @@ passport.use(new FacebookStrategy({
               }
               if (user) {
                 user.facebook = {
-                  id: profile.id
+                  id: profile.id,
+                  displayName: profile.displayName
                 }
                 user.save(function(err) {
-                  if (err) {
-                    return done(err)
-                  } else {
-                    //found user. Return
-                    return done(err, user);
-                  }
+                  if (err) console.log(err);
+                  return done(err, user);
                 });
               } else {
                 // No email was found... so create a new user with values from facebook (all the profile. stuff)
@@ -49,7 +51,8 @@ passport.use(new FacebookStrategy({
                   username: profile.username,
                   //now in the future searching on User.findOne({'facebook.id': profile.id } will match because of this next line
                   facbook: {
-                    id: profile.id
+                    id: profile.id,
+                    displayName: profile.displayName
                   },
                   provider: 'facebook'
                 });

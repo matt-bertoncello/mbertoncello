@@ -8,6 +8,7 @@ var passportGitHub = require('../auth/github');
 /* LOGOUT ROUTER */
 router.get('/logout', function(req, res){
   req.logout();
+  delete req.session.passport;
   res.redirect('/');
 });
 
@@ -19,6 +20,7 @@ router.get('/facebook/callback',
   passportFacebook.authenticate('facebook', { failureRedirect: '/login' }),
   function(req, res) {
     console.log('[INFO] user logged-in via facebook: '+req.session.passport.user.email);
+    req.session.passport.loginProvider = "facebook";
     res.redirect('/user');
   });
 
@@ -30,6 +32,7 @@ router.get('/twitter/callback',
   passportTwitter.authenticate('twitter', { failureRedirect: '/login' }),
   function(req, res) {
     console.log('[INFO] user logged-in via twitter: '+req.session.passport.user.email);
+    req.session.passport.loginProvider = "twitter";
     res.redirect('/user');
   });
 
@@ -41,6 +44,7 @@ router.get('/google/callback',
   passportGoogle.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
     console.log('[INFO] user logged-in via google: '+req.session.passport.user.email);
+    req.session.passport.loginProvider = "google";
     res.redirect('/user');
   });
 
@@ -52,6 +56,7 @@ router.get('/github/callback',
   passportGitHub.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
     console.log('[INFO] user logged-in via github: '+req.session.passport.user.email);
+    req.session.passport.loginProvider = "github";
     res.redirect('/user');
   });
 

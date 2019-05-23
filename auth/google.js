@@ -32,7 +32,8 @@ passport.use(new GoogleStrategy({
                   if (user) {
                     user.google = {
                       id: profile.id,
-                      accessToken: accessToken
+                      accessToken: accessToken,
+                      displayName: profile.displayName
                     }
                     user.save(function(err) {
                       if (err) {
@@ -51,7 +52,8 @@ passport.use(new GoogleStrategy({
                       //now in the future searching on User.findOne({'google.id': profile.id } will match because of this next line
                       google: {
                         id: profile.id,
-                        accessToken: accessToken
+                        accessToken: accessToken,
+                        displayName: profile.displayName
                       },
                       provider: 'google'
                     });

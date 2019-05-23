@@ -19,7 +19,6 @@ passport.use(new GitHubStrategy({
             return done(err);
         }
         if (user) {
-          //found user. Return
           return done(err, user);
         }
         if (!user) {
@@ -32,7 +31,9 @@ passport.use(new GitHubStrategy({
               }
               if (user) {
                 user.github = {
-                  id: profile.id
+                  id: profile.id,
+                  username: profile.username,
+                  displayName: profile.displayName
                 }
                 user.save(function(err) {
                   if (err) {
@@ -50,7 +51,9 @@ passport.use(new GitHubStrategy({
                   username: profile.username,
                   //now in the future searching on User.findOne({'github.id': profile.id } will match because of this next line
                   github: {
-                    id: profile.id
+                    id: profile.id,
+                    username: profile.username,
+                    displayName: profile.displayName
                   },
                   provider: 'github'
                 });

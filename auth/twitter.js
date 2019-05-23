@@ -41,7 +41,9 @@ passport.use(new TwitterStrategy({
               }
               if (user) {
                 user.twitter = {
-                  id: profile.id
+                  id: profile.id,
+                  username: profile.username,
+                  displayName: profile.displayName
                 }
                 user.save(function(err) {
                   if (err) {
@@ -59,7 +61,9 @@ passport.use(new TwitterStrategy({
                   username: profile.username,
                   //now in the future searching on User.findOne({'twitter.id': profile.id } will match because of this next line
                   twitter: {
-                    id: profile.id
+                    id: profile.id,
+                    username: profile.username,
+                    displayName: profile.displayName
                   },
                   provider: 'twitter'
                 });
