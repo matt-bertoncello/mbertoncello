@@ -11,7 +11,6 @@ passport.use(new FacebookStrategy({
     profileFields: ['id', 'emails', 'name']
   },
   function(req, accessToken, refreshToken, profile, done) {
-    console.log(profile);
     User.findOne({
         'facbook.id': profile.id
     }, function(err, user) {
@@ -23,7 +22,7 @@ passport.use(new FacebookStrategy({
           return done(err, user);
         }
         if (!user) {
-          // No user was found, if email already exists, add this google_id to the account.
+          // No user was found, if email already exists, add this facebook_id to the account.
           User.findOne({
               'email': profile.emails[0].value
           }, function(err, user) {
@@ -43,15 +42,14 @@ passport.use(new FacebookStrategy({
                   }
                 });
               } else {
-                // No email was found... so create a new user with values from Google (all the profile. stuff)
+                // No email was found... so create a new user with values from facebook (all the profile. stuff)
                 user = new User({
                   name: profile.displayName,
                   email: profile.emails[0].value,
                   username: profile.username,
-                  //now in the future searching on User.findOne({'google.id': profile.id } will match because of this next line
+                  //now in the future searching on User.findOne({'facebook.id': profile.id } will match because of this next line
                   facbook: {
-                    id: profile.id,
-                    accessToken: accessToken
+                    id: profile.id
                   },
                   provider: 'facebook'
                 });
