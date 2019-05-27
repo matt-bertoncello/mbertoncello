@@ -18,7 +18,8 @@ passport.use(new TwitterStrategy({
     consumerSecret: process.env.TWITTER_CLIENT_SECRET,
     callbackURL: "/auth/twitter/callback",
     includeEmail: true,
-    passReqToCallback: true
+    passReqToCallback: true,
+    proxy: true
   },
   function(req, accessToken, refreshToken, profile, done) {
     User.findOne({
