@@ -8,7 +8,8 @@ passport.use(new GitHubStrategy({
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
     callbackURL: "/auth/github/callback",
     passReqToCallback: true,
-    scope: ['user:email']
+    scope: ['user:email'],
+    proxy: true
   },
   function(req, accessToken, refreshToken, profile, done) {
     //check user table for anyone with a github ID of profile.id
