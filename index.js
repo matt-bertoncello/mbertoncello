@@ -7,7 +7,6 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
 var uuid = require('uuid/v4');
-var auth_controller = require("./controllers/AuthController.js");
 const MongoStore = require('connect-mongo')(session);
 mongoose.Promise = global.Promise;
 require('dotenv').config();

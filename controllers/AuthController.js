@@ -4,6 +4,17 @@ var User = require("../models/User");
 
 var userController = {};
 
+/* next() if user is logged-in. Otherwise redirect to login page */
+userController.checkAuthentication = function(req,res,next){
+    /* If session has never been initialised on client side, also redirect to login page */
+    if(req.session.passport && req.session.passport.user){
+        next();
+    } else{
+      console.log('[ERROR] user is not logged-in. Redirect to login page');
+      res.redirect("/login");
+    }
+}
+
 // Restrict access to root page
 userController.home = function(req, res) {
   res.redirect('/');
