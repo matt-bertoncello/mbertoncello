@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="../../../../stylesheets/9way.css">
+  <% include ../../partials/header.ejs %>
+</head>
+
+<body>
+
+  <% include ../../partials/nav.ejs %>
+  <h1>Find Opponent</h1>
+  <!-- Tab links -->
+  <div class="tab">
+    <button class="tablinks" onclick="openCity(event, 'username')">Username</button>
+    <button class="tablinks" onclick="openCity(event, 'email')">Email</button>
+  </div>
+
+  <!-- Tab content -->
+  <div id="username" class="tabcontent">
+    <form class='form-9way' role='form' action='/9way/new/username' method='post' style='max-width:300px;'>
+      <input class='form-control' type='text' name='username' placeholder='username'>
+      <button class='btn btn-lg btn-primary btn-block' type='sumbit'>Start</button>
+    </form>
+  </div>
+
+  <div id="email" class="tabcontent">
+    <form class='form-9way' role='form' action='/9way/new/email' method='post' style='max-width:300px;'>
+      <input class='form-control' type='text' name='email' placeholder='email'>
+      <button class='btn btn-lg btn-primary btn-block' type='sumbit'>Start</button>
+    </form>
+  </div>
+
+<script type="text/javascript" src="../../../../js/tabs.js"></script>
+
+</body>
+</html>

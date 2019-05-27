@@ -12,7 +12,6 @@ passport.use(new FacebookStrategy({
     proxy: true
   },
   function(req, accessToken, refreshToken, profile, done) {
-    console.log(profile);
     User.findOne({
         'facbook.id': profile.id
     }, function(err, user) {
@@ -49,7 +48,6 @@ passport.use(new FacebookStrategy({
                 user = new User({
                   name: profile.displayName,
                   email: profile.emails[0].value,
-                  username: profile.username,
                   //now in the future searching on User.findOne({'facebook.id': profile.id } will match because of this next line
                   facbook: {
                     id: profile.id,

@@ -15,6 +15,7 @@ require('dotenv').config();
 var auth = require('./routes/auth');
 var user = require('./routes/user');
 var index = require('./routes/index');
+var nineway = require('./routes/9way');
 
 /* Remove deprecated settings from mongoose */
 mongoose.set('useNewUrlParser', true);
@@ -51,8 +52,10 @@ express()
   .use(passport.initialize())
   .use(passport.session())
   .use(bodyParser.json())
+  .use(bodyParser.urlencoded({ extended: true }))
   .use('/auth', auth)
   .use('/user', user)
+  .use('/9way', nineway)
   .use('/', index)
   .set('views', path.join(__dirname, 'public/views/pages'))
   .set('view engine', 'ejs')
