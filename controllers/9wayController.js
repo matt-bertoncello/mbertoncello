@@ -9,18 +9,20 @@ nineWayController.searchUsername = function(req, res) {
   User.findOne({
       'username': req.body.username
     }, function(err, user) {
-      if (err) { return done(err);}
-      if (user) {console.log(user.username); return user._id}
+      if (err) {console.log(err);}
+      if (user) {console.log(user);}
+      if (!user) {console.log("no user found");}
     });
 }
 
 nineWayController.searchEmail = function(req, res) {
-  console.log('searching for '+req.body.email)
+  console.log('searching for '+req.body.email);
   User.findOne({
       'email': req.body.email
     }, function(err, user) {
-      if (err) { return done(err);}
-      if (user) {console.log(user.email); return user._id}
+      if (err) { console.log(err);}
+      if (user) {console.log(user);}
+      if (!user) {console.log("no user found");}
     });
 }
 
