@@ -4,6 +4,7 @@ var passportFacebook = require('../auth/facebook');
 var passportTwitter = require('../auth/twitter');
 var passportGoogle = require('../auth/google');
 var passportGitHub = require('../auth/github');
+var postAuthentication = require("../controllers/AuthController.js").postAuthentication;
 
 /* LOGOUT ROUTER */
 router.get('/logout', function(req, res){
@@ -21,7 +22,7 @@ router.get('/facebook/callback',
   function(req, res) {
     console.log('[INFO] user logged-in via facebook: '+req.session.passport.user.email);
     req.session.passport.loginProvider = "facebook";
-    res.redirect('/user');
+    postAuthentication(req, res);
   });
 
 /* TWITTER ROUTER */
@@ -33,7 +34,7 @@ router.get('/twitter/callback',
   function(req, res) {
     console.log('[INFO] user logged-in via twitter: '+req.session.passport.user.email);
     req.session.passport.loginProvider = "twitter";
-    res.redirect('/user');
+    postAuthentication(req, res);
   });
 
 /* GOOGLE ROUTER */
@@ -45,7 +46,7 @@ router.get('/google/callback',
   function(req, res) {
     console.log('[INFO] user logged-in via google: '+req.session.passport.user.email);
     req.session.passport.loginProvider = "google";
-    res.redirect('/user');
+    postAuthentication(req, res);
   });
 
 /* GITHUB ROUTER */
@@ -57,7 +58,7 @@ router.get('/github/callback',
   function(req, res) {
     console.log('[INFO] user logged-in via github: '+req.session.passport.user.email);
     req.session.passport.loginProvider = "github";
-    res.redirect('/user');
+    postAuthentication(req, res);
   });
 
 module.exports = router;

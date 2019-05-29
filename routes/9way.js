@@ -8,8 +8,8 @@ router.get('/', checkAuthentication, (req,res) => res.render('9way/dashboard', {
 
 /* New Game */
 router.get('/new', checkAuthentication, (req,res) => res.render('9way/newgame', {req: req}));
-router.post('/new/username', checkAuthentication, (req,res) => nineWayController.searchUsername(req, res));
-router.post('/new/email', checkAuthentication, (req,res) => nineWayController.searchEmail(req, res));
+router.post('/new/username', (req,res) => nineWayController.searchUsername(req, res));
+router.post('/new/email', (req,res) => nineWayController.searchEmail(req, res));
 
 /* Game */
 router.get('/:game', checkAuthentication, (req,res) => {
