@@ -10,7 +10,7 @@ var session = require('express-session');
 var io = require('socket.io')(server);
 var uuid = require('uuid/v4');
 const MongoStore = require('connect-mongo')(session);
-var sharedsession = require("express-socket.io-session");
+var sharedsession = require('express-socket.io-session');
 mongoose.Promise = global.Promise;
 require('dotenv').config();
 
@@ -69,6 +69,9 @@ server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 io.use(sharedsession(mongooseSession)); // can access session from within 'io' with 'socket.handshake.session'
 io.on('connection', function(socket){
-  console.log(socket.id);
-  console.log(socket.handshake.session.id);
+  console.log('socket.id: '+socket.id);
+  console.log('session.id: '+socket.handshake.session.id);
+
+  socket.on('disconnect', function() {
+  });
 });
