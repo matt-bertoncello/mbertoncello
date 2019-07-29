@@ -26,7 +26,14 @@ var UserSchema = new mongoose.Schema({
   email: {type:String, unique:true, required:true},
   password: String,
   updated_at: { type: Date, default: Date.now },
-  provider: String
+  provider: String,
+  created: {type: Date, default: Date.now},
+  updated: {type: Date, default: Date.now}
+});
+
+UserSchema.pre('save', function(next) {
+  this.updated = Date.now();
+  next();
 });
 
 module.exports = mongoose.model('User', UserSchema);

@@ -12,7 +12,14 @@ var nineWaySchema = new mongoose.Schema({
   player: [{type:mongoose.Schema.Types.ObjectId, required:true, ref:User}],
   square: {type: [[Number]], default: new Array(9).fill(new Array(9).fill(EMPTY))},
   lastMove: {type: Number, default: -1},
-  playerTurn: {type: Number, default: 0}
+  playerTurn: {type: Number, default: 0},
+  created: {type: Date, default: Date.now},
+  updated: {type: Date, default: Date.now}
+});
+
+nineWaySchema.pre('save', function(next) {
+  this.updated = Date.now();
+  next();
 });
 
 nineWaySchema.methods.EMPTY = function() {return EMPTY};
