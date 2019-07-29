@@ -3,14 +3,19 @@ var passportLocalMongoose = require('passport-local-mongoose');
 var User = require("../User");
 var getter = require("./9wayGetter");
 var setter = require("./9waySetter");
+var countController = require('../../controllers/countController');
+var EMPTY = -1;
 
 var nineWaySchema = new mongoose.Schema({
+  _id: {type: Number},
   winner: {type:mongoose.Types.ObjectId, ref:User},
   player: [{type:mongoose.Schema.Types.ObjectId, required:true, ref:User}],
-  square: {type: [[Number]], default: new Array(9).fill(new Array(9).fill(0))},
+  square: {type: [[Number]], default: new Array(9).fill(new Array(9).fill(EMPTY))},
   lastMove: {type: Number, default: -1},
   playerTurn: {type: Number, default: 0}
 });
+
+nineWaySchema.methods.EMPTY = function() {return EMPTY};
 
 /*
 Returns the owner (winner) of this square. Check for any 3 in a rows.
