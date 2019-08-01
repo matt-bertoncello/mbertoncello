@@ -21,12 +21,12 @@ setter.selectCell = function(nineWay, squareId, cellId, playerId) {
   if (nineWay.square[squareId][cellId] != nineWay.EMPTY()) {
     throw '[ERROR] cell must not be owned. squareId provided: '+squareId+' - cellId provided: '+cellId;
   }
-  if (nineWay.playerTurn != playerId) {
+  if (nineWay.player[nineWay.playerTurn].toString() != playerId) {
     throw '[ERROR] it is not this players turn';
   }
 
   // Set the cell to the playerId.
-  nineWay.square[squareId][cellId] = playerId;
+  nineWay.square[squareId][cellId] = playerTurn;
 
   // Update the last move
   nineWay.lastMove = ''+squareId+''+cellId+'';

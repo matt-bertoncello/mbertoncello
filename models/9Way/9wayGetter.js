@@ -80,4 +80,40 @@ getter.getWinner = function(nineWay) {
   }
 }
 
+/*
+Return css style of each cell. pleyer1, player2, invalid and valid.
+*/
+getter.getCellCSS = function(nineWay, squareId, cellId, playerId) {
+  /* Check if cell is owned by a player */
+  if (nineWay.square[squareId][cellId] == 0) { // If cell is owned by player1
+    return "player1"
+  } else if (nineWay.square[squareId][cellId] == 1) { // If cell is owned by player2
+    return "player2"
+  }
+
+  /* If cell is not owned, and it is not the player's turn */
+  if (nineWay.player[nineWay.playerTurn].toString() != playerId) {  // It is not this player's turn.
+    return "invalid"
+  }
+
+  /* If the cell is not owned, and it is the player's turn */
+  if (nineWay.getWinner() != nineWay.EMPTY() || nineWay.getOwner(squareId) != nineWay.EMPTY()) {  // If the game is won, or this square is owned, this cell isn't valid.
+    return "invalid";
+  } else if (nineWay.lastMove.square == nineWay.EMPTY()) {  // If it is the first move of the game, every cell is valid.
+    return "valid";
+  } else if (nineWay.getOwner(nineWay.lastMove.cell) != nineWay.EMPTY()) {  // if the square relating to the last cell is owned, this cell is valid
+    return "valid";
+  } else if (nineWay.lastMove.cell == squareId) {  // All cell's are valid in the square relating to the last cell.
+    return "valid";
+  }
+}
+
+getter.getCellEvents = function(nineWay, squareId, cellId, playerId) {
+  if (nineWay.getCellCSS(squareId, cellId, playerId) === "valid") {
+    return "onclick=POST("+squareId+","+cellId+")";
+  } else {
+    return "";
+  }
+}
+
 module.exports = getter;

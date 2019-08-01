@@ -2,13 +2,253 @@
 <html>
 <head>
   <% include ../../partials/header.ejs %>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/9way.css" />
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect('/');
+    socket.emit('9wayroom', <%= game._id %>);
+
+    function POST(squareId, cellId) {
+      socket.emit('selectcell', squareId, cellId);
+    }
+
+    socket.on('updategame', function(game){
+      location.reload();
+    })
+  </script>
+
 </head>
 
 <body>
 
   <% include ../../partials/nav.ejs %>
 
+  <h1>Game Id: <%= game._id %></h1>
+  <h2><%= game %></h2>
 
+  <div class='table_div'>
+    <table id="square90" class="winner_square">
+        <tr> <!-- ROW IS FOR COORDINATES-->
+            <td></td>
+            <td>
+                <table style="width:100%; text-align:center;">
+                    <tr><td class="coordinate">1</td><td class="coordinate">2</td><td class="coordinate">3</td></tr>
+                </table>
+            </td>
+            <td>
+                <table style="width:100%;text-align:center;">
+                    <tr><td class="coordinate">4</td><td class="coordinate">5</td><td class="coordinate">6</td></tr>
+                </table>
+            </td>
+            <td>
+                <table style="width:100%;text-align:center;">
+                    <tr><td class="coordinate">7</td><td class="coordinate">8</td><td class="coordinate">9</td></tr>
+                </table>
+            </td>
+        </tr>
+        <!-- FIRST ROW OF GAMEBOARD -->
+        <tr class="main_row">
+            <td style="border:none">
+                <table class="y_coordinate">
+                    <tr><td>A</td></tr>
+                    <tr><td>B</td></tr>
+                    <tr><td>C</td></tr>
+                </table>
+            </td>
+            <td>
+                <table class="square left_column top_row"  id="square0">
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(0, 0, user._id) %>" id="cell0" <%= game.getCellEvents(0,0,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(0, 1, user._id) %>" id="cell1" <%= game.getCellEvents(0,1,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(0, 2, user._id) %>" id="cell2" <%= game.getCellEvents(0,2,user._id) %>></td>
+                    </tr>
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(0, 3, user._id) %>" id="cell3" <%= game.getCellEvents(0,3,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(0, 4, user._id) %>" id="cell4" <%= game.getCellEvents(0,4,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(0, 5, user._id) %>" id="cell5" <%= game.getCellEvents(0,5,user._id) %>></td>
+                    </tr>
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(0, 6, user._id) %>" id="cell6" <%= game.getCellEvents(0,6,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(0, 7, user._id) %>" id="cell7" <%= game.getCellEvents(2,7,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(0, 8, user._id) %>" id="cell8" <%= game.getCellEvents(0,8,user._id) %>></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table class="square middle_column top_row" id="square1">
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(1, 0, user._id) %>" id="cell10" <%= game.getCellEvents(1,0,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(1, 1, user._id) %>" id="cell11" <%= game.getCellEvents(1,1,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(1, 2, user._id) %>" id="cell12" <%= game.getCellEvents(1,2,user._id) %>></td>
+                    </tr>
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(1, 3, user._id) %>" id="cell13" <%= game.getCellEvents(1,3,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(1, 4, user._id) %>" id="cell14" <%= game.getCellEvents(1,4,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(1, 5, user._id) %>" id="cell15" <%= game.getCellEvents(1,5,user._id) %>></td>
+                    </tr>
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(1, 6, user._id) %>" id="cell16" <%= game.getCellEvents(1,6,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(1, 7, user._id) %>" id="cell17" <%= game.getCellEvents(1,7,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(1, 8, user._id) %>" id="cell18" <%= game.getCellEvents(1,8,user._id) %>></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table class="square right_column top_row" id="square2">
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(2, 0, user._id) %>" id="cell20" <%= game.getCellEvents(2,0,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(2, 1, user._id) %>" id="cell21" <%= game.getCellEvents(2,1,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(2, 2, user._id) %>" id="cell22" <%= game.getCellEvents(2,2,user._id) %>></td>
+                    </tr>
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(2, 3, user._id) %>" id="cell23" <%= game.getCellEvents(2,3,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(2, 4, user._id) %>" id="cell24" <%= game.getCellEvents(2,4,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(2, 5, user._id) %>" id="cell25" <%= game.getCellEvents(2,5,user._id) %>></td>
+                    </tr>
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(2, 6, user._id) %>" id="cell26" <%= game.getCellEvents(2,6,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(2, 7, user._id) %>" id="cell27" <%= game.getCellEvents(2,7,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(2, 8, user._id) %>" id="cell28" <%= game.getCellEvents(2,8,user._id) %>></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="main_row">
+            <td>
+                <table class="y_coordinate">
+                    <tr><td>D</td></tr>
+                    <tr><td>E</td></tr>
+                    <tr><td>F</td></tr>
+                </table>
+            </td>
+            <td>
+                <table class="square left_column middle_row" id="square3">
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(3, 0, user._id) %>" id="cell30" <%= game.getCellEvents(3,0,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(3, 1, user._id) %>" id="cell31" <%= game.getCellEvents(3,1,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(3, 2, user._id) %>" id="cell32" <%= game.getCellEvents(3,2,user._id) %>></td>
+                    </tr>
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(3, 3, user._id) %>" id="cell33" <%= game.getCellEvents(3,3,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(3, 4, user._id) %>" id="cell34" <%= game.getCellEvents(3,4,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(3, 5, user._id) %>" id="cell35" <%= game.getCellEvents(3,5,user._id) %>></td>
+                    </tr>
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(3, 6, user._id) %>" id="cell36" <%= game.getCellEvents(3,6,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(3, 7, user._id) %>" id="cell37" <%= game.getCellEvents(3,7,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(3, 8, user._id) %>" id="cell38" <%= game.getCellEvents(3,8,user._id) %>></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table class="square middle_column middle_row" id="square4">
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(4, 0, user._id) %>" id="cell40" <%= game.getCellEvents(4,0,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(4, 1, user._id) %>" id="cell41" <%= game.getCellEvents(4,1,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(4, 2, user._id) %>" id="cell42" <%= game.getCellEvents(4,2,user._id) %>></td>
+                    </tr>
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(4, 3, user._id) %>" id="cell42" <%= game.getCellEvents(4,2,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(4, 4, user._id) %>" id="cell43" <%= game.getCellEvents(4,3,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(4, 5, user._id) %>" id="cell44" <%= game.getCellEvents(4,4,user._id) %>></td>
+                    </tr>
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(4, 6, user._id) %>" id="cell44" <%= game.getCellEvents(4,4,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(4, 7, user._id) %>" id="cell45" <%= game.getCellEvents(4,5,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(4, 8, user._id) %>" id="cell46" <%= game.getCellEvents(4,6,user._id) %>></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table class="square right_column middle_row" id="square5">
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(5, 0, user._id) %>" id="cell50" <%= game.getCellEvents(5,0,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(5, 1, user._id) %>" id="cell51" <%= game.getCellEvents(5,1,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(5, 2, user._id) %>" id="cell52" <%= game.getCellEvents(5,2,user._id) %>></td>
+                    </tr>
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(5, 3, user._id) %>" id="cell53" <%= game.getCellEvents(5,3,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(5, 4, user._id) %>" id="cell54" <%= game.getCellEvents(5,4,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(5, 5, user._id) %>" id="cell55" <%= game.getCellEvents(5,5,user._id) %>></td>
+                    </tr>
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(5, 6, user._id) %>" id="cell56" <%= game.getCellEvents(5,6,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(5, 7, user._id) %>" id="cell57" <%= game.getCellEvents(5,7,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(5, 8, user._id) %>" id="cell58" <%= game.getCellEvents(5,8,user._id) %>></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="main_row">
+            <td>
+                <table class="y_coordinate">
+                    <tr><td>G</td></tr>
+                    <tr><td>H</td></tr>
+                    <tr><td>I</td></tr>
+                </table>
+            </td>
+            <td>
+                <table class="square left_column bottom_row" id="square6">
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(6, 0, user._id) %>" id="cell60" <%= game.getCellEvents(6,0,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(6, 1, user._id) %>" id="cell61" <%= game.getCellEvents(6,1,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(6, 2, user._id) %>" id="cell62" <%= game.getCellEvents(6,2,user._id) %>></td>
+                    </tr>
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(6, 3, user._id) %>" id="cell63" <%= game.getCellEvents(6,3,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(6, 4, user._id) %>" id="cell64" <%= game.getCellEvents(6,4,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(6, 5, user._id) %>" id="cell65" <%= game.getCellEvents(6,5,user._id) %>></td>
+                    </tr>
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(6, 6, user._id) %>" id="cell66" <%= game.getCellEvents(6,6,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(6, 7, user._id) %>" id="cell67" <%= game.getCellEvents(6,7,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(6, 8, user._id) %>" id="cell68" <%= game.getCellEvents(6,8,user._id) %>></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table class="square middle_column bottom_row" id="square7">
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(7, 0, user._id) %>" id="cell70" <%= game.getCellEvents(7,0,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(7, 1, user._id) %>" id="cell71" <%= game.getCellEvents(7,1,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(7, 2, user._id) %>" id="cell72" <%= game.getCellEvents(7,2,user._id) %>></td>
+                    </tr>
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(7, 3, user._id) %>" id="cell73" <%= game.getCellEvents(7,3,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(7, 4, user._id) %>" id="cell74" <%= game.getCellEvents(7,4,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(7, 5, user._id) %>" id="cell75" <%= game.getCellEvents(7,5,user._id) %>></td>
+                    </tr>
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(7, 6, user._id) %>" id="cell76" <%= game.getCellEvents(7,6,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(7, 7, user._id) %>" id="cell77" <%= game.getCellEvents(7,7,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(7, 8, user._id) %>" id="cell78" <%= game.getCellEvents(7,8,user._id) %>></td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table class="square right_column bottom_row" id="square8">
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(8, 0, user._id) %>" id="cell80" <%= game.getCellEvents(8,0,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(8, 1, user._id) %>" id="cell81" <%= game.getCellEvents(8,1,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(8, 2, user._id) %>" id="cell82" <%= game.getCellEvents(8,2,user._id) %>></td>
+                    </tr>
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(8, 3, user._id) %>" id="cell83" <%= game.getCellEvents(8,3,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(8, 4, user._id) %>" id="cell84" <%= game.getCellEvents(8,4,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(8, 5, user._id) %>" id="cell85" <%= game.getCellEvents(8,5,user._id) %>></td>
+                    </tr>
+                    <tr>
+                        <td class="cell <%= game.getCellCSS(8, 6, user._id) %>" id="cell86" <%= game.getCellEvents(8,6,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(8, 7, user._id) %>" id="cell87" <%= game.getCellEvents(8,7,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(8, 8, user._id) %>" id="cell88" <%= game.getCellEvents(8,8,user._id) %>></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+  </div>
 
 </body>
 </html>

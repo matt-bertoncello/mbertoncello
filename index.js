@@ -20,6 +20,9 @@ var user = require('./routes/user');
 var index = require('./routes/index');
 var nineway = require('./routes/9way');
 
+/* Define sockets */
+var nineway_sock = require('./sockets/9way');
+
 /* Remove deprecated settings from mongoose */
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -71,6 +74,9 @@ io.use(sharedsession(mongooseSession)); // can access session from within 'io' w
 io.on('connection', function(socket){
   console.log('socket.id: '+socket.id);
   console.log('session.id: '+socket.handshake.session.id);
+
+  // Load socket configuration from nineway_sock.
+  nineway_sock.sock(socket, io);
 
   socket.on('disconnect', function() {
   });

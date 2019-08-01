@@ -11,7 +11,10 @@ var nineWaySchema = new mongoose.Schema({
   winner: {type:mongoose.Types.ObjectId, ref:User},
   player: [{type:mongoose.Schema.Types.ObjectId, required:true, ref:User}],
   square: {type: [[Number]], default: new Array(9).fill(new Array(9).fill(EMPTY))},
-  lastMove: {type: Number, default: -1},
+  lastMove: {
+    square: {type: Number, default: EMPTY},
+    cell: {type: Number, default: EMPTY}
+  },
   playerTurn: {type: Number, default: 0},
   created: {type: Date, default: Date.now},
   updated: {type: Date, default: Date.now}
@@ -45,6 +48,23 @@ Returns 0 if there is no winner yet. Returns the corresponding playerId if there
 */
 nineWaySchema.methods.getWinner = function() {
   return getter.getWinner(this);
+}
+
+/*
+Returns 'valid' if the cell can be selected.
+Returns 'invalid' if the cell is empty and cannot be selected.
+Returns 'player0' if the cell is owned by player 0.
+Returns 'player1' if the cell is owned by player 1.
+*/
+nineWaySchema.methods.getCellCSS = function(squareId, cellId, playerId) {
+  return getter.getCellCSS(this, squareId, cellId, playerId);
+}
+
+/*
+Returns the onclick function of a given call based on the getCellCSS result.
+*/
+nineWaySchema.methods.getCellEvents = function(squareId, cellId, playerId) {
+  return getter.getCellEvents(this, squareId, cellId, playerId);
 }
 
 /*
