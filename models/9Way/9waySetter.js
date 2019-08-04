@@ -26,10 +26,11 @@ setter.selectCell = function(nineWay, squareId, cellId, playerId) {
   }
 
   // Set the cell to the playerId.
-  nineWay.square[squareId][cellId] = playerTurn;
+  nineWay.square[squareId][cellId] = nineWay.playerTurn;
 
   // Update the last move
-  nineWay.lastMove = ''+squareId+''+cellId+'';
+  nineWay.lastMove.square = squareId;
+  nineWay.lastMove.cell = cellId;
 
   // It is now the next players' move
   nineWay.playerTurn = (nineWay.playerTurn + 1) % 2;

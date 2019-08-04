@@ -1,3 +1,4 @@
+var nineWayController = require('../controllers/9wayController');
 
 socket_router = {}
 
@@ -8,10 +9,16 @@ socket_router.sock = function(socket, io) {
 
     // when a socket connected to a specific room emits this message. Perform checks and update the game.
     socket.on('selectcell', function(squareId, cellId){
-      console.log('game: '+room);
-      console.log('square: '+squareId);
-      console.log('cell: '+cellId);
-      console.log('user: '+socket.handshake.session.passport.user._id);
+
+      // Update game
+      nineWayController.get9Way(room, function(err, game){
+        if (err) {  // If there was an error in retrieving the game, redirect to 9Way homepage.
+          console.log(err);
+          socket.emit('redirect', '/9way');
+        } else {
+          game.selectCell(squareId, cellId, socket.handshake.session.passport.user._id);
+        }
+      })
 
       // Once game is updated, send new game data.
       io.sockets.in(room).emit('updategame', 'game');

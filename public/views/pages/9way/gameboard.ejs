@@ -9,6 +9,10 @@
     var socket = io.connect('/');
     socket.emit('9wayroom', <%= game._id %>);
 
+    socket.on('redirect', function(destination) {
+        window.location.href = destination;
+    });
+
     function POST(squareId, cellId) {
       socket.emit('selectcell', squareId, cellId);
     }
@@ -149,14 +153,14 @@
                         <td class="cell <%= game.getCellCSS(4, 2, user._id) %>" id="cell42" <%= game.getCellEvents(4,2,user._id) %>></td>
                     </tr>
                     <tr>
-                        <td class="cell <%= game.getCellCSS(4, 3, user._id) %>" id="cell42" <%= game.getCellEvents(4,2,user._id) %>></td>
-                        <td class="cell <%= game.getCellCSS(4, 4, user._id) %>" id="cell43" <%= game.getCellEvents(4,3,user._id) %>></td>
-                        <td class="cell <%= game.getCellCSS(4, 5, user._id) %>" id="cell44" <%= game.getCellEvents(4,4,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(4, 3, user._id) %>" id="cell43" <%= game.getCellEvents(4,3,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(4, 4, user._id) %>" id="cell44" <%= game.getCellEvents(4,4,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(4, 5, user._id) %>" id="cell45" <%= game.getCellEvents(4,5,user._id) %>></td>
                     </tr>
                     <tr>
-                        <td class="cell <%= game.getCellCSS(4, 6, user._id) %>" id="cell44" <%= game.getCellEvents(4,4,user._id) %>></td>
-                        <td class="cell <%= game.getCellCSS(4, 7, user._id) %>" id="cell45" <%= game.getCellEvents(4,5,user._id) %>></td>
-                        <td class="cell <%= game.getCellCSS(4, 8, user._id) %>" id="cell46" <%= game.getCellEvents(4,6,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(4, 6, user._id) %>" id="cell46" <%= game.getCellEvents(4,6,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(4, 7, user._id) %>" id="cell47" <%= game.getCellEvents(4,7,user._id) %>></td>
+                        <td class="cell <%= game.getCellCSS(4, 8, user._id) %>" id="cell48" <%= game.getCellEvents(4,8,user._id) %>></td>
                     </tr>
                 </table>
             </td>

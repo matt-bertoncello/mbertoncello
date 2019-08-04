@@ -108,9 +108,20 @@ getter.getCellCSS = function(nineWay, squareId, cellId, playerId) {
   }
 }
 
+/* HTML text which defines the onclick, onmouseover and onmouseout events when user interacts with this cell */
 getter.getCellEvents = function(nineWay, squareId, cellId, playerId) {
+  // Events only occur on 'valid' cells.
   if (nineWay.getCellCSS(squareId, cellId, playerId) === "valid") {
-    return "onclick=POST("+squareId+","+cellId+")";
+    // Determine if user is player 1 or player 2
+    if (nineWay.playerTurn === 0 && nineWay.player[0].toString() === playerId.toString()) { // If cell is owned by player1
+      var player = "player1";
+    } else if (nineWay.playerTurn === 1 && nineWay.player[1].toString() === playerId.toString()) { // If cell is owned by player2
+      var player = "player2"
+    } else {
+      throw "[ERROR] user must be a player in the game";
+    }
+
+    return "onclick=POST("+squareId+","+cellId+") onmouseover=this.classList.add('"+player+"') onmouseout=this.classList.remove('"+player+"')";
   } else {
     return "";
   }
