@@ -1,7 +1,6 @@
 var mongoose = require("mongoose");
 var User = require("../models/User");
 var NineWay = require("../models/9Way/9way");
-var searchController = require("./searchController");
 var countController = require('./countController');
 
 var nineWayController = {};
@@ -10,7 +9,7 @@ var nineWayController = {};
 First, increment the count of 9way games. Use the new count as the game's _id.
 Create new 9way game and save to mongoose database.
 */
-createGame = function(req, res, player1, player2) {
+nineWayController.createGame = function(player1, player2, next) {
   countController.incrementCounter('9way', function(count){
     nineWay = new NineWay({
       _id: count,
@@ -20,26 +19,8 @@ createGame = function(req, res, player1, player2) {
       if (err) console.log(err);
     });
 
-    res.redirect('/9Way/'+count); // redirect to newly created game.
+    next(count);
   })
-}
-
-/*
-Create new game based on the user restrieved from 'searchController.searchEmail'
-*/
-nineWayController.searchEmail = function(req, res) {
-  searchController.searchEmail(req, res, function(req,res,opponent){
-    createGame(req, res, req.session.passport.user, opponent);
-  });
-}
-
-/*
-Create new game based on the user restrieved from 'searchController.searchUsername'
-*/
-nineWayController.searchUsername = function(req, res) {
-  searchController.searchUsername(req, res, function(req,res,opponent){
-    createGame(req, res, req.session.passport.user, opponent);
-  });
 }
 
 /*

@@ -17,7 +17,7 @@
       socket.emit('selectcell', squareId, cellId);
     }
 
-    socket.on('updategame', function(game){
+    socket.on('updategame', function(){
       location.reload();
     })
   </script>
