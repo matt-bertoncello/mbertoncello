@@ -41,7 +41,7 @@ socket_router.sock = function(socket, io) {
             socket.emit('redirect', '/9way/'+gameId);
           })
         }
-        if (!opponent) {socket.emit('error_user', 'Cannot find user with username: '+username);}
+        if (!opponent) {socket.emit('err', {id: 'error_user', text: 'Cannot find user with user: '+username});}
       });
   });
 
@@ -55,7 +55,7 @@ socket_router.sock = function(socket, io) {
             socket.emit('redirect', '/9way/'+gameId);
           })
         }
-        if (!opponent) {socket.emit('error_email', 'Cannot find user with email: '+email);}
+        if (!opponent) {socket.emit('err', {id: 'error_email', text: 'Cannot find user with email: '+email});}
       });
   });
 }

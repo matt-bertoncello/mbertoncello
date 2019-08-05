@@ -20,18 +20,11 @@
       socket.emit('newgame_email', email);
     }
 
-    socket.on('error_user', function(err){
-      document.getElementById('error_user').innerHTML = err;
+    socket.on('err', function(err){
+      document.getElementById(err.id).innerHTML = err.text;
       setTimeout(function () {
-        document.getElementById('error_user').innerHTML = '';
-      }, 5*1000);
-    });
-
-    socket.on('error_email', function(err){
-      document.getElementById('error_email').innerHTML = err;
-      setTimeout(function () {
-        document.getElementById('error_email').innerHTML = '';
-      }, 5*1000);
+        document.getElementById(err.id).innerHTML = '';
+      }, 3*1000);
     });
 
   </script>
@@ -52,7 +45,7 @@
 
     <input class='form-control' type='text' id='username' placeholder='username'>
     <button class='btn btn-lg btn-primary btn-block' onclick="newgame_user(document.getElementById('username').value)">Start Game</button>
-    <div id='error_user'></div>
+    <div class='error' id='error_user'></div>
 
   </div>
 
@@ -60,7 +53,7 @@
 
     <input class='form-control' type='text' id='email' placeholder='email'>
     <button class='btn btn-lg btn-primary btn-block' onclick="newgame_email(document.getElementById('email').value)">Start Game</button>
-    <div id='error_email'></div>
+    <div class='error' id='error_email'></div>
 
   </div>
 
