@@ -81,13 +81,27 @@ getter.getWinner = function(nineWay) {
 }
 
 /*
+Get the CSS class for the winner_square of the gameboard.
+*/
+getter.getWinnerSquareCSS = function(nineWay) {
+  /* Check if square is owned by a player */
+  if (nineWay.getWinner() === 0) {
+    return "player1";
+  } else if (nineWay.getWinner() === 1) {
+    return "player2";
+  } else {
+    "";
+  }
+}
+
+/*
 Return css style of each cell. pleyer1, player2, invalid and valid.
 */
 getter.getCellCSS = function(nineWay, squareId, cellId, playerId) {
   /* Check if cell is owned by a player */
-  if (nineWay.square[squareId][cellId] == 0) { // If cell is owned by player1
+  if (nineWay.square[squareId][cellId] === 0) { // If cell is owned by player1
     return "player1"
-  } else if (nineWay.square[squareId][cellId] == 1) { // If cell is owned by player2
+  } else if (nineWay.square[squareId][cellId] === 1) { // If cell is owned by player2
     return "player2"
   }
 
@@ -99,12 +113,24 @@ getter.getCellCSS = function(nineWay, squareId, cellId, playerId) {
   /* If the cell is not owned, and it is the player's turn */
   if (nineWay.getWinner() != nineWay.EMPTY() || nineWay.getOwner(squareId) != nineWay.EMPTY()) {  // If the game is won, or this square is owned, this cell isn't valid.
     return "invalid";
-  } else if (nineWay.lastMove.square == nineWay.EMPTY()) {  // If it is the first move of the game, every cell is valid.
+  } else if (nineWay.lastMove.square === nineWay.EMPTY()) {  // If it is the first move of the game, every cell is valid.
     return "valid";
   } else if (nineWay.getOwner(nineWay.lastMove.cell) != nineWay.EMPTY()) {  // if the square relating to the last cell is owned, this cell is valid
     return "valid";
-  } else if (nineWay.lastMove.cell == squareId) {  // All cell's are valid in the square relating to the last cell.
+  } else if (nineWay.lastMove.cell === squareId) {  // All cell's are valid in the square relating to the last cell.
     return "valid";
+  }
+}
+
+/* Return the CSS class for the square */
+getter.getSquareCSS = function(nineWay, squareId) {
+  /* Check if square is owned by a player */
+  if (nineWay.getOwner(squareId) === 0) {
+    return "player1";
+  } else if (nineWay.getOwner(squareId) === 1) {
+    return "player2";
+  } else {
+    "";
   }
 }
 

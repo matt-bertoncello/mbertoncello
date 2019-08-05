@@ -12,7 +12,6 @@ socket_router.sock = function(socket, io) {
 
     // when a socket connected to a specific room emits this message. Perform checks and update the game.
     socket.on('selectcell', function(squareId, cellId){
-
       // Update game
       nineWayController.get9Way(room, function(err, game){
         if (err) {  // If there was an error in retrieving the game, redirect to 9Way homepage.

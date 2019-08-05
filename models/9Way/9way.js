@@ -53,11 +53,29 @@ nineWaySchema.methods.getWinner = function() {
 /*
 Returns 'valid' if the cell can be selected.
 Returns 'invalid' if the cell is empty and cannot be selected.
-Returns 'player0' if the cell is owned by player 0.
 Returns 'player1' if the cell is owned by player 1.
+Returns 'player2' if the cell is owned by player 2.
 */
 nineWaySchema.methods.getCellCSS = function(squareId, cellId, playerId) {
   return getter.getCellCSS(this, squareId, cellId, playerId);
+}
+
+/*
+Returns 'player1' if the square is owned by player 1.
+Returns 'player2' if the square is owned by player 2.
+Returns '' if the square is not owned.
+*/
+nineWaySchema.methods.getSquareCSS = function(squareId) {
+  return getter.getSquareCSS(this, squareId);
+}
+
+/*
+Returns 'player1' if the game is won by player 1.
+Returns 'player2' if the game is won by player 2.
+Returns '' if the square is not owned.
+*/
+nineWaySchema.methods.getWinnerSquareCSS = function() {
+  return getter.getWinnerSquareCSS(this);
 }
 
 /*
