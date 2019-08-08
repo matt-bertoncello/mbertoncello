@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
+require('dotenv').config();
 
-router.get('/', (req, res) => {req.session.host = req.hostname; res.render('index', {req: req});})
+router.get('/', (req, res) => {req.session.host = process.env.APPLICATION_NAME; res.render('index', {req: req});})
 router.get('/session', (req, res) => res.render('session', {req: req}))
 router.get('/register', (req, res) => res.render('register', {req: req}))
 router.post('/register', (req, res) => auth_controller.doRegister(req, res))

@@ -1,14 +1,16 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const path = require('path')
-const PORT = process.env.PORT || 5000
-var mongoose = require('mongoose')
+const express = require('express');
+const app = express();
+var server = require('http').Server(app);
+const bodyParser = require('body-parser');
+const path = require('path');
+const PORT = process.env.PORT || 5000;
+var mongoose = require('mongoose');
 var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
 var session = require('express-session');
+var io = require('socket.io')(server);
 var uuid = require('uuid/v4');
-var auth_controller = require("./controllers/AuthController.js");
 const MongoStore = require('connect-mongo')(session);
+var sharedsession = require('express-socket.io-session');
 mongoose.Promise = global.Promise;
 require('dotenv').config();
 
@@ -16,6 +18,10 @@ require('dotenv').config();
 var auth = require('./routes/auth');
 var user = require('./routes/user');
 var index = require('./routes/index');
+var nineway = require('./routes/9way');
+
+/* Define sockets */
+var nineway_sock = require('./sockets/9way');
 
 /* Remove deprecated settings from mongoose */
 mongoose.set('useNewUrlParser', true);
@@ -36,25 +42,42 @@ mongoose.connect(uri)
   .then(() =>  console.log('[INFO] MongoDB connected successfully'))
   .catch((err) => console.error(err));
 
+/* define how to use session */
+var mongooseSession = session({
+  genid: function(req) {
+    return uuid() // use UUIDs for session IDs
+  },
+  secret: 'kjlhsdklh28o8712hkq3798w31jbk',
+  resave: false,
+  saveUninitialized: true,
+  store: new MongoStore({ mongooseConnection: mongoose.connection, stringify: false}),
+  cookie: {secure: false}
+});
+
 /* define which template to view at each address*/
-express()
-  .use(express.static(path.join(__dirname, 'public')))
-  .use(session({
-    genid: function(req) {
-      return uuid() // use UUIDs for session IDs
-    },
-    secret: 'kjlhsdklh28o8712hkq3798w31jbk',
-    resave: false,
-    saveUninitialized: true,
-    store: new MongoStore({ mongooseConnection: mongoose.connection, stringify: false}),
-    cookie: {secure: false}
-  }))
+app.use(express.static(path.join(__dirname, 'public')))
+  .use(mongooseSession)
   .use(passport.initialize())
   .use(passport.session())
   .use(bodyParser.json())
+  .use(bodyParser.urlencoded({ extended: true }))
   .use('/auth', auth)
   .use('/user', user)
+  .use('/9way', nineway)
   .use('/', index)
-  .set('views', path.join(__dirname, 'views/pages'))
-  .set('view engine', 'ejs')
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+  .set('views', path.join(__dirname, 'public/views/pages'))
+  .set('view engine', 'ejs');
+
+server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
+io.use(sharedsession(mongooseSession)); // can access session from within 'io' with 'socket.handshake.session'
+io.on('connection', function(socket){
+  console.log('socket.id: '+socket.id);
+  console.log('session.id: '+socket.handshake.session.id);
+
+  // Load socket configuration from nineway_sock.
+  nineway_sock.sock(socket, io);
+
+  socket.on('disconnect', function() {
+  });
+});

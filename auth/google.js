@@ -48,7 +48,6 @@ passport.use(new GoogleStrategy({
                     user = new User({
                       name: profile.displayName,
                       email: profile.emails[0].value,
-                      username: profile.username,
                       //now in the future searching on User.findOne({'google.id': profile.id } will match because of this next line
                       google: {
                         id: profile.id,

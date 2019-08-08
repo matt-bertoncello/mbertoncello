@@ -24,9 +24,10 @@
   border: 2px solid white; }
 .jumbotron .lang-logo img {
   max-width: 100%; }
-  body {
+
+body {
     background-color: #eee;
-  }
+}
 
 .form-signin {
   max-width: 330px;

@@ -3,6 +3,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 
 var UserSchema = new mongoose.Schema({
   name: String,
+  username:  {type:String},
   google: {
     id: String,
     accessToken: String,
@@ -22,10 +23,17 @@ var UserSchema = new mongoose.Schema({
     username: String,
     displayName: String
   },
-  email: String,
+  email: {type:String, unique:true, required:true},
   password: String,
   updated_at: { type: Date, default: Date.now },
-  provider: String
+  provider: String,
+  created: {type: Date, default: Date.now},
+  updated: {type: Date, default: Date.now}
+});
+
+UserSchema.pre('save', function(next) {
+  this.updated = Date.now();
+  next();
 });
 
 module.exports = mongoose.model('User', UserSchema);
