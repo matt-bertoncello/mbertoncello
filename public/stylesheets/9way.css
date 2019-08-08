@@ -70,29 +70,29 @@
 .main_row {
 }
 
-.top_row {
+.top_row, .row0 {
     border-bottom: thick solid black;
 }
 
-.middle_row {
+.middle_row, .row1 {
     border-top: thick solid black;
     border-bottom: thick solid black;
 }
 
-.bottom_row {
+.bottom_row, .row2 {
     border-top: thick solid black;
 }
 
-.left_column {
+.left_column, .col0 {
     border-right: thick solid black;
 }
 
-.middle_column {
+.middle_column, .col1 {
     border-right: thick solid black;
     border-left: thick solid black;
 }
 
-.right_column {
+.right_column, .col2 {
     border-left: thick solid black;
 }
 

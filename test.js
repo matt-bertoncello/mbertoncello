@@ -4,6 +4,7 @@ const MongoStore = require('connect-mongo')(session);
 mongoose.Promise = global.Promise;
 require('dotenv').config();
 var mongooseController = require('./controllers/mongooseController');
+var nineWayController = require('./controllers/9WayController');
 var countController = require('./controllers/countController');
 
 /* Remove deprecated settings from mongoose */
@@ -25,6 +26,4 @@ mongoose.connect(uri)
   .then(() =>  console.log('[INFO] MongoDB connected successfully'))
   .catch((err) => console.error(err));
 
-countController.incrementCounter('9way', function(count){
-  console.log(count);
-});
+nineWayController.get9WayForUser('5d344de009397d1fc8bd2b62');

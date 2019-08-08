@@ -12,6 +12,40 @@
   <h1>9 Way Dashboard</h1>
   <a type='button' href='/9way/new'>New Game</a>
 
+  <div>
+    <% for(var i=0; i<games.length; i++) { %>
+      <%= games[i]._id %>
+      <div class="mdl-card game_card" onclick="window.location.href = '/9way/<%= games[i]._id %>'"; style="cursor: pointer;display:inline-block;">
+        <h4> </h4>
+        <table class="winner_square <%= games[i].getWinnerSquareCSS() %>">
+          <% for(row=0; row<3; row++) { %>
+            <tr class="main_row">
+              <% for(col=0; col<3; col++) { %>
+                <td>
+                  <table class="square col<%= col %> row<%= row %> <%= games[i].getSquareCSS(col+3*row) %>">
+                      <tr>
+                          <td class="index_small_square <%= games[i].getCellCSS(col+3*row, 0, user._id) %>"></td>
+                          <td class="index_small_square <%= games[i].getCellCSS(col+3*row, 1, user._id) %>"></td>
+                          <td class="index_small_square <%= games[i].getCellCSS(col+3*row, 2, user._id) %>"></td>
+                      </tr>
+                      <tr>
+                          <td class="index_small_square <%= games[i].getCellCSS(col+3*row, 3, user._id) %>"></td>
+                          <td class="index_small_square <%= games[i].getCellCSS(col+3*row, 4, user._id) %>"></td>
+                          <td class="index_small_square <%= games[i].getCellCSS(col+3*row, 5, user._id) %>"></td>
+                      </tr>
+                      <tr>
+                          <td class="index_small_square <%= games[i].getCellCSS(col+3*row, 6, user._id) %>"></td>
+                          <td class="index_small_square <%= games[i].getCellCSS(col+3*row, 7, user._id) %>"></td>
+                          <td class="index_small_square <%= games[i].getCellCSS(col+3*row, 8, user._id) %>"></td>
+                      </tr>
+                  </table>
+                </td>
+              <% } %>
+            <% } %>
+          </table>
+        </div>
+      <% } %>
+    </div>
 
 </body>
 </html>

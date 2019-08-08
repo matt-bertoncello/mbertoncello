@@ -4,7 +4,7 @@ var countController = {};
 
 getCounter = function(counterId, next) {
   Counter.findOne({
-      '_id': counterId
+      _id: counterId
   }, function(err, counter) {
       if (err) { throw error; }
       if (counter) { next(counter); }

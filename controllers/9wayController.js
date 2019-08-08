@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 var User = require("../models/User");
 var NineWay = require("../models/9Way/9way");
 var countController = require('./countController');
+var userController = require('./AuthController');
 
 var nineWayController = {};
 
@@ -28,7 +29,7 @@ Retrieve the 9Way game with the corresponding gameId.
 */
 nineWayController.get9Way = function(id, next) {
   NineWay.findOne({
-    '_id': id
+    _id: id
   }, function(err, game) {
       if (err) {
         throw err;
@@ -36,8 +37,24 @@ nineWayController.get9Way = function(id, next) {
       if (!game) {  // if no game retrieved, provide error.
         err = "[ERROR] no 9Way game found with _id: "+id;
       }
-      next(err, game)
-    });
+
+      next(err, game);
+    }).populate('player');
 }
+
+/*
+Retrive all 9way games that this user is a player
+*/
+nineWayController.get9WaysForUser = function(id, next) {
+  NineWay.find({
+    player: id
+  }, function(err, games) {
+    if (err) {
+      throw err;
+    }
+    next(games);
+  }).populate('player');
+}
+
 
 module.exports = nineWayController;

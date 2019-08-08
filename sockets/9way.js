@@ -32,7 +32,7 @@ socket_router.sock = function(socket, io) {
   */
   socket.on('newgame_user', function(username) {
     User.findOne({
-        'username': username
+        username: username
       }, function(err, opponent) {
         if (err) {console.log(err);}
         if (opponent) {
@@ -46,7 +46,7 @@ socket_router.sock = function(socket, io) {
 
   socket.on('newgame_email', function(email) {
     User.findOne({
-        'email': email
+        email: email
       }, function(err, opponent) {
         if (err) {console.log(err);}
         if (opponent) {

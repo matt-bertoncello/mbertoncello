@@ -4,7 +4,11 @@ var checkAuthentication = require("../controllers/AuthController.js").checkAuthe
 var nineWayController = require("../controllers/9wayController.js");
 
 /* Dashboard */
-router.get('/', checkAuthentication, (req,res) => res.render('9way/dashboard', {req: req}));
+router.get('/', checkAuthentication, (req,res) => {
+  nineWayController.get9WaysForUser(req.session.passport.user._id, function(games) { // retrieve all 9way games
+    res.render('9way/dashboard', {req: req, games: games});
+  })
+});
 
 /* New Game */
 router.get('/new', checkAuthentication, (req,res) => res.render('9way/newgame', {req: req}));

@@ -4,6 +4,7 @@ var User = require("../User");
 var getter = require("./9wayGetter");
 var setter = require("./9waySetter");
 var countController = require('../../controllers/countController');
+var userController = require('../../controllers/AuthController');
 var EMPTY = -1;
 
 var nineWaySchema = new mongoose.Schema({

@@ -74,4 +74,18 @@ userController.logout = function(req, res) {
   res.redirect('/');
 };
 
+userController.getUser = function(id, next) {
+  User.findOne({
+    _id: id
+  }, function(err, user) {
+    if (err) {
+      throw err;
+    }
+    if (!user) {
+      err = "[ERROR] no user found with _id: "+id;
+    }
+    next(err, user);
+  });
+}
+
 module.exports = userController;
