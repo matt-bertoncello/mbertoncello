@@ -75,6 +75,16 @@ getter.getWinner = function(nineWay) {
     return nineWay.getOwner(0);
   } else if (nineWay.getOwner(6)!=nineWay.EMPTY() && nineWay.getOwner(6)===nineWay.getOwner(4) && nineWay.getOwner(6)===nineWay.getOwner(2)) { // Diagonal bottom-left -> top-right
     return nineWay.getOwner(6);
+  } else if (nineWay.getOwner(0)!=nineWay.EMPTY() &&
+    nineWay.getOwner(1)!=nineWay.EMPTY() &&
+    nineWay.getOwner(2)!=nineWay.EMPTY() &&
+    nineWay.getOwner(3)!=nineWay.EMPTY() &&
+    nineWay.getOwner(4)!=nineWay.EMPTY() &&
+    nineWay.getOwner(5)!=nineWay.EMPTY() &&
+    nineWay.getOwner(6)!=nineWay.EMPTY() &&
+    nineWay.getOwner(7)!=nineWay.EMPTY() &&
+    nineWay.getOwner(8)!=nineWay.EMPTY()) {
+      return -2;  // Draw
   } else {
     return nineWay.EMPTY();
   }
@@ -89,6 +99,8 @@ getter.getWinnerSquareCSS = function(nineWay) {
     return "player1";
   } else if (nineWay.getWinner() === 1) {
     return "player2";
+  } else if (nineWay.getWinner() === -2) {
+    return "draw";
   } else {
     "";
   }
@@ -106,7 +118,7 @@ getter.getCellCSS = function(nineWay, squareId, cellId, playerId) {
   }
 
   /* If cell is not owned, and it is not the player's turn */
-  if (nineWay.player[nineWay.playerTurn].toString() != playerId) {  // It is not this player's turn.
+  if (nineWay.player[nineWay.playerTurn]._id.toString() != playerId.toString()) {  // It is not this player's turn.
     return "invalid"
   }
 
@@ -139,9 +151,9 @@ getter.getCellEvents = function(nineWay, squareId, cellId, playerId) {
   // Events only occur on 'valid' cells.
   if (nineWay.getCellCSS(squareId, cellId, playerId) === "valid") {
     // Determine if user is player 1 or player 2
-    if (nineWay.playerTurn === 0 && nineWay.player[0].toString() === playerId.toString()) { // If cell is owned by player1
+    if (nineWay.playerTurn === 0 && nineWay.player[0]._id.toString() === playerId.toString()) { // If cell is owned by player1
       var player = "player1";
-    } else if (nineWay.playerTurn === 1 && nineWay.player[1].toString() === playerId.toString()) { // If cell is owned by player2
+    } else if (nineWay.playerTurn === 1 && nineWay.player[1]._id.toString() === playerId.toString()) { // If cell is owned by player2
       var player = "player2"
     } else {
       throw "[ERROR] user must be a player in the game";

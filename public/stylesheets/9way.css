@@ -47,6 +47,8 @@
     padding: 10px 10px;
     margin: 10px;
     background-color: white;
+    cursor: pointer;
+    display:inline-block;
 }
 
 .cell {
@@ -56,7 +58,7 @@
 }
 
 
-.index_small_square {
+.dashboad_cell {
     width:6vh;
     height:6vh;
     border: thin solid black;
@@ -184,6 +186,14 @@ table, tr, td, tbody {
 
 .black_band {
     color: white;
+    background-color:black;
+    opacity:0.8;
+    Word-wrap: break-word;
+}
+
+.game_card_header {
+  word-wrap: break-word;
+  width: 55vh;
 }
 
 .error {
@@ -222,9 +232,5 @@ table, tr, td, tbody {
     .turn_div {
         font-size: 45px;
         line-height: 45px;
-    }
-    .black_band {
-        background-color:black;
-        opacity:0.8;
     }
 }

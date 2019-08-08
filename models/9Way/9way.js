@@ -91,8 +91,8 @@ Changes ownership of the cell from empty to owned by the player. The square must
 Param: cellId, the id of a cell to change ownership of. (must be between 0-8 inclusive).
 Param: playerId, the id of a cell to change ownership of.
 */
-nineWaySchema.methods.selectCell = function(squareId, cellId, playerId) {
-  setter.selectCell(this, squareId, cellId, playerId);
+nineWaySchema.methods.selectCell = function(squareId, cellId, playerId, next) {
+  setter.selectCell(this, squareId, cellId, playerId, next);
 }
 
 module.exports = mongoose.model('9way', nineWaySchema);

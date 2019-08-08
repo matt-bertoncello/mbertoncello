@@ -52,7 +52,32 @@ nineWayController.get9WaysForUser = function(id, next) {
     if (err) {
       throw err;
     }
-    next(games);
+
+    var sortedGames = {
+      won: [],
+      lost: [],
+      yourTurn: [],
+      waiting: []
+    }
+
+    for (var i=0; i<games.length; i++) {
+      /* if game has finished */
+      if (games[i].getWinner() != games[i].EMPTY()) {
+        if (games[i].getWinner() === -2) {  // no moves are available. It is a draw.
+          sortedGames.lost.push(games[i]);
+        } else if (games[i].player[games[i].getWinner()]._id.toString() === id.toString()) { // if player won the game`
+          sortedGames.won.push(games[i]);
+        } else if (games[i].player[games[i].getWinner()]._id.toString() != id.toString()) { // if player did not win the game
+          sortedGames.lost.push(games[i]);
+        }
+      } else if (games[i].player[games[i].playerTurn]._id.toString() === id.toString()) { // if it is player's turn
+        sortedGames.yourTurn.push(games[i]);
+      } else if (games[i].player[games[i].playerTurn]._id.toString() != id.toString()) { // if it is not player's turn
+        sortedGames.waiting.push(games[i]);
+      }
+    }
+
+    next(sortedGames);
   }).populate('player');
 }
 

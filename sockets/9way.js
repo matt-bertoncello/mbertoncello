@@ -18,7 +18,12 @@ socket_router.sock = function(socket, io) {
           console.log(err);
           socket.emit('redirect', '/9way');
         } else {
-          game.selectCell(squareId, cellId, socket.handshake.session.passport.user._id);
+          game.selectCell(squareId, cellId, socket.handshake.session.passport.user._id, function(err) {
+            if (err) {
+              console.log(err);
+              socket.emit('redirect', '/9way');
+            }
+          });
         }
       })
 
