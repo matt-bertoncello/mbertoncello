@@ -4,16 +4,24 @@ var User = require("../models/User");
 
 var userController = {};
 
-/* next() if user is logged-in. Otherwise redirect to login page */
+/*
+Redirect to login page if user isn't logged in.
+Load User into req.user.
+If user does not have a unique username, make user create username.
+*/
 userController.checkAuthentication = function(req,res,next){
-    /* If session has never been initialised on client side, also redirect to login page */
-    if(req.session.passport && req.session.passport.user){
-        next();
-    } else{
-      userController.postLoginRedirect = req.originalUrl;
-      console.log('[ERROR] user is not logged-in. Redirect to login page. Post-authentication redirect: '+userController.postLoginRedirect);
-      res.redirect("/login");
-    }
+  /* If session has never been initialised on client side, also redirect to login page */
+  if (req.session.passport && req.session.passport.user) {
+    userController.getUser(req.session.passport.user._id, function(err, user) {
+      if (err) {throw err;}
+      req.user = user;
+      next();
+    });
+  } else {
+    userController.postLoginRedirect = req.originalUrl;
+    console.log('[ERROR] user is not logged-in. Redirect to login page. Post-authentication redirect: '+userController.postLoginRedirect);
+    res.redirect("/login");
+  }
 }
 
 // Restrict access to root page
@@ -86,6 +94,17 @@ userController.getUser = function(id, next) {
     }
     next(err, user);
   });
+}
+
+// Retrieve user by Id, then update username. Return error.
+userController.updateUsername = function(id, username, next) {
+  userController.getUser(id, function(err, user) {
+    if (err) { throw err; }
+    user.username = username;
+    user.save(function(err) {
+      next(err);
+    })
+  })
 }
 
 module.exports = userController;

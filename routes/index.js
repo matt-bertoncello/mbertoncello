@@ -11,7 +11,7 @@ router.post('/register', (req, res) => auth_controller.doRegister(req, res))
 router.post('/login', (req, res) => auth_controller.doLogin(req, res))
 router.get('/login', (req, res, next) => {
   if(req.session.passport && req.session.passport.user) {
-    console.log('[ERROR] '+req.session.passport.user.email+" is already logged in");
+    console.log('[ERROR] '+req.session.passport.user+" is already logged in");
     res.redirect('/user');
   } else {
     res.render('login', {req: req})

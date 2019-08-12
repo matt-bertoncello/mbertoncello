@@ -2,18 +2,44 @@
 <html>
 <head>
   <% include ../partials/header.ejs %>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect('/');
+
+    function POST(username) {
+      socket.emit('update_username', username);
+    }
+
+    socket.on('redirect', function(destination) {
+        window.location.href = destination;
+    });
+
+    socket.on('err', function(err){
+      document.getElementById(err.id).innerHTML = err.text;
+      setTimeout(function () {
+        document.getElementById(err.id).innerHTML = '';
+      }, 3*1000);
+    });
+
+  </script>
 </head>
 
 <body>
 
   <% include ../partials/nav.ejs %>
 
-<h1>Name: <%= user.name %></h1>
-<h1>Google ID: <%= user.google.id %></h1>
-<h1>User ID: <%= user._id %></h1>
-<h1>Email: <%= user.email %></h1>
+  <h1>Name: <%= user.name %></h1>
+  <h1>Username: <%= user.username %></h1>
+  <h1>User ID: <%= user._id %></h1>
+  <h1>Email: <%= user.email %></h1>
 
-<a type="button" href="/auth/logout">Logout</a>
+  <input class='form-control' type='text' id='username' placeholder='<%= user.username %>'>
+  <button class='btn btn-lg btn-primary btn-block' onclick="POST(document.getElementById('username').value)">Update Username</button>
+  <div class='error' id='username_error'></div>
+
+
+  <a type="button" href="/auth/logout">Logout</a>
 
 </body>
 </html>

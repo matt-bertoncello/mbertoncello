@@ -22,6 +22,7 @@ var nineway = require('./routes/9way');
 
 /* Define sockets */
 var nineway_sock = require('./sockets/9way');
+var user_sock = require('./sockets/user');
 
 /* Remove deprecated settings from mongoose */
 mongoose.set('useNewUrlParser', true);
@@ -48,8 +49,8 @@ var mongooseSession = session({
     return uuid() // use UUIDs for session IDs
   },
   secret: 'kjlhsdklh28o8712hkq3798w31jbk',
-  resave: false,
-  saveUninitialized: true,
+  resave: true,
+  saveUninitialized: false,
   store: new MongoStore({ mongooseConnection: mongoose.connection, stringify: false}),
   cookie: {secure: false}
 });
@@ -77,6 +78,7 @@ io.on('connection', function(socket){
 
   // Load socket configuration from nineway_sock.
   nineway_sock.sock(socket, io);
+  user_sock.sock(socket, io);
 
   socket.on('disconnect', function() {
   });
