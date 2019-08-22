@@ -196,10 +196,6 @@ table, tr, td, tbody {
   width: 55vh;
 }
 
-.error {
-  color: red;
-}
-
 @media only screen and (max-width: 800px) {
     .players_names {
         font-size:60px;

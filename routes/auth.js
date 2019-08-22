@@ -9,7 +9,8 @@ var postAuthentication = require("../controllers/AuthController.js").postAuthent
 /* LOGOUT ROUTER */
 router.get('/logout', function(req, res){
   req.logout();
-  delete req.session.passport;
+  delete req.session.passport;  // stores user._id
+  delete req.user;  // stores user
   res.redirect('/');
 });
 
@@ -20,7 +21,7 @@ router.get('/facebook',
 router.get('/facebook/callback',
   passportFacebook.authenticate('facebook', { failureRedirect: '/login' }),
   function(req, res) {
-    console.log('[INFO] user logged-in via facebook: '+req.session.passport.user.email);
+    console.log('[INFO] user logged-in via facebook: '+req.session.passport.user._id);
     req.session.passport.loginProvider = "facebook";
     postAuthentication(req, res);
   });
@@ -32,7 +33,7 @@ router.get('/twitter',
 router.get('/twitter/callback',
   passportTwitter.authenticate('twitter', { failureRedirect: '/login' }),
   function(req, res) {
-    console.log('[INFO] user logged-in via twitter: '+req.session.passport.user.email);
+    console.log('[INFO] user logged-in via twitter: '+req.session.passport.user._id);
     req.session.passport.loginProvider = "twitter";
     postAuthentication(req, res);
   });
@@ -44,7 +45,7 @@ router.get('/google',
 router.get('/google/callback',
   passportGoogle.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
-    console.log('[INFO] user logged-in via google: '+req.session.passport.user.email);
+    console.log('[INFO] user logged-in via google: '+req.session.passport.user._id);
     req.session.passport.loginProvider = "google";
     postAuthentication(req, res);
   });
@@ -56,7 +57,7 @@ router.get('/github',
 router.get('/github/callback',
   passportGitHub.authenticate('github', { failureRedirect: '/login' }),
   function(req, res) {
-    console.log('[INFO] user logged-in via github: '+req.session.passport.user.email);
+    console.log('[INFO] user logged-in via github: '+req.session.passport.user._id);
     req.session.passport.loginProvider = "github";
     postAuthentication(req, res);
   });

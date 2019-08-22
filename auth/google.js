@@ -19,7 +19,7 @@ passport.use(new GoogleStrategy({
             }
             if (user) {
               //found user. Return
-              return done(err, user);
+              return done(err, user._id);
             }
             if (!user) {
               // No user was found, if email already exists, add this google_id to the account.
@@ -32,7 +32,6 @@ passport.use(new GoogleStrategy({
                   if (user) {
                     user.google = {
                       id: profile.id,
-                      accessToken: accessToken,
                       displayName: profile.displayName
                     }
                     user.save(function(err) {
@@ -40,7 +39,7 @@ passport.use(new GoogleStrategy({
                         return done(err)
                       } else {
                         //found user. Return
-                        return done(err, user);
+                        return done(err, user._id);
                       }
                     });
                   } else {
@@ -51,14 +50,13 @@ passport.use(new GoogleStrategy({
                       //now in the future searching on User.findOne({'google.id': profile.id } will match because of this next line
                       google: {
                         id: profile.id,
-                        accessToken: accessToken,
                         displayName: profile.displayName
                       },
                       provider: 'google'
                     });
                     user.save(function(err) {
                       if (err) console.log(err);
-                      return done(err, user);
+                      return done(err, user._id);
                     });
                   }
                 });

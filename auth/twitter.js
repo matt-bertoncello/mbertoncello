@@ -30,7 +30,7 @@ passport.use(new TwitterStrategy({
         }
         if (user) {
           //found user. Return
-          return done(err, user);
+          return done(err, user._id);
         }
         if (!user) {
           // No user was found, if email already exists, add this twitter_id to the account.
@@ -51,7 +51,7 @@ passport.use(new TwitterStrategy({
                     return done(err)
                   } else {
                     //found user. Return
-                    return done(err, user);
+                    return done(err, user._id);
                   }
                 });
               } else {
@@ -70,7 +70,7 @@ passport.use(new TwitterStrategy({
                 });
                 user.save(function(err) {
                   if (err) console.log(err);
-                  return done(err, user);
+                  return done(err, user._id);
                 });
               }
             });

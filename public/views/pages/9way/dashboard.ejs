@@ -4,6 +4,7 @@
   <% include ../../partials/header.ejs %>
   <link rel="stylesheet" type="text/css" href="/stylesheets/9way.css" />
 
+  <script src="/socket.io/socket.io.js"></script>
   <script>
     var socket = io.connect('/');
     <% for(var i=0; i<games.length; i++) { %>
@@ -22,7 +23,7 @@
   <% populate = function(gamesArray) { %>
     <% for(var i=0; i<gamesArray.length; i++) { %>
       <div class="game_card" onclick="window.location.href = '/9way/<%= gamesArray[i]._id %>'">
-        <h4 class="game_card_header"><%= gamesArray[i].player[0].name %> vs <%= gamesArray[i].player[1].name %></h4>
+        <h4 class="game_card_header"><%= gamesArray[i].player[0].username %> vs <%= gamesArray[i].player[1].username %></h4>
         <table class="<%= gamesArray[i].getWinnerSquareCSS() %>">
           <% for(row=0; row<3; row++) { %>
             <tr class="main_row">

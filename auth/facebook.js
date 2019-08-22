@@ -23,7 +23,7 @@ passport.use(new FacebookStrategy({
           user.facebook.displayName = profile.displayName;
           user.save(function(err) {
             if (err) console.log(err);
-            return done(err, user);
+            return done(err, user._id);
           });
         }
         if (!user) {
@@ -41,7 +41,7 @@ passport.use(new FacebookStrategy({
                 }
                 user.save(function(err) {
                   if (err) console.log(err);
-                  return done(err, user);
+                  return done(err, user._id);
                 });
               } else {
                 // No email was found... so create a new user with values from facebook (all the profile. stuff)
@@ -57,7 +57,7 @@ passport.use(new FacebookStrategy({
                 });
                 user.save(function(err) {
                   if (err) console.log(err);
-                  return done(err, user);
+                  return done(err, user._id);
                 });
               }
             });
