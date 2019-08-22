@@ -22,6 +22,15 @@
       }, 3*1000);
     });
 
+    socket.on('flash', function(message){
+      document.getElementById('flash').style.display = 'block';
+      document.getElementById('flash').innerHTML = message;
+      setTimeout(function () {
+        document.getElementById('flash').style.display = 'none';
+        document.getElementById('flash').innerHTML = '';
+      }, 3*1000);
+    });
+
   </script>
 </head>
 
@@ -29,11 +38,16 @@
 
   <% include ../partials/nav.ejs %>
 
+  <div id=flash></div>
+
   <h1>Name: <%= user.name %></h1>
   <h1>Username: <%= user.username %></h1>
   <h1>User ID: <%= user._id %></h1>
   <h1>Email: <%= user.email %></h1>
 
+  <% if (!user.username) { %>
+    <div style="color:red; font-size:30px">Must have a username to access this website</div>
+  <% } %>
   <input class='form-control' type='text' id='username' placeholder='<%= user.username %>'>
   <button class='btn btn-lg btn-primary btn-block' onclick="POST(document.getElementById('username').value)">Update Username</button>
   <div class='error' id='username_error'></div>

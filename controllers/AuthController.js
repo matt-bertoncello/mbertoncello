@@ -15,12 +15,29 @@ userController.checkAuthentication = function(req,res,next){
     userController.getUser(req.session.passport.user._id, function(err, user) {
       if (err) {throw err;}
       req.user = user;
-      next();
+      userController.checkUsername(req, res, function(){  // check if username is valid and unique
+        next();
+      });
     });
   } else {
     userController.postLoginRedirect = req.originalUrl;
     console.log('[ERROR] user is not logged-in. Redirect to login page. Post-authentication redirect: '+userController.postLoginRedirect);
     res.redirect("/login");
+  }
+}
+
+/*
+If username is not valid or unique, redirect to user update page.
+*/
+userController.checkUsername = function(req, res, next) {
+  exceptions = ["/user"];
+
+  if (req.user.username || exceptions.includes(req.originalUrl)) {
+    next();
+  } else {
+    userController.postLoginRedirect = req.originalUrl;
+    console.log('[ERROR] user does not have unique username. Post-authentication redirect: '+userController.postLoginRedirect);
+    res.redirect("/user");
   }
 }
 
