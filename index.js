@@ -19,10 +19,12 @@ var auth = require('./routes/auth');
 var user = require('./routes/user');
 var index = require('./routes/index');
 var nineway = require('./routes/9way');
+var hermes = require('./routes/hermes');
 
 /* Define sockets */
 var nineway_sock = require('./sockets/9way');
 var user_sock = require('./sockets/user');
+var hermes_sock = require('./sockets/hermes');
 
 /* Remove deprecated settings from mongoose */
 mongoose.set('useNewUrlParser', true);
@@ -65,6 +67,7 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use('/auth', auth)
   .use('/user', user)
   .use('/9way', nineway)
+  .use('/hermes', hermes)
   .use('/', index)
   .set('views', path.join(__dirname, 'public/views/pages'))
   .set('view engine', 'ejs');
@@ -79,6 +82,7 @@ io.on('connection', function(socket){
   // Load socket configuration from nineway_sock.
   nineway_sock.sock(socket, io);
   user_sock.sock(socket, io);
+  hermes_sock.sock(socket, io);
 
   socket.on('disconnect', function() {
   });

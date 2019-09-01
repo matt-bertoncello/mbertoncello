@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect('/');
+
+    socket.on('redirect', function(destination) {
+        window.location.href = destination;
+    });
+
+    function newchat_user(username) {
+      socket.emit('newchat_user', username);
+    }
+
+    socket.on('err', function(err){
+      document.getElementById(err.id).innerHTML = err.text;
+      setTimeout(function () {
+        document.getElementById(err.id).innerHTML = '';
+      }, 3*1000);
+    });
+
+  </script>
+</head>
+
+<body>
+
+  <% include ../partials/nav.ejs %>
+  <h1>Find User</h1>
+  <div class="tabcontent" style='max-width:300px;display:block'>
+
+    <input class='form-control' type='text' id='username' placeholder='username'>
+    <button class='btn btn-lg btn-primary btn-block' onclick="newchat_user(document.getElementById('username').value)">Start Chat</button>
+    <div class='error' id='error_user'></div>
+
+  </div>
+
+<script type="text/javascript" src="/js/tabs.js"></script>
+
+</body>
+</html>
