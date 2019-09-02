@@ -137,4 +137,21 @@ userController.updateUsername = function(id, username, next) {
   })
 }
 
+/*
+Get user from username
+*/
+userController.getUserFromUsername = function(username, next) {
+  User.findOne({
+    username: username
+  }, function(err, user) {
+    if (err) {
+      throw err;
+    }
+    if (!user) {
+      err = "[ERROR] no user found with username: "+username;
+    }
+    next(err, user);
+  });
+}
+
 module.exports = userController;

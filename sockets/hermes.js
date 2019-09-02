@@ -20,9 +20,9 @@ socket_router.sock = function(socket, io) {
       }, function(err, friend) {
         if (err) {console.log(err);}
         if (friend) {
-          hermesController.getChat(socket.handshake.session.passport.user._id, friend._id, function(chatId){
-            socket.emit('redirect', '/hermes/'+chatId);
-          })
+          hermesController.getChat(socket.handshake.session.passport.user._id, friend._id, function(err, chatRoom){
+            socket.emit('redirect', '/hermes/'+friend.username);
+          });
         }
         if (!friend) {socket.emit('err', {id: 'error_user', text: 'Cannot find user with user: '+username});}
       });
