@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 var passportLocalMongoose = require('passport-local-mongoose');
-var ChatRoom = require('./ChatRoom');
+var User = require('../User');
 
 var message = new mongoose.Schema({
-  chatRoom: {type:mongoose.Schema.Types.ObjectId, required:true, ref:ChatRoom},
+  user: {type:mongoose.Schema.Types.ObjectId, required:true, ref:User},
   text: {type:String, required:true},
   created: {type: Date, default: Date.now},
   updated: {type: Date, default: Date.now}

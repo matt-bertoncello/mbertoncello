@@ -2,6 +2,9 @@ var Counter = require('../models/Counter');
 
 var countController = {};
 
+/*
+If counter exists, return counter, otherwise create new counter with this id.
+*/
 getCounter = function(counterId, next) {
   Counter.findOne({
       _id: counterId

@@ -1,6 +1,6 @@
 const crypto = require('crypto');
-var ChatRoom = require('../models/ChatRoom');
-var Message = require('../models/Message');
+var ChatRoom = require('../models/Hermes/ChatRoom');
+var Message = require('../models/Hermes/Message');
 var countController = require('./countController');
 var authController = require('./AuthController');
 

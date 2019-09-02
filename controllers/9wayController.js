@@ -31,9 +31,6 @@ nineWayController.get9Way = function(id, next) {
   NineWay.findOne({
     _id: id
   }, function(err, game) {
-      if (err) {
-        throw err;
-      }
       if (!game) {  // if no game retrieved, provide error.
         err = "[ERROR] no 9Way game found with _id: "+id;
       }

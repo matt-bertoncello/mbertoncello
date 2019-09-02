@@ -7,9 +7,4 @@ router.get('/', checkAuthentication, function(req,res) {
   res.render('user', {req: req});
 });
 
-/* Change name */
-
-/* Change username */
-
-
 module.exports = router;
