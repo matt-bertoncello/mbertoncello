@@ -36,7 +36,7 @@ nineWayController.get9Way = function(id, next) {
       }
 
       next(err, game);
-    }).populate('player');
+    }).populate('player', 'username');
 }
 
 /*
@@ -75,7 +75,7 @@ nineWayController.get9WaysForUser = function(id, next) {
     }
 
     next(sortedGames);
-  }).populate('player');
+  }).populate('player', 'username');
 }
 
 

@@ -19,7 +19,7 @@ hermesController.getChat = function(user1, user2, next) {
           next(id);
         })
       }
-    }).populate('members');
+    }).populate('members', 'username').populate('messages', {sort: {updated: 'descending'}});
 }
 
 /*
@@ -50,7 +50,7 @@ createChat = function(user1, user2, next) {
       user1_key: user1_key.toString('hex'),
       user2_key: user2_key.toString('hex'),
       secret: secret.toString('hex')
-    }).populate('members');
+    }).populate('members', 'username');
     chatRoom.save(function(err) {
       if (err) {
         throw err;
@@ -61,6 +61,19 @@ createChat = function(user1, user2, next) {
 
     next(err, chatRoom);
   })
+}
+
+/*
+Get all chats with this user as a member. Sort most recent chats first.
+id: user id
+*/
+hermesController.getChatRoomsForUser = function(id, next) {
+  ChatRoom.find({
+    members: id
+  }, function(err, chatRooms) {
+    // if error, pass through to calling function
+    next(err, chatRooms)
+  }).sort({ updated : 'descending'}).populate('members', 'username');
 }
 
 module.exports = hermesController;

@@ -5,7 +5,7 @@ var Message = require('./Message');
 var getter = require('./hermesGetter');
 var setter = require('./hermesSetter');
 
-var chatRoom = new mongoose.Schema({
+var chatRoomSchema = new mongoose.Schema({
   _id: {type:Number},
   members: [{type:mongoose.Schema.Types.ObjectId, required:true, ref:User}],
   _membersignature: {type:String, unique:true},
@@ -15,11 +15,19 @@ var chatRoom = new mongoose.Schema({
   messages: [{type:mongoose.Schema.Types.ObjectId, ref:Message}]
 }, { _id: false });
 
-chatRoom.pre('save', function(next) {
+chatRoomSchema.pre('save', function(next) {
   this.members.sort();
   this._membersignature = this.members.join(',');
   this.updated = Date.now();
   next();
 });
 
-module.exports = mongoose.model('ChatRoom', chatRoom);
+/*
+Returns the name of the chatRoom for this user.
+id: user id.
+*/
+chatRoomSchema.methods.getChatName = function(id) {
+  return getter.getChatName(this, id);
+}
+
+module.exports = mongoose.model('ChatRoom', chatRoomSchema);

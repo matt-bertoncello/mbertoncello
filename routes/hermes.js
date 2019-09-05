@@ -4,9 +4,16 @@ var authController = require("../controllers/AuthController.js");
 var checkAuthentication = authController.checkAuthentication;
 var hermesController = require("../controllers/HermesController.js");
 
-/* View user details */
+/* Retrieve all chat rooms for this user. */
 router.get('/', checkAuthentication, function(req,res) {
-  res.render('hermes/dashboard', {req: req});
+  hermesController.getChatRoomsForUser(req.user._id, function(err, chatRoomArray) {
+    if(err) { // If there is an error, go back to homepage
+      console.log(err);
+      res.redirect('/');
+    } else{
+      res.render('hermes/dashboard', {req: req, chatRoomArray: chatRoomArray});
+    }
+  })
 });
 
 /* New ChatRoom */

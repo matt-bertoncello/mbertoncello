@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../../partials/header.ejs %>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/hermes.css" />
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect('/');
+
+    socket.on('redirect', function(destination) {
+        window.location.href = destination;
+    });
+
+  </script>
+</head>
+
+<body>
+
+  <% include ../../partials/nav.ejs %>
+
+<h1>Chat Room <%= chatRoom %></h1>
+
+</body>
+</html>
