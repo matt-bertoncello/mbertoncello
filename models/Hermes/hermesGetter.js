@@ -18,4 +18,16 @@ getter.getChatName = function(chatRoom, id) {
   }
 }
 
+/*
+Returns the most recent message sent to this chatRoom.
+Assumption: chatRoom.messages array is sorted from oldest to newest message (most recent message at end).
+*/
+getter.getMostRecentMessage = function(chatRoom) {
+  if (chatRoom.messages.length < 1) {
+    return false;
+  } else {
+    return chatRoom.messages[chatRoom.messages.length-1];
+  }
+}
+
 module.exports = getter;

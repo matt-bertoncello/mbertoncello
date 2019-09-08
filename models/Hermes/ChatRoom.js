@@ -30,4 +30,11 @@ chatRoomSchema.methods.getChatName = function(id) {
   return getter.getChatName(this, id);
 }
 
+/*
+Returns the most recent message sent to this chatRoom.
+*/
+chatRoomSchema.methods.getMostRecentMessage = function() {
+  return getter.getMostRecentMessage(this);
+}
+
 module.exports = mongoose.model('ChatRoom', chatRoomSchema);

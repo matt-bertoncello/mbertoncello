@@ -19,7 +19,11 @@ hermesController.getChat = function(user1, user2, next) {
           next(id);
         })
       }
-    }).populate('members', 'username').populate('messages', {sort: {updated: 'descending'}});
+    }).populate('members', 'username').populate({ // populate messages (with most recent first) and the usernames.
+      path: 'messages',
+      options: {sort: {updated: 'ascending'}},
+      populate: {path: 'user'}
+    });
 }
 
 /*
@@ -73,7 +77,24 @@ hermesController.getChatRoomsForUser = function(id, next) {
   }, function(err, chatRooms) {
     // if error, pass through to calling function
     next(err, chatRooms)
-  }).sort({ updated : 'descending'}).populate('members', 'username');
+  }).populate('members', 'username').sort({ updated : 'descending'}).populate({
+    path: 'messages',
+    populate: {path: 'user', select:'username'},
+  });
+}
+
+/*
+Save a message to a chatRoom.
+id = chatRoom id.
+message = instance of mongoose Message.
+*/
+hermesController.alloacteMessage = function(id, message, next) {
+  var chatRoom = ChatRoom.findOne({_id: id}, function(err, chatRoom) {
+    chatRoom.messages.push(message);
+    chatRoom.save(function(err) {
+      next(err)
+    });
+  });
 }
 
 module.exports = hermesController;

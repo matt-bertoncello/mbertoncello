@@ -7,10 +7,38 @@
   <script src="/socket.io/socket.io.js"></script>
   <script>
     var socket = io.connect('/');
+    socket.emit('chatroom', <%= chatRoom._id %>);
 
     socket.on('redirect', function(destination) {
-        window.location.href = destination;
+      window.location.href = destination;
     });
+
+    socket.on('render_message', function(obj) {
+      render(obj.message);
+      updateScroll();
+    });
+
+    function emit_message(input) {
+      if(event.keyCode == 13 && input.value) {
+          socket.emit('new_message', input.value);
+          input.value = null;
+      }
+    }
+
+    function updateScroll(){
+      var element = document.getElementById("chat_content");
+      element.scrollTop = element.scrollHeight;
+    }
+
+    function render(message) {
+      var div = document.createElement("div");
+      div.innerHTML = "<div>\n";
+      div.innerHTML += "<span class='username'>"+message.user.username+"</span>\n";
+      div.innerHTML += "<span class='text'>"+message.text+"</span>\n";
+      div.innerHTML += "</div>\n";
+      div.innerHTML += "<div class='date'>"+new Date(message.created).toLocaleString('en-GB')+"</div>";
+      document.getElementById("chat_content").appendChild(div);
+    }
 
   </script>
 </head>
@@ -19,7 +47,26 @@
 
   <% include ../../partials/nav.ejs %>
 
-<h1>Chat Room <%= chatRoom %></h1>
+<h1>Chat Room <%= chatRoom._id %></h1>
 
+  <div id='chat_wrapper'>
+    <div id='chat_content'>
+    </div>
+  </div>
+
+  <div class='bottom_wrapper'>
+    <input type='text' class='new_message_input' placeholder='Type a message' onkeypress='emit_message(this)'>
+  </div>
+
+  <script>
+    <% for (var i=0; i<chatRoom.messages.length; i++) { %>
+      render({
+        text: '<%= chatRoom.messages[i].text %>',
+        user: {username: '<%= chatRoom.messages[i].user.username %>' },
+        created: '<%= chatRoom.messages[i].created %>',
+      });
+    <% } %>
+    updateScroll();
+  </script>
 </body>
 </html>
