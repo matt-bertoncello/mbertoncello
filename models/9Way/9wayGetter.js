@@ -165,4 +165,17 @@ getter.getCellEvents = function(nineWay, squareId, cellId, playerId) {
   }
 }
 
+/*
+Get the opponent name.
+*/
+getter.getOpponent = function(nineWay, playerId) {
+  if (nineWay.player[0]._id.toString() == playerId.toString()) {
+    return nineWay.player[1];
+  } else if (nineWay.player[1]._id.toString() == playerId.toString()) {
+    return nineWay.player[0];
+  } else {
+    throw '[ERROR] User: '+playerId+' is not part of game: '+nineWay._id;
+  }
+}
+
 module.exports = getter;

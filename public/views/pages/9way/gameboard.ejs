@@ -2,6 +2,7 @@
 <html>
 <head>
   <% include ../../partials/header.ejs %>
+  <title>mbgameslibrary - 9 Way <%= game.getOpponent(req.user._id).username %></title>
   <link rel="stylesheet" type="text/css" href="/stylesheets/9way.css" />
 
   <script src="/socket.io/socket.io.js"></script>

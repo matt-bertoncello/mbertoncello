@@ -95,4 +95,12 @@ nineWaySchema.methods.selectCell = function(squareId, cellId, playerId, next) {
   setter.selectCell(this, squareId, cellId, playerId, next);
 }
 
+/*
+Given a player Id, retrieve the other player in the game.
+Throw error if playerId is not a player in game.
+*/
+nineWaySchema.methods.getOpponent = function(playerId) {
+  return getter.getOpponent(this, playerId);
+}
+
 module.exports = mongoose.model('9way', nineWaySchema);
