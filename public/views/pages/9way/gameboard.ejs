@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script>
+  if(performance.navigation.type == 2){
+     location.reload(true);
+  }
+  </script>
+
   <% include ../../partials/header.ejs %>
-  <title>mbgameslibrary - 9 Way <%= game.getOpponent(req.user._id).username %></title>
+  <title><%= process.env.TITLE %> - 9 Way <%= game.getOpponent(req.user._id).username %></title>
   <link rel="stylesheet" type="text/css" href="/stylesheets/9way.css" />
 
   <script src="/socket.io/socket.io.js"></script>
@@ -31,8 +37,8 @@
 
   <h1>Game Id: <%= game._id %></h1>
 
-  <div class='table_div'>
-    <table class="winner_square <%= game.getWinnerSquareCSS() %>">
+  <div class='table-div'>
+    <table class="winner-square <%= game.getWinnerSquareCSS() %>">
         <tr> <!-- ROW IS FOR COORDINATES-->
             <td></td>
             <td>
@@ -52,16 +58,16 @@
             </td>
         </tr>
         <!-- FIRST ROW OF GAMEBOARD -->
-        <tr class="main_row">
+        <tr class="main-row">
             <td style="border:none">
-                <table class="y_coordinate">
+                <table class="y-coordinate">
                     <tr><td>A</td></tr>
                     <tr><td>B</td></tr>
                     <tr><td>C</td></tr>
                 </table>
             </td>
             <td>
-                <table class="square left_column top_row <%= game.getSquareCSS(0) %>">
+                <table class="square left-column top-row <%= game.getSquareCSS(0) %>">
                     <tr>
                         <td class="cell <%= game.getCellCSS(0, 0, user._id) %>" <%= game.getCellEvents(0,0,user._id) %>></td>
                         <td class="cell <%= game.getCellCSS(0, 1, user._id) %>" <%= game.getCellEvents(0,1,user._id) %>></td>
@@ -80,7 +86,7 @@
                 </table>
             </td>
             <td>
-                <table class="square middle_column top_row <%= game.getSquareCSS(1) %>" id="square1">
+                <table class="square middle-column top-row <%= game.getSquareCSS(1) %>" id="square1">
                     <tr>
                         <td class="cell <%= game.getCellCSS(1, 0, user._id) %>" <%= game.getCellEvents(1,0,user._id) %>></td>
                         <td class="cell <%= game.getCellCSS(1, 1, user._id) %>" <%= game.getCellEvents(1,1,user._id) %>></td>
@@ -99,7 +105,7 @@
                 </table>
             </td>
             <td>
-                <table class="square right_column top_row <%= game.getSquareCSS(2) %>">
+                <table class="square right-column top-row <%= game.getSquareCSS(2) %>">
                     <tr>
                         <td class="cell <%= game.getCellCSS(2, 0, user._id) %>" <%= game.getCellEvents(2,0,user._id) %>></td>
                         <td class="cell <%= game.getCellCSS(2, 1, user._id) %>" <%= game.getCellEvents(2,1,user._id) %>></td>
@@ -118,16 +124,16 @@
                 </table>
             </td>
         </tr>
-        <tr class="main_row">
+        <tr class="main-row">
             <td>
-                <table class="y_coordinate">
+                <table class="y-coordinate">
                     <tr><td>D</td></tr>
                     <tr><td>E</td></tr>
                     <tr><td>F</td></tr>
                 </table>
             </td>
             <td>
-                <table class="square left_column middle_row <%= game.getSquareCSS(3) %>">
+                <table class="square left-column middle-row <%= game.getSquareCSS(3) %>">
                     <tr>
                         <td class="cell <%= game.getCellCSS(3, 0, user._id) %>" <%= game.getCellEvents(3,0,user._id) %>></td>
                         <td class="cell <%= game.getCellCSS(3, 1, user._id) %>" <%= game.getCellEvents(3,1,user._id) %>></td>
@@ -146,7 +152,7 @@
                 </table>
             </td>
             <td>
-                <table class="square middle_column middle_row <%= game.getSquareCSS(4) %>">
+                <table class="square middle-column middle-row <%= game.getSquareCSS(4) %>">
                     <tr>
                         <td class="cell <%= game.getCellCSS(4, 0, user._id) %>" <%= game.getCellEvents(4,0,user._id) %>></td>
                         <td class="cell <%= game.getCellCSS(4, 1, user._id) %>" <%= game.getCellEvents(4,1,user._id) %>></td>
@@ -165,7 +171,7 @@
                 </table>
             </td>
             <td>
-                <table class="square right_column middle_row <%= game.getSquareCSS(5) %>">
+                <table class="square right-column middle-row <%= game.getSquareCSS(5) %>">
                     <tr>
                         <td class="cell <%= game.getCellCSS(5, 0, user._id) %>" <%= game.getCellEvents(5,0,user._id) %>></td>
                         <td class="cell <%= game.getCellCSS(5, 1, user._id) %>" <%= game.getCellEvents(5,1,user._id) %>></td>
@@ -184,16 +190,16 @@
                 </table>
             </td>
         </tr>
-        <tr class="main_row">
+        <tr class="main-row">
             <td>
-                <table class="y_coordinate">
+                <table class="y-coordinate">
                     <tr><td>G</td></tr>
                     <tr><td>H</td></tr>
                     <tr><td>I</td></tr>
                 </table>
             </td>
             <td>
-                <table class="square left_column bottom_row <%= game.getSquareCSS(6) %>">
+                <table class="square left-column bottom-row <%= game.getSquareCSS(6) %>">
                     <tr>
                         <td class="cell <%= game.getCellCSS(6, 0, user._id) %>" <%= game.getCellEvents(6,0,user._id) %>></td>
                         <td class="cell <%= game.getCellCSS(6, 1, user._id) %>" <%= game.getCellEvents(6,1,user._id) %>></td>
@@ -212,7 +218,7 @@
                 </table>
             </td>
             <td>
-                <table class="square middle_column bottom_row <%= game.getSquareCSS(7) %>">
+                <table class="square middle-column bottom-row <%= game.getSquareCSS(7) %>">
                     <tr>
                         <td class="cell <%= game.getCellCSS(7, 0, user._id) %>" <%= game.getCellEvents(7,0,user._id) %>></td>
                         <td class="cell <%= game.getCellCSS(7, 1, user._id) %>" <%= game.getCellEvents(7,1,user._id) %>></td>
@@ -231,7 +237,7 @@
                 </table>
             </td>
             <td>
-                <table class="square right_column bottom_row <%= game.getSquareCSS(8) %>">
+                <table class="square right-column bottom-row <%= game.getSquareCSS(8) %>">
                     <tr>
                         <td class="cell <%= game.getCellCSS(8, 0, user._id) %>" <%= game.getCellEvents(8,0,user._id) %>></td>
                         <td class="cell <%= game.getCellCSS(8, 1, user._id) %>" <%= game.getCellEvents(8,1,user._id) %>></td>

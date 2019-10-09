@@ -2,7 +2,7 @@
 <html>
 <head>
   <% include ../partials/header.ejs %>
-  <title>mbgameslibrary - <%= user.username %></title>
+  <title><%= process.env.TITLE %> - <%= user.username %></title>
 
   <script src="/socket.io/socket.io.js"></script>
   <script>

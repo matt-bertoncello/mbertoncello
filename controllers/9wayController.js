@@ -78,5 +78,23 @@ nineWayController.get9WaysForUser = function(id, next) {
   }).populate('player', 'username');
 }
 
+/*
+Get random mongoose game
+*/
+nineWayController.getRandomGame = function(next) {
+  // Get the count of all 9ways
+  NineWay.countDocuments().exec(function (err, count) {
+
+    // Get a random entry
+    var random = Math.floor(Math.random() * count)
+
+    // Again query all 9ways but only fetch one offset by our random #.
+    NineWay.findOne().skip(random).exec(
+      function (err, result) {
+        next(err, result)
+      })
+  })
+}
+
 
 module.exports = nineWayController;

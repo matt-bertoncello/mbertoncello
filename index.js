@@ -22,6 +22,7 @@ var nineway = require('./routes/9way');
 var hermes = require('./routes/hermes');
 
 /* Define sockets */
+var index_sock = require('./sockets/index');
 var nineway_sock = require('./sockets/9way');
 var user_sock = require('./sockets/user');
 var hermes_sock = require('./sockets/hermes');
@@ -76,10 +77,9 @@ server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 
 io.use(sharedsession(mongooseSession)); // can access session from within 'io' with 'socket.handshake.session'
 io.on('connection', function(socket){
-  console.log('socket.id: '+socket.id);
-  console.log('session.id: '+socket.handshake.session.id);
 
-  // Load socket configuration from nineway_sock.
+  // Load socket configuration from external files.
+  index_sock.sock(socket, io);
   nineway_sock.sock(socket, io);
   user_sock.sock(socket, io);
   hermes_sock.sock(socket, io);

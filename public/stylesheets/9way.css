@@ -1,11 +1,11 @@
-.header_button {
+.header-button {
     color: white;
     text-align: center;
     width: 100px;
     height: 65px;
 }
 
-.game_card {
+.game-card {
     border: 2px solid #03a9f4;
     border-radius: 12px;
     padding: 10px 10px;
@@ -22,7 +22,7 @@
 }
 
 
-.dashboad_cell {
+.dashboard-cell {
     width:6vh;
     height:6vh;
     border: thin solid black;
@@ -33,32 +33,32 @@
     width:100%;
 }
 
-.main_row {
+.main-row {
 }
 
 .top_row, .row0 {
     border-bottom: thick solid black;
 }
 
-.middle_row, .row1 {
+.middle-row, .row1 {
     border-top: thick solid black;
     border-bottom: thick solid black;
 }
 
-.bottom_row, .row2 {
+.bottom-row, .row2 {
     border-top: thick solid black;
 }
 
-.left_column, .col0 {
+.left-column, .col0 {
     border-right: thick solid black;
 }
 
-.middle_column, .col1 {
+.middle-column, .col1 {
     border-right: thick solid black;
     border-left: thick solid black;
 }
 
-.right_column, .col2 {
+.right-column, .col2 {
     border-left: thick solid black;
 }
 
@@ -81,7 +81,7 @@
 .invalid {
 }
 
-.main_text_div {
+.main-text-div {
     display:inline-block;
     width:40vw;
     vertical-align: top;
@@ -89,7 +89,7 @@
     line-height: 2vw;
 }
 
-.table_div {
+.table-div {
     background-color: white;
     border: 5px solid #03a9f4;
     border-radius: 12px;
@@ -98,7 +98,7 @@
     display:inline-block;
 }
 
-.y_coordinate {
+.y-coordinate {
     height:12vw;
     font-size: 1.5vw;
     text-align: center;
@@ -109,7 +109,7 @@
     text-align: center;
 }
 
-.winner_square {
+.winner-square {
         background-position: 9px 15px;
     }
 
@@ -117,17 +117,17 @@ table, tr, td, tbody {
     vertical-align: middle !important;
 }
 
-.turn_div {
+.turn-div {
     border:2px solid;
     border-radius:12px;
     background-color:white;width:75%;
     font-size:3vw;
 }
-.newgame_div {
+.newgame-div {
     font-size: 3vw;
 }
 
-.newgame_div > form > table > tbody > tr > td > input {
+.newgame-div > form > table > tbody > tr > td > input {
     padding: 10px 2px;
     margin: 0px 20px;
     width: 75%;
@@ -141,27 +141,27 @@ table, tr, td, tbody {
     border-radius: 2vw;
 }
 
-.players_names {
+.players-names {
     color:white;
     margin:0px 0px 3vw 0px;
     font-size:5vw;
     line-height:6vw;
 }
 
-.black_band {
+.black-band {
     color: white;
     background-color:black;
     opacity:0.8;
     Word-wrap: break-word;
 }
 
-.game_card_header {
+.game-card-header {
   word-wrap: break-word;
   width: 55vh;
 }
 
 @media only screen and (max-width: 800px) {
-    .players_names {
+    .players-names {
         font-size:60px;
         line-height: 60px;
     }
@@ -169,27 +169,27 @@ table, tr, td, tbody {
         height: 9vw;
         width: 9vw;
     }
-    .y_coordinate {
+    .y-coordinate {
         height:20vw;
         font-size: 12px;
     }
     .coordinate {
         font-size: 12px;
     }
-    .table_div {
+    .table-div {
         width: 85vw;
         padding-bottom: 10vw;
     }
-    .table_div {
+    .table-div {
         padding: 5px 10px 10px 5px;
         width: 100%;
     }
-    .main_text_div {
+    .main-text-div {
         width: inherit;
         font-size: 30px;
         line-height: 30px;
     }
-    .turn_div {
+    .turn-div {
         font-size: 45px;
         line-height: 45px;
     }

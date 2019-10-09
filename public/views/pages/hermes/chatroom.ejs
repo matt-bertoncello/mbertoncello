@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script>
+  if(performance.navigation.type == 2){
+     location.reload(true);
+  }
+  </script>
+
   <% include ../../partials/header.ejs %>
-  <title>mbgameslibrary - Hermes <%= chatRoom.getChatName(req.user._id) %></title>
+  <title><%= process.env.TITLE %> - Hermes <%= chatRoom.getChatName(req.user._id) %></title>
   <link rel="stylesheet" type="text/css" href="/stylesheets/hermes.css" />
 
   <script src="/socket.io/socket.io.js"></script>
@@ -55,8 +61,8 @@
     </div>
   </div>
 
-  <div class='bottom_wrapper'>
-    <input type='text' class='new_message_input' placeholder='Type a message' onkeypress='emit_message(this)'>
+  <div class='bottom-wrapper'>
+    <input type='text' class='new-message-input' placeholder='Type a message' onkeypress='emit_message(this)'>
   </div>
 
   <script>
