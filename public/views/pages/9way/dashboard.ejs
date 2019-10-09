@@ -1,7 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script>
+  if(performance.navigation.type == 2){
+     location.reload(true);
+  }
+  </script>
+
   <% include ../../partials/header.ejs %>
+  <title><%= process.env.TITLE %> - 9 Way</title>
   <link rel="stylesheet" type="text/css" href="/stylesheets/9way.css" />
 
   <script src="/socket.io/socket.io.js"></script>
@@ -22,37 +29,12 @@
 
   <% populate = function(gamesArray) { %>
     <% for(var i=0; i<gamesArray.length; i++) { %>
-      <div class="game_card" onclick="window.location.href = '/9way/<%= gamesArray[i]._id %>'">
-        <h4 class="game_card_header"><%= gamesArray[i].player[0].username %> vs <%= gamesArray[i].player[1].username %></h4>
-        <table class="<%= gamesArray[i].getWinnerSquareCSS() %>">
-          <% for(row=0; row<3; row++) { %>
-            <tr class="main_row">
-              <% for(col=0; col<3; col++) { %>
-                <td>
-                  <table class="square col<%= col %> row<%= row %> <%= gamesArray[i].getSquareCSS(col+3*row) %>">
-                      <tr>
-                          <td class="dashboad_cell <%= gamesArray[i].getCellCSS(col+3*row, 0, user._id) %>"></td>
-                          <td class="dashboad_cell <%= gamesArray[i].getCellCSS(col+3*row, 1, user._id) %>"></td>
-                          <td class="dashboad_cell <%= gamesArray[i].getCellCSS(col+3*row, 2, user._id) %>"></td>
-                      </tr>
-                      <tr>
-                          <td class="dashboad_cell <%= gamesArray[i].getCellCSS(col+3*row, 3, user._id) %>"></td>
-                          <td class="dashboad_cell <%= gamesArray[i].getCellCSS(col+3*row, 4, user._id) %>"></td>
-                          <td class="dashboad_cell <%= gamesArray[i].getCellCSS(col+3*row, 5, user._id) %>"></td>
-                      </tr>
-                      <tr>
-                          <td class="dashboad_cell <%= gamesArray[i].getCellCSS(col+3*row, 6, user._id) %>"></td>
-                          <td class="dashboad_cell <%= gamesArray[i].getCellCSS(col+3*row, 7, user._id) %>"></td>
-                          <td class="dashboad_cell <%= gamesArray[i].getCellCSS(col+3*row, 8, user._id) %>"></td>
-                      </tr>
-                  </table>
-                </td>
-              <% } %>
-            <% } %>
-          </table>
-        </div>
-      <% } %>
+      <div class="game-card" onclick="window.location.href = '/9way/<%= gamesArray[i]._id %>'">
+        <h4 class="game-card-header"><%= gamesArray[i].player[0].username %> vs <%= gamesArray[i].player[1].username %></h4>
+        <%- gamesArray[i].getBoardHTML(user._id) %>
+      </div>
     <% } %>
+  <% } %>
 
 </head>
 
@@ -65,19 +47,19 @@
 
   <div>
     <% if (games.yourTurn.length > 0) { %>
-      <h1 class="black_band">Your Turn:</h1>
+      <h1 class="black-band">Your Turn:</h1>
       <%= populate(games.yourTurn) %>
     <% } %>
     <% if (games.waiting.length > 0) { %>
-      <h1 class="black_band">Waiting:</h1>
+      <h1 class="black-band">Waiting:</h1>
       <%= populate(games.waiting) %>
     <% } %>
     <% if (games.won.length > 0) { %>
-      <h1 class="black_band">Won:</h1>
+      <h1 class="black-band">Won:</h1>
       <%= populate(games.won) %>
     <% } %>
     <% if (games.lost.length > 0) { %>
-      <h1 class="black_band">Lost:</h1>
+      <h1 class="black-band">Lost:</h1>
       <%= populate(games.lost) %>
     <% } %>
   </div>

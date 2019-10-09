@@ -12,8 +12,6 @@ router.get('/', checkAuthentication, (req,res) => {
 
 /* New Game */
 router.get('/new', checkAuthentication, (req,res) => res.render('9way/newgame', {req: req}));
-router.post('/new/username', (req,res) => nineWayController.searchUsername(req, res));
-router.post('/new/email', (req,res) => nineWayController.searchEmail(req, res));
 
 /* Go To Game */
 router.get('/:game', checkAuthentication, (req,res) => {

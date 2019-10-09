@@ -3,6 +3,7 @@ var passportLocalMongoose = require('passport-local-mongoose');
 var User = require("../User");
 var getter = require("./9wayGetter");
 var setter = require("./9waySetter");
+var formatter = require("./9wayFormatter");
 var countController = require('../../controllers/countController');
 var userController = require('../../controllers/AuthController');
 var EMPTY = -1;
@@ -93,6 +94,21 @@ Param: playerId, the id of a cell to change ownership of.
 */
 nineWaySchema.methods.selectCell = function(squareId, cellId, playerId, next) {
   setter.selectCell(this, squareId, cellId, playerId, next);
+}
+
+/*
+Given a player Id, retrieve the other player in the game.
+Throw error if playerId is not a player in game.
+*/
+nineWaySchema.methods.getOpponent = function(playerId) {
+  return getter.getOpponent(this, playerId);
+}
+
+/*
+Returns a string of the board in HTML format.
+*/
+nineWaySchema.methods.getBoardHTML = function(playerId) {
+  return formatter.getBoardHTML(this, playerId);
 }
 
 module.exports = mongoose.model('9way', nineWaySchema);

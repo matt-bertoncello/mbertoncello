@@ -31,15 +31,12 @@ nineWayController.get9Way = function(id, next) {
   NineWay.findOne({
     _id: id
   }, function(err, game) {
-      if (err) {
-        throw err;
-      }
       if (!game) {  // if no game retrieved, provide error.
         err = "[ERROR] no 9Way game found with _id: "+id;
       }
 
       next(err, game);
-    }).populate('player');
+    }).populate('player', 'username');
 }
 
 /*
@@ -78,7 +75,25 @@ nineWayController.get9WaysForUser = function(id, next) {
     }
 
     next(sortedGames);
-  }).populate('player');
+  }).populate('player', 'username');
+}
+
+/*
+Get random mongoose game
+*/
+nineWayController.getRandomGame = function(next) {
+  // Get the count of all 9ways
+  NineWay.countDocuments().exec(function (err, count) {
+
+    // Get a random entry
+    var random = Math.floor(Math.random() * count)
+
+    // Again query all 9ways but only fetch one offset by our random #.
+    NineWay.findOne().skip(random).exec(
+      function (err, result) {
+        next(err, result)
+      })
+  })
 }
 
 

@@ -1,0 +1,32 @@
+.chatRoom-card {
+  border: 2px solid #03a9f4;
+  border-radius: 12px;
+  padding: 10px 10px;
+  margin: 10px;
+  background-color: white;
+  cursor: pointer;
+  display: inline-block;
+  width: 25%;
+}
+
+.bottom-wrapper {
+  position: fixed;
+  background:gray;
+  width:100%;
+  bottom:0;
+}
+
+.new-message-input {
+  width: 100%;
+}
+
+#chat_wrapper {
+  display: flex;
+  flex-direction: column;
+  vertical-align: bottom;
+}
+
+#chat_content {
+  overflow: auto;
+  max-height: calc(100vh - 175px);
+}
