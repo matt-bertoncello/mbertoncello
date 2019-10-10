@@ -1,6 +1,6 @@
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-var User = require('../models/User');
+var User = require('../../models/User');
 require('dotenv').config();
 
 passport.use(new GoogleStrategy({
