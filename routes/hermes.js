@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var authController = require("../controllers/AuthController.js");
+var userController = require("../controllers/UserController.js");
 var checkAuthentication = authController.checkAuthentication;
 var hermesController = require("../controllers/HermesController.js");
 
@@ -21,7 +22,7 @@ router.get('/new', checkAuthentication, (req,res) => res.render('hermes/newchat'
 
 /* Go To ChatRoom */
 router.get('/:username', checkAuthentication, (req,res) => {
-  authController.getUserFromUsername(req.params.username, function(err, friend) {
+  userController.getUserFromUsername(req.params.username, function(err, friend) {
     if (err) { // if user doesn't exist, redirect to hermes homepage
       console.log(err);
       res.redirect('/hermes');
