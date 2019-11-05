@@ -10,6 +10,7 @@ router.get('/', updateUser, function(req,res) {
 });
 
 router.get('/session', (req, res) => res.render('session', {req: req}))
+router.get('/webgl', (req, res) => res.render('webgl', {req: req}))
 router.get('/register', (req, res) => res.render('register', {req: req}))
 router.post('/register', (req, res) => auth_controller.doRegister(req, res))
 
