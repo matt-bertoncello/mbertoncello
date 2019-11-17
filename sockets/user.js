@@ -6,6 +6,26 @@ socket_router = {}
 
 socket_router.sock = function(socket, io) {
 
+  /*
+  Will check if data.newPassword1 is the same as data.newPassword2,
+  then update/set the user's password if they are the same.
+  This is called in set and update password socket calls.
+  */
+  function setPassword(data, user) {
+    // If the newPasswords are not the same, throw error;
+    if (data.newPassword1 != data.newPassword2) {socket.emit('err', {id: 'password_error', text: "New passwords are not the same."});}
+    // If the two new passwords are the same, set password to the new password.
+    else {
+      user.updatePassword(data.newPassword1, function(err, completed){
+        if (err) {socket.emit('err', {id: 'password_error', text: err});}
+        // if password was updated successfully, refresh page.
+        else {
+          socket.emit('redirect', '/user');
+        }
+      });
+    }
+  }
+
   if (authController.postLoginRedirect) {
     socket.emit('flash', 'A username is required to access '+authController.postLoginRedirect);
   }
@@ -29,6 +49,37 @@ socket_router.sock = function(socket, io) {
         }
       });
     }
+  });
+
+  socket.on('update_password', function(data) {
+    userController.getUser(socket.handshake.session.passport.user._id, function(err, user) {
+      // If there was an error finding the user, redirect to home screen;
+      if (err) {socket.emit('redirect', '/');}
+      // Else, check old password is correct.
+      else {
+        user.comparePassword(data.oldPassword, function(err, isMatch) {
+          // throw error if there was an issue comparing passwords.
+          if (err) {socket.emit('err', {id: 'password_error', text: err});}
+          // if oldPassword does not match with saved password
+          else if (!isMatch) {socket.emit('err', {id: 'password_error', text: "Current password is incorrect."});}
+          // if old password is correct and the new passwords are the same, update the user's password.
+          else if (isMatch) {
+            setPassword(data, user);
+          }
+        });
+      }
+    });
+  });
+
+  socket.on('set_password', function(data) {
+    userController.getUser(socket.handshake.session.passport.user._id, function(err, user) {
+      // If there was an error finding the user, redirect to home screen;
+      if (err) {socket.emit('redirect', '/');}
+      // Else, check new passwords are correct and set new password.
+      else {
+        setPassword(data, user);
+      }
+    });
   });
 }
 

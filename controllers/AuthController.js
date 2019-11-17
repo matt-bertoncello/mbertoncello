@@ -10,17 +10,17 @@ var authController = {};
 passport.use(new LocalStrategy(
   function(username, password, done) {
     if (!password) {  // If no password is provided,return error.
-      console.log('[ERROR] No password provided')
-      return done('No password provided', false);
+      err = '[ERROR] No password provided';
+      return loginError(err, user, done);
     }
     if (authController.isEmail(username)) {  // If email
       userController.getUserFromEmail(username, function(err, user) {
-        if (err) { done(err, false) }
+        if (err) { return loginError(err, user, done); }
         else { authenticate_user(user, password, done); }
       });
     } else {  // If username
       userController.getUserFromUsername(username, function(err, user) {
-        if (err) { return done(err, false) }
+        if (err) { return loginError(err, user, done); }
         authenticate_user(user, password, done);
       });
     }
@@ -30,9 +30,19 @@ passport.use(new LocalStrategy(
 // Handle password comparison. Assume user is not null.
 function authenticate_user(user, password, done) {
   user.comparePassword(password, function(err, match) {
-    if (err || !match) { return done(err, false); }
+    if (err || !match) { if (err) { return loginError(err, user, done); } }
     else { return done(null, user); }
   });
+}
+
+/*
+Called when there is an authorization error during login.
+Will save the error for the login screen to render.
+*/
+function loginError(err, user, done) {
+  console.log("Login error: "+err);
+  authController.login_comment = err;
+  return done(null, null, {message: err});  // null, null so passport loads failureRedirect.
 }
 
 /*
@@ -68,20 +78,21 @@ authController.doRegister = function(req, res) {
       res.redirect('/user');
     });
   });
-};
+}
 
-// Post login
-authController.doLogin = function(req, res) {
-  passport.authenticate('local')(req, res, function (err, user) {
-    if(err) {
-      req.session.login_comment = err;  // This is deleted by login.js route.
-      res.redirect('/login');
-    } else if (user) {
-      console.log('[INFO] user login successful');
-      authController.postAuthentication(req, res);
-    }
-  });
-};
+//Post login
+// authController.doLogin = function(req, res) {
+//   passport.authenticate('local')(req, res, function(data) {
+//     if(data.err) {
+//       console.log(data.err);
+//       req.session.login_comment = data.err;  // This is deleted by login.js route.
+//       res.redirect('/login');
+//     } else if (data.user) {
+//       console.log('[INFO] user login successful: '+data.user);
+//       authController.postAuthentication(req, res);
+//     }
+//   });
+// }
 
 /* Once user has been authenticated, run this function */
 authController.postAuthentication = function(req, res) {

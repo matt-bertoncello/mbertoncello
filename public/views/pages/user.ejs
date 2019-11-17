@@ -8,9 +8,28 @@
   <script>
     var socket = io.connect('/');
 
-    function POST(username) {
-      socket.emit('update_username', username);
+    function update_username() {
+      socket.emit('update_username', document.getElementById('username').value);
     }
+
+    <% if (user.password) { %>
+      function update_password() {
+        socket.emit('update_password', {
+            oldPassword: document.getElementById('oldPassword').value,
+            newPassword1: document.getElementById('newPassword1').value,
+            newPassword2: document.getElementById('newPassword2').value
+        });
+      }
+    <% } %>
+
+    <% if (!user.password) { %>
+      function set_password() {
+        socket.emit('set_password', {
+            newPassword1: document.getElementById('newPassword1').value,
+            newPassword2: document.getElementById('newPassword2').value
+        });
+      }
+    <% } %>
 
     socket.on('redirect', function(destination) {
         window.location.href = destination;
@@ -46,13 +65,30 @@
   <h1>User ID: <%= user._id %></h1>
   <h1>Email: <%= user.email %></h1>
 
-  <% if (!user.username) { %>
-    <div style="color:red; font-size:30px">Must have a username to access this website</div>
-  <% } %>
-  <input class='form-control' type='text' id='username' placeholder='<%= user.username %>'>
-  <button class='btn btn-lg btn-primary btn-block' onclick="POST(document.getElementById('username').value)">Update Username</button>
-  <div class='error' id='username_error'></div>
+  <div class="project-card">
+    <% if (!user.username) { %>
+      <div style="color:red; font-size:30px">Must have a username to access this website</div>
+    <% } %>
+    <input class='form-control' type='text' id='username' placeholder='<%= user.username %>'>
+    <button class='btn btn-lg btn-primary btn-block' onclick="update_username()">Update Username</button>
+    <div class='error' id='username_error'></div>
+  </div>
 
+  <div class="project-card">
+    <% if (!user.password) { %>
+      <div style="color:red; font-size:30px">You have not set a password for this email: <%= user.email %></div>
+    <% } else { %>
+      <input class='form-control' type='password' id='oldPassword' placeholder="current password">
+    <% } %>
+    <input class='form-control' type='password' id='newPassword1' placeholder="new password">
+    <input class='form-control' type='password' id='newPassword2' placeholder="new password">
+    <% if (!user.password) { %>
+      <button class='btn btn-lg btn-primary btn-block' onclick="set_password()">Set Password</button>
+    <% } else { %>
+      <button class='btn btn-lg btn-primary btn-block' onclick="update_password()">Update Password</button>
+    <% } %>
+    <div class='error' id='password_error'></div>
+  </div>
 
   <a type="button" href="/auth/logout">Logout</a>
 
