@@ -2,10 +2,6 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 var passportLocalMongoose = require('passport-local-mongoose');
 var SALT_WORK_FACTOR = 10;
-var PASSWORD_LENGTH = 8;
-var NUMBER_MINUMUM = 3;
-var SPECIALTY_MINIMUM = 3;
-
 
 var UserSchema = new mongoose.Schema({
   name: String,
@@ -61,22 +57,13 @@ UserSchema.methods.comparePassword = function(candidatePassword, next) {
 
 /*
 Updates the saved user password. Will take raw password as input and save hash.
+Assume UserController has performed strength checks on newPassword.
 */
 UserSchema.methods.updatePassword = function(newPassword, next) {
   user = this;
 
-  // Perform security checks on newPassword;
   if (!newPassword) {
     err = "[ERROR] no password provided.";
-    return next(err, false);
-  } else if (newPassword.length < PASSWORD_LENGTH) {
-    err = "[ERROR] password needs to be at least "+PASSWORD_LENGTH+" characters long.";
-    return next(err, false);
-  } else if (newPassword.replace(/[^0-9]/g,"").length < NUMBER_MINUMUM) {
-    err = "[ERROR] password needs to have at least "+NUMBER_MINUMUM+" numbers.";
-    return next(err, false);
-  } else if (newPassword.replace(/[a-zA-Z\d\s:]/gi,"").length < SPECIALTY_MINIMUM) {
-    err = "[ERROR] password needs to have at least "+SPECIALTY_MINIMUM+" non-alphanumeric characters.";
     return next(err, false);
   }
 
