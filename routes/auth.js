@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
+var passport = require("passport");
 var passportFacebook = require('../controllers/auth/facebook');
 var passportTwitter = require('../controllers/auth/twitter');
 var passportGoogle = require('../controllers/auth/google');
 var passportGitHub = require('../controllers/auth/github');
-var postAuthentication = require("../controllers/AuthController.js").postAuthentication;
+var authController = require("../controllers/AuthController.js");
 
 /* LOGOUT ROUTER */
 router.get('/logout', function(req, res){
@@ -23,7 +24,7 @@ router.get('/facebook/callback',
   function(req, res) {
     console.log('[INFO] user logged-in via facebook: '+req.session.passport.user._id);
     req.session.passport.loginProvider = "facebook";
-    postAuthentication(req, res);
+    authController.postAuthentication(req, res);
   });
 
 /* TWITTER ROUTER */
@@ -35,7 +36,7 @@ router.get('/twitter/callback',
   function(req, res) {
     console.log('[INFO] user logged-in via twitter: '+req.session.passport.user._id);
     req.session.passport.loginProvider = "twitter";
-    postAuthentication(req, res);
+    authController.postAuthentication(req, res);
   });
 
 /* GOOGLE ROUTER */
@@ -47,7 +48,7 @@ router.get('/google/callback',
   function(req, res) {
     console.log('[INFO] user logged-in via google: '+req.session.passport.user._id);
     req.session.passport.loginProvider = "google";
-    postAuthentication(req, res);
+    authController.postAuthentication(req, res);
   });
 
 /* GITHUB ROUTER */
@@ -59,7 +60,18 @@ router.get('/github/callback',
   function(req, res) {
     console.log('[INFO] user logged-in via github: '+req.session.passport.user._id);
     req.session.passport.loginProvider = "github";
-    postAuthentication(req, res);
+    authController.postAuthentication(req, res);
+  });
+
+/* LOCAL ROUTER */
+// router.post('/local/login', (req, res) => authController.doLogin(req, res));
+
+router.post('/local/login',
+  passport.authenticate('local', { failureRedirect: '/login'}),
+  function(req, res, next) {
+    console.log('[INFO] user logged-in via local: '+req.session.passport.user._id);
+    req.session.passport.loginProvider = "local";
+    authController.postAuthentication(req, res);
   });
 
 module.exports = router;
