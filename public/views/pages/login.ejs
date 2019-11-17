@@ -18,9 +18,10 @@
     <input class='form-control' type='text' name='username' id='username' id='inputEmail' placeholder='username or email' required autofocus>
     <input class='form-control' type='password' name='password' id='password' id='inputPassword' placeholder='password' required>
     <button class='btn btn-lg btn-primary btn-block' type='submit'>LOGIN</button>
+    <a type="button" class="btn btn-lg btn-primary btn-block" href="/register">REGISTER</a>
   </form>
 
-  <p style="max-width:330px;margin: 0 auto;padding:15px; color:red;"><%= loginComment %></p>
+  <p class="error-text"><%= loginComment %></p>
 
   <div style="max-width:330px;margin: 0 auto;padding:15px;">
     <a class="btn btn-block btn-social btn-facebook" href='/auth/facebook'>

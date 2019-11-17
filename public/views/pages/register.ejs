@@ -2,24 +2,53 @@
 <html>
 <head>
   <% include ../partials/header.ejs %>
-  <title><%= process.env.TITLE %> - Register</title>
+  <title><%= process.env.TITLE %> - register</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap-social.css" />
+  <link rel="stylesheet" type="text/css" href="/stylesheets/font-awesome.css" />
+
 </head>
 
 <body>
 
   <% include ../partials/nav.ejs %>
 
-<h1>Register</h1>
+  <form class='form-signin' role='form' action='/auth/local/register' method='post'>
+    <h2 class='form-signin-heading'>Please register</h2>
+    <label class='sr-only' for='inputEmail'></label>
+    <div>
+      <input class='form-control' type='text' name='email' id='email' id='inputEmail' placeholder='email' required autofocus>
+      <p class="error-text"><%= registerComment.email %></p>
+    </div>
+    <div>
+      <input class='form-control' type='text' name='username' id='username' id='inputUsername' placeholder='username' required>
+      <p class="error-text"><%= registerComment.username %></p>
+    </div>
+    <div>
+      <input class='form-control' type='password' name='password1' id='password1' id='inputPassword1' placeholder='password' required>
+      <p class="error-text"><%= registerComment.password1 %></p>
+    </div>
+    <div>
+      <input class='form-control' type='password' name='password2' id='password2' id='inputPassword2' placeholder='password' required>
+      <p class="error-text"><%= registerComment.password2 %></p>
+    </div>
+    <button class='btn btn-lg btn-primary btn-block' type='submit'>REGISTER</button>
+    <a type="button" class="btn btn-lg btn-primary btn-block" href="/login">LOGIN</a>
+  </form>
 
-<form class='form-signin' role='form' action='/register' method='post' style='max-width:300px;'>
-  <h2 class='form-sign-in-heading'> Sign Up here
-    <input class='form-control' type='text' name='name' placeholder='Your Name'>
-    <input class='form-control' type='text' name='username' placeholder='Your Username'>
-    <input class='form-control' type='password' name='password' placeholder='Your Password'>
-    <button class='btn btn-lg btn-primary btn-block' type='sumbit'>Sign Up</button>
-</form>
-
-<a type='button' href='/login' >Login</a>
+  <div style="max-width:330px;margin: 0 auto;padding:15px;">
+    <a class="btn btn-block btn-social btn-facebook" href='/auth/facebook'>
+        <span class="fa fa-facebook"></span> Sign in with Facebook
+    </a>
+    <a class="btn btn-block btn-social btn-twitter" href='/auth/twitter'>
+        <span class="fa fa-twitter"></span> Sign in with Twitter
+    </a>
+    <a class="btn btn-block btn-social btn-google" href='/auth/google'>
+        <span class="fa fa-google"></span> Sign in with Google
+    </a>
+    <a class="btn btn-block btn-social btn-github" href='/auth/github'>
+        <span class="fa fa-github"></span> Sign in with Github
+    </a>
+  </div>
 
 </body>
 </html>

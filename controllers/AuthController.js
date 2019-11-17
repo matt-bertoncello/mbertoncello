@@ -7,6 +7,12 @@ var User = require("../models/User");
 var authController = {};
 
 authController.loginComment = null;
+authController.registerComment = {
+  email: null,
+  username: null,
+  password1: null,
+  password2: null
+};
 
 // Set serialize and deserialize functions;
 passport.serializeUser(function(user, done) { done(null, user); });
@@ -69,21 +75,6 @@ authController.checkAuthentication = function(req,res,next){
     console.log('[ERROR] user is not logged-in. Redirect to login page. Post-authentication redirect: '+userController.postLoginRedirect);
     res.redirect("/login");
   }
-}
-
-// Post registration
-authController.doRegister = function(req, res) {
-  User.register(new User({ username : req.body.username, name: req.body.name }), req.body.password, function(err, user) {
-    if (err) {
-      console.log('[ERROR] user register unsuccessful')
-      res.redirect('/register');
-    }
-
-    passport.authenticate('local')(req, res, function () {
-      console.log('[INFO] user register successful')
-      res.redirect('/user');
-    });
-  });
 }
 
 /* Once user has been authenticated, run this function */
