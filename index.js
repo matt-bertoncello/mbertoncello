@@ -16,7 +16,6 @@ require('dotenv').config();
 
 /* Define routes */
 var auth = require('./routes/auth');
-var user = require('./routes/user');
 var index = require('./routes/index');
 var nineway = require('./routes/9way');
 var hermes = require('./routes/hermes');
@@ -66,7 +65,6 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true }))
   .use('/auth', auth)
-  .use('/user', user)
   .use('/9way', nineway)
   .use('/hermes', hermes)
   .use('/', index)

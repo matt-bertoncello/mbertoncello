@@ -68,6 +68,7 @@
 
 body {
     background-color: #eee;
+    text-align: center;
 }
 
 .form-signin {
@@ -190,10 +191,18 @@ body {
   background-color: #ffffff;
 }
 
+.content-card {
+  display: inline-grid;
+  width: 330px;
+  margin: 15px;
+  border: 1px solid black;
+  box-shadow:0 4px 10px 0 rgba(0,0,0,0.2),0 4px 20px 0 rgba(0,0,0,0.19);
+  background-color: #ffffff;
+}
+
 .card-header {
   width: 100%;
   padding: 15px;
-  height: 330px;
 }
 
 .card-body {
@@ -207,4 +216,13 @@ div[alt]:hover:before {
   border: 1px solid black;
   padding: 2px 15px;
   position: absolute;
+}
+
+.content-centered {
+  display: inline-table;
+  text-align: left;
+}
+
+.content-container {
+  padding: 15px;
 }

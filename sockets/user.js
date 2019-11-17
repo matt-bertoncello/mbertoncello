@@ -20,14 +20,11 @@ socket_router.sock = function(socket, io) {
         if (err) {socket.emit('err', {id: 'password_error', text: err});}
         // if password was updated successfully, refresh page.
         else {
+          authController.updatedPassword = true;  // handled by /user in index.js.
           socket.emit('redirect', '/user');
         }
       });
     }
-  }
-
-  if (authController.postLoginRedirect) {
-    socket.emit('flash', 'A username is required to access '+authController.postLoginRedirect);
   }
 
   socket.on('update_username', function(username) {
@@ -40,9 +37,9 @@ socket_router.sock = function(socket, io) {
         if (err && err.code === 11000) {
           socket.emit('err', {id: 'username_error', text: 'This username is already taken.'});
         } else {
-          if (authController.postLoginRedirect) { // If the user was sent to to update username. Send back to original page.
-            socket.emit('redirect', authController.postLoginRedirect);
-            delete authController.postLoginRedirect;  // Delete postLoginRedirect now that user has returned to page.
+          if (userController.postLoginRedirect) { // If the user was sent to to update username. Send back to original page.
+            socket.emit('redirect', userController.postLoginRedirect);
+            delete userController.postLoginRedirect;  // Delete postLoginRedirect now that user has returned to page.
           } else {
             socket.emit('redirect', '/user');
           }

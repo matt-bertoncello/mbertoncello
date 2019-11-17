@@ -6,6 +6,12 @@ var User = require("../models/User");
 
 var authController = {};
 
+authController.loginComment = null;
+
+// Set serialize and deserialize functions;
+passport.serializeUser(function(user, done) { done(null, user); });
+passport.deserializeUser(function(obj, done) { done(null, obj); });
+
 // Update the local login strategy.
 passport.use(new LocalStrategy(
   function(username, password, done) {
@@ -41,7 +47,7 @@ Will save the error for the login screen to render.
 */
 function loginError(err, user, done) {
   console.log("Login error: "+err);
-  authController.login_comment = err;
+  authController.loginComment = err;
   return done(null, null, {message: err});  // null, null so passport loads failureRedirect.
 }
 
@@ -59,8 +65,8 @@ authController.checkAuthentication = function(req,res,next){
       });
     })
   } else {
-    authController.postLoginRedirect = req.originalUrl;
-    console.log('[ERROR] user is not logged-in. Redirect to login page. Post-authentication redirect: '+authController.postLoginRedirect);
+    userController.postLoginRedirect = req.originalUrl;
+    console.log('[ERROR] user is not logged-in. Redirect to login page. Post-authentication redirect: '+userController.postLoginRedirect);
     res.redirect("/login");
   }
 }
@@ -80,26 +86,12 @@ authController.doRegister = function(req, res) {
   });
 }
 
-//Post login
-// authController.doLogin = function(req, res) {
-//   passport.authenticate('local')(req, res, function(data) {
-//     if(data.err) {
-//       console.log(data.err);
-//       req.session.login_comment = data.err;  // This is deleted by login.js route.
-//       res.redirect('/login');
-//     } else if (data.user) {
-//       console.log('[INFO] user login successful: '+data.user);
-//       authController.postAuthentication(req, res);
-//     }
-//   });
-// }
-
 /* Once user has been authenticated, run this function */
 authController.postAuthentication = function(req, res) {
   /* If user came from 'checkAuthentication' middleware, return to initial page */
-  if (authController.postLoginRedirect) {
-    redirect = authController.postLoginRedirect;
-    delete authController.postLoginRedirect;
+  if (userController.postLoginRedirect) {
+    redirect = userController.postLoginRedirect;
+    delete userController.postLoginRedirect;
     console.log("[REDIRECT] redirected to: "+redirect)
     res.redirect(redirect);
   } else {

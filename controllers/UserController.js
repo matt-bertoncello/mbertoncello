@@ -1,10 +1,11 @@
 var mongoose = require("mongoose");
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
-var authController = require("./AuthController");
 var User = require("../models/User");
 
 var userController = {};
+
+userController.postLoginRedirect = null;
 
 /*
 Updates the User in req
@@ -30,8 +31,8 @@ userController.checkUsername = function(req, res, next) {
   if (req.user.username || exceptions.includes(req.originalUrl)) {
     next();
   } else {
-    authController.postLoginRedirect = req.originalUrl;
-    console.log('[ERROR] user does not have unique username. Post-authentication redirect: '+authController.postLoginRedirect);
+    userController.postLoginRedirect = req.originalUrl;
+    console.log('[ERROR] user does not have unique username. Post-authentication redirect: '+userController.postLoginRedirect);
     res.redirect("/user");
   }
 }
