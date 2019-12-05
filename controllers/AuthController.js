@@ -1,22 +1,60 @@
 var mongoose = require("mongoose");
 var passport = require("passport");
+var LocalStrategy = require("passport-local").Strategy;
+var userController = require("./UserController");
 var User = require("../models/User");
 
-var userController = {};
+var authController = {};
+
+authController.loginComment = null;
+authController.registerComment = {
+  email: null,
+  username: null,
+  password1: null,
+  password2: null
+};
+
+// Set serialize and deserialize functions;
+passport.serializeUser(function(user, done) { done(null, user); });
+passport.deserializeUser(function(obj, done) { done(null, obj); });
+
+// Update the local login strategy.
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    if (!password) {  // If no password is provided,return error.
+      err = '[ERROR] No password provided';
+      return loginError(err, user, done);
+    }
+    if (authController.isEmail(username)) {  // If email
+      userController.getUserFromEmail(username, function(err, user) {
+        if (err) { return loginError(err, user, done); }
+        else { authenticate_user(user, password, done); }
+      });
+    } else {  // If username
+      userController.getUserFromUsername(username, function(err, user) {
+        if (err) { return loginError(err, user, done); }
+        authenticate_user(user, password, done);
+      });
+    }
+  }
+));
+
+// Handle password comparison. Assume user is not null.
+function authenticate_user(user, password, done) {
+  user.comparePassword(password, function(err, match) {
+    if (err || !match) { if (err) { return loginError(err, user, done); } }
+    else { return done(null, user); }
+  });
+}
 
 /*
-Updates the User in req
+Called when there is an authorization error during login.
+Will save the error for the login screen to render.
 */
-userController.updateUser = function(req,res,next) {
-  if (req.session.passport && req.session.passport.user) {
-    userController.getUser(req.session.passport.user._id, function(err, user) {
-      if (err) {throw err;}
-      req.user = user;
-      next();
-    });
-  } else {
-    next();
-  }
+function loginError(err, user, done) {
+  console.log("Login error: "+err);
+  authController.loginComment = err;
+  return done(null, null, {message: err});  // null, null so passport loads failureRedirect.
 }
 
 /*
@@ -24,7 +62,7 @@ Redirect to login page if user isn't logged in.
 Load User into req.user.
 If user does not have a unique username, make user create username.
 */
-userController.checkAuthentication = function(req,res,next){
+authController.checkAuthentication = function(req,res,next){
   /* If session has never been initialised on client side, also redirect to login page */
   if (req.session.passport && req.session.passport.user) {
     userController.updateUser(req, res, function() {
@@ -39,61 +77,8 @@ userController.checkAuthentication = function(req,res,next){
   }
 }
 
-/*
-If username is not valid or unique, redirect to user update page.
-*/
-userController.checkUsername = function(req, res, next) {
-  exceptions = ["/user"];
-
-  if (req.user.username || exceptions.includes(req.originalUrl)) {
-    next();
-  } else {
-    userController.postLoginRedirect = req.originalUrl;
-    console.log('[ERROR] user does not have unique username. Post-authentication redirect: '+userController.postLoginRedirect);
-    res.redirect("/user");
-  }
-}
-
-// Restrict access to root page
-userController.home = function(req, res) {
-  res.redirect('/');
-};
-
-// Go to registration page
-userController.register = function(req, res) {
-  res.redirect('/register');
-};
-
-// Post registration
-userController.doRegister = function(req, res) {
-  User.register(new User({ username : req.body.username, name: req.body.name }), req.body.password, function(err, user) {
-    if (err) {
-      console.log('[ERROR] user register unsuccessful')
-      res.redirect('/register');
-    }
-
-    passport.authenticate('local')(req, res, function () {
-      console.log('[INFO] user register successful')
-      res.redirect('/user');
-    });
-  });
-};
-
-// Go to login page
-userController.postLogin = function(req, res) {
-  res.render('login');
-};
-
-// Post login
-userController.doLogin = function(req, res) {
-  passport.authenticate('local')(req, res, function () {
-    console.log('[INFO] user login successful');
-    userController.postAuthentication(req, res);
-  });
-};
-
 /* Once user has been authenticated, run this function */
-userController.postAuthentication = function(req, res) {
+authController.postAuthentication = function(req, res) {
   /* If user came from 'checkAuthentication' middleware, return to initial page */
   if (userController.postLoginRedirect) {
     redirect = userController.postLoginRedirect;
@@ -106,52 +91,19 @@ userController.postAuthentication = function(req, res) {
 }
 
 // logout
-userController.logout = function(req, res) {
+authController.logout = function(req, res) {
   console.log('[INFO] user logout')
   req.logout();
   res.redirect('/');
 };
 
-userController.getUser = function(id, next) {
-  User.findOne({
-    _id: id
-  }, function(err, user) {
-    if (err) {
-      throw err;
-    }
-    if (!user) {
-      err = "[ERROR] no user found with _id: "+id;
-    }
-    next(err, user);
-  });
+// Return true if string is in a valid email format.
+authController.isEmail = function(string) {
+  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(string)) {
+    return (true)
+  } else {
+    return (false)
+  }
 }
 
-// Retrieve user by Id, then update username. Return error.
-userController.updateUsername = function(id, username, next) {
-  userController.getUser(id, function(err, user) {
-    if (err) { throw err; }
-    user.username = username;
-    user.save(function(err) {
-      next(err);
-    })
-  })
-}
-
-/*
-Get user from username
-*/
-userController.getUserFromUsername = function(username, next) {
-  User.findOne({
-    username: username
-  }, function(err, user) {
-    if (err) {
-      throw err;
-    }
-    if (!user) {
-      err = "[ERROR] no user found with username: "+username;
-    }
-    next(err, user);
-  });
-}
-
-module.exports = userController;
+module.exports = authController;

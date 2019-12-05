@@ -102,12 +102,12 @@ getter.getWinnerSquareCSS = function(nineWay) {
   } else if (nineWay.getWinner() === -2) {
     return "draw";
   } else {
-    "";
+    return "";
   }
 }
 
 /*
-Return css style of each cell. pleyer1, player2, invalid and valid.
+Return css style of each cell. player1, player2, invalid and valid.
 */
 getter.getCellCSS = function(nineWay, squareId, cellId, playerId) {
   /* Check if cell is owned by a player */
@@ -142,7 +142,7 @@ getter.getSquareCSS = function(nineWay, squareId) {
   } else if (nineWay.getOwner(squareId) === 1) {
     return "player2";
   } else {
-    "";
+    return "";
   }
 }
 

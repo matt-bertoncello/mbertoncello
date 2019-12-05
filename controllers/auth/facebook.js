@@ -1,6 +1,6 @@
 var passport = require('passport')
   , FacebookStrategy = require('passport-facebook').Strategy;
-var User = require('../models/User');
+var User = require('../../models/User');
 require('dotenv').config();
 
 passport.use(new FacebookStrategy({

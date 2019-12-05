@@ -2,15 +2,38 @@
 <html>
 <head>
   <% include ../partials/header.ejs %>
-  <title><%= process.env.TITLE %> - <%= user.username %></title>
+  <% if (!user.username) { %>
+    <title><%= process.env.TITLE %> - user</title>
+  <% } else { %>
+    <title><%= process.env.TITLE %> - <%= user.username %></title>
+  <% } %>
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
     var socket = io.connect('/');
 
-    function POST(username) {
-      socket.emit('update_username', username);
+    function update_username() {
+      socket.emit('update_username', document.getElementById('username').value);
     }
+
+    <% if (user.password) { %>
+      function update_password() {
+        socket.emit('update_password', {
+            oldPassword: document.getElementById('oldPassword').value,
+            newPassword1: document.getElementById('newPassword1').value,
+            newPassword2: document.getElementById('newPassword2').value
+        });
+      }
+    <% } %>
+
+    <% if (!user.password) { %>
+      function set_password() {
+        socket.emit('set_password', {
+            newPassword1: document.getElementById('newPassword1').value,
+            newPassword2: document.getElementById('newPassword2').value
+        });
+      }
+    <% } %>
 
     socket.on('redirect', function(destination) {
         window.location.href = destination;
@@ -23,38 +46,77 @@
       }, 3*1000);
     });
 
-    socket.on('flash', function(message){
-      document.getElementById('flash').style.display = 'block';
-      document.getElementById('flash').innerHTML = message;
-      setTimeout(function () {
-        document.getElementById('flash').style.display = 'none';
-        document.getElementById('flash').innerHTML = '';
-      }, 3*1000);
-    });
-
   </script>
 </head>
 
-<body>
+<body style='text-align:center;'>
 
   <% include ../partials/nav.ejs %>
 
-  <div id=flash></div>
+  <div>
+    <% if (!user.username) { %>
+      <div style="color:red; font-size:30px">Must have a username to access this website.</div>
+    <% } %>
+    <% if (!user.password) { %>
+      <div style="color:red; font-size:30px">You have not set a password for this account.</div>
+    <% } else if (req.updatedPassword) { %>
+      <div style="color:blue; font-size:30px">Updated password.</div>
+    <% } %>
+  </div>
 
-  <h1>Name: <%= user.name %></h1>
-  <h1>Username: <%= user.username %></h1>
-  <h1>User ID: <%= user._id %></h1>
-  <h1>Email: <%= user.email %></h1>
+  <div class='content-container'>
+    <div class="content-centered">
+      <h1>Username: <%= user.username %></h1>
+      <h1>User ID: <%= user._id %></h1>
+      <h1>Email: <%= user.email %></h1>
+    </div>
+  </div>
 
-  <% if (!user.username) { %>
-    <div style="color:red; font-size:30px">Must have a username to access this website</div>
-  <% } %>
-  <input class='form-control' type='text' id='username' placeholder='<%= user.username %>'>
-  <button class='btn btn-lg btn-primary btn-block' onclick="POST(document.getElementById('username').value)">Update Username</button>
-  <div class='error' id='username_error'></div>
+  <div class='content-container'>
+    <div class="content-centered">
+      <a type="button" class="btn btn-lg btn-primary btn-block" href="/auth/logout">Logout</a>
+    </div>
+  </div>
 
+  <div class='content-container'>
+    <div class="content-card">
+      <% if (!user.username) { %>
+        <div class="card-header">Set Username</div>
+        <div class = "card-body">
+          <div class='error' id='username_error'></div>
+          <input class='form-control' type='text' id='username' placeholder='username'>
+          <button class='btn btn-lg btn-primary btn-block' onclick="update_username()">Set Username</button>
+      <% } else { %>
+        <div class="card-header">Change Username</div>
+        <div class = "card-body">
+          <div class='error' id='username_error'></div>
+          <input class='form-control' type='text' id='username' placeholder='<%= user.username %>'>
+          <button class='btn btn-lg btn-primary btn-block' onclick="update_username()">Update Username</button>
+      <% } %>
+      </div>
+    </div>
 
-  <a type="button" href="/auth/logout">Logout</a>
+    <div class="content-card">
+      <% if (!user.password) { %>
+        <div class="card-header">Set Password</div>
+        <div class = "card-body">
+          <div class='error' id='password_error'></div>
+      <% } else { %>
+        <div class="card-header">Change Password</div>
+        <div class = "card-body">
+          <div class='error' id='password_error'></div>
+          <input class='form-control' type='password' id='oldPassword' placeholder="current password">
+      <% } %>
+          <input class='form-control' type='password' id='newPassword1' placeholder="new password">
+          <input class='form-control' type='password' id='newPassword2' placeholder="new password">
+          <% if (!user.password) { %>
+            <button class='btn btn-lg btn-primary btn-block' onclick="set_password()">Set Password</button>
+          <% } else { %>
+            <button class='btn btn-lg btn-primary btn-block' onclick="update_password()">Update Password</button>
+          <% } %>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
