@@ -5,8 +5,8 @@
   margin: 10px;
   background-color: white;
   cursor: pointer;
-  display: inline-block;
-  width: 25%;
+  display: inline-grid;
+  width: 200px;
 }
 
 .bottom-wrapper {

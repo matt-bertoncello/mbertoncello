@@ -30,12 +30,21 @@
 <body>
 
   <% include ../../partials/nav.ejs %>
-  <h1>Find User</h1>
-  <div class="tabcontent" style='max-width:300px;display:block'>
+  <!-- Tab links -->
+  <div class="card bordered shadowed">
+    <h1>Find Friend</h1>
+    <div class="tab">
+      <button style='width:100%' class="tablinks active" onclick="openTab(event, 'username_tab')">Username</button>
+    </div>
 
-    <input class='form-control' type='text' id='username' placeholder='username'>
-    <button class='btn btn-lg btn-primary btn-block' onclick="newchat_user(document.getElementById('username').value)">Start Chat</button>
-    <div class='error' id='error_user'></div>
+    <!-- Tab content -->
+    <div id="username_tab" class="tabcontent" style='display:block'>
+
+      <input class='form-control' type='text' id='username' placeholder='username'>
+      <button class='card-link-inverted bordered' onclick="newchat_user(document.getElementById('username').value)">Start Chat</button>
+      <div class='error' id='error_user'></div>
+
+    </div>
 
   </div>
 

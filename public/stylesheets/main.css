@@ -234,15 +234,30 @@ div[alt]:hover:before {
   display: inline-grid;
 }
 
+.card-link {
+  height: 50px;
+  width: 100%;
+  line-height: 50px;
+  transition-duration: 0.2s;
+}
+
 .card-link:hover {
   background-color: #337ab7;
   text-decoration: none;
   color: #ffffff;
 }
 
-.card-link {
+.card-link-inverted {
   height: 50px;
   width: 100%;
   line-height: 50px;
   transition-duration: 0.2s;
+  color: #ffffff;
+  background-color: #337ab7;
+}
+
+.card-link-inverted:hover {
+  background-color: #ffffff;
+  text-decoration: none;
+  color: #337ab7;
 }
