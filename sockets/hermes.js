@@ -1,4 +1,5 @@
 var hermesController = require('../controllers/HermesController');
+var userController = require('../controllers/UserController');
 var User = require("../models/User");
 var Message = require("../models/Hermes/Message");
 
@@ -10,24 +11,6 @@ socket_router.sock = function(socket, io) {
   */
   socket.on('chatroom', function(room) {
     socket.join(room);
-
-    /*
-    Handles creating new chats
-    */
-    socket.on('newchat_user', function(username) {
-      User.findOne({
-          username: username
-        }, function(err, friend) {
-          if (err) {console.log(err);}
-          if (friend) {
-            hermesController.getChat(socket.handshake.session.passport.user._id, friend._id, function(err, chatRoom){
-              socket.emit('redirect', '/hermes/'+friend.username);
-            });
-          }
-          if (!friend) {socket.emit('err', {id: 'error_user', text: 'Cannot find user with user: '+username});}
-        });
-    });
-
     /*
     Creates new message and allocates it to the chatRoom. Emit new message to all users.
     */
@@ -51,6 +34,20 @@ socket_router.sock = function(socket, io) {
         });
       });
     });
+  });
+
+  /*
+  Handles creating new chats
+  */
+  socket.on('newchat_user', function(username) {
+    userController.getUserFromUsername(username, function(err, friend) {
+        if (friend) {
+          hermesController.getChat(socket.handshake.session.passport.user._id, friend._id, function(err, chatRoom){
+            socket.emit('redirect', '/freelance/hermes/'+friend.username);
+          });
+        }
+        if (!friend) {socket.emit('err', {id: 'error_user', text: 'Cannot find user with user: '+username});}
+      });
   });
 }
 

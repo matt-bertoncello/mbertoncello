@@ -16,12 +16,12 @@ socket_router.sock = function(socket, io) {
       nineWayController.get9Way(room, function(err, game){
         if (err) {  // If there was an error in retrieving the game, redirect to 9Way homepage.
           console.log(err);
-          socket.emit('redirect', '/9way');
+          socket.emit('redirect', '/freelance/9way');
         } else {
           game.selectCell(squareId, cellId, socket.handshake.session.passport.user._id, function(err) {
             if (err) {
               console.log(err);
-              socket.emit('redirect', '/9way');
+              socket.emit('redirect', '/freelance/9way');
             }
           });
         }
@@ -42,7 +42,7 @@ socket_router.sock = function(socket, io) {
         if (err) {console.log(err);}
         if (opponent) {
           nineWayController.createGame(socket.handshake.session.passport.user._id, opponent, function(gameId){
-            socket.emit('redirect', '/9way/'+gameId);
+            socket.emit('redirect', '/freelance/9way/'+gameId);
           })
         }
         if (!opponent) {socket.emit('err', {id: 'error_user', text: 'Cannot find user with user: '+username});}
@@ -56,7 +56,7 @@ socket_router.sock = function(socket, io) {
         if (err) {console.log(err);}
         if (opponent) {
           nineWayController.createGame(socket.handshake.session.passport.user._id, opponent, function(gameId){
-            socket.emit('redirect', '/9way/'+gameId);
+            socket.emit('redirect', '/freelance/9way/'+gameId);
           })
         }
         if (!opponent) {socket.emit('err', {id: 'error_email', text: 'Cannot find user with email: '+email});}

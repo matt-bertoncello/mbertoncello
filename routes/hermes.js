@@ -25,12 +25,12 @@ router.get('/:username', checkAuthentication, (req,res) => {
   userController.getUserFromUsername(req.params.username, function(err, friend) {
     if (err) { // if user doesn't exist, redirect to hermes homepage
       console.log(err);
-      res.redirect('/hermes');
+      res.redirect('/freelance/hermes');
     } else {  // If user does exist, attempt to get chatroom
       hermesController.getChat(req.user._id, friend._id, function(err, chatRoom) {
         if (err) {  // If there was an error in retrieving the chatroom from the params, redirect to Hermes homepage.
           console.log(err);
-          res.redirect('/hermes');
+          res.redirect('/freelance/hermes');
         } else {
           res.render('hermes/chatroom', {req: req, chatRoom: chatRoom});
         }
