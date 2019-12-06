@@ -52,7 +52,11 @@
 
 <body>
 
-  <% include ../../partials/nav.ejs %>
+  <% include ../../partials/pre-nav.ejs %>
+    <li><a href='/freelance'>Freelance Projects</a></li>
+    <li><a href='/freelance/hermes'>Hermes Dashboard</a></li>
+    <li><a href='/freelance/hermes/new'>New Chat</a></li>
+  <% include ../../partials/post-nav.ejs %>
 
 <h1>Chat Room <%= chatRoom._id %></h1>
 
