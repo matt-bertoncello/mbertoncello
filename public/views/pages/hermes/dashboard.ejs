@@ -29,7 +29,7 @@
 
     function render_card(chatRoom) {
       var div = document.createElement("div");
-      div.setAttribute('class', 'chatRoom-card');
+      div.setAttribute('class', 'card-chatroom');
       div.setAttribute('onClick', "window.location.href = '/freelance/hermes/"+chatRoom.chatName+"'");
       div.innerHTML = "<h4>"+chatRoom.chatName+"</h4>\n";
       div.innerHTML += "<div id='chatRoom"+chatRoom._id+"'></div>\n";
