@@ -10,8 +10,13 @@ router.get('/', updateUser, function(req,res) {
   res.render('index', {req: req});
 });
 
-router.get('/session', (req, res) => res.render('session', {req: req}))
-router.get('/webgl', (req, res) => res.render('webgl', {req: req}))
+router.get('/freelance', updateUser, function(req,res) { res.render('freelance', {req: req}); });
+router.get('/competencies', updateUser, function(req,res) { res.render('competencies', {req: req}); });
+router.get('/education', updateUser, function(req,res) { res.render('education', {req: req}); });
+router.get('/experience', updateUser, function(req,res) { res.render('experience', {req: req}); });
+
+router.get('/session', updateUser, function(req,res) { res.render('session', {req: req}); });
+router.get('/webgl', updateUser, function(req,res) { res.render('webgl', {req: req}); });
 
 router.get('/user', authController.checkAuthentication, function(req,res) {
   // If the password has been updated, provide it to the ejs file, and change updatePassword to false for next load.

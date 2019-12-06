@@ -8,7 +8,7 @@
   </script>
 
   <% include ../../partials/header.ejs %>
-  <title><%= process.env.TITLE %> - Hermes</title>
+  <title><%= process.env.TITLE %> - hermes</title>
   <link rel="stylesheet" type="text/css" href="/stylesheets/hermes.css" />
 
   <script src="/socket.io/socket.io.js"></script>
@@ -29,8 +29,8 @@
 
     function render_card(chatRoom) {
       var div = document.createElement("div");
-      div.setAttribute('class', 'chatRoom-card');
-      div.setAttribute('onClick', "window.location.href = '/hermes/"+chatRoom.chatName+"'");
+      div.setAttribute('class', 'card-chatroom');
+      div.setAttribute('onClick', "window.location.href = '/freelance/hermes/"+chatRoom.chatName+"'");
       div.innerHTML = "<h4>"+chatRoom.chatName+"</h4>\n";
       div.innerHTML += "<div id='chatRoom"+chatRoom._id+"'></div>\n";
       document.getElementById("chatRoom_card_wrapper").appendChild(div);
@@ -50,10 +50,14 @@
 
 <body style="text-align:center;">
 
-  <% include ../../partials/nav.ejs %>
+  <% include ../../partials/pre-nav.ejs %>
+    <li><a href='/freelance'>Freelance Projects</a></li>
+    <li><a href='/freelance/hermes'>Hermes Dashboard</a></li>
+    <li><a href='/freelance/hermes/new'>New Chat</a></li>
+  <% include ../../partials/post-nav.ejs %>
 
   <h1>Hermes Dashboard</h1>
-  <a type='button' style="display:block;" href='/hermes/new'>New Chat</a>
+  <a type='button' style="display:block;" href='/freelance/hermes/new'>New Chat</a>
 
   <div id="chatRoom_card_wrapper"></div>
 

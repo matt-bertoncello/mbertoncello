@@ -51,7 +51,8 @@
 
 <body style='text-align:center;'>
 
-  <% include ../partials/nav.ejs %>
+  <% include ../partials/pre-nav.ejs %>
+  <% include ../partials/post-nav.ejs %>
 
   <div>
     <% if (!user.username) { %>
@@ -73,30 +74,24 @@
   </div>
 
   <div class='content-container'>
-    <div class="content-centered">
-      <a type="button" class="btn btn-lg btn-primary btn-block" href="/auth/logout">Logout</a>
-    </div>
-  </div>
-
-  <div class='content-container'>
-    <div class="content-card">
+    <div class="card bordered shadowed">
       <% if (!user.username) { %>
         <div class="card-header">Set Username</div>
         <div class = "card-body">
           <div class='error' id='username_error'></div>
           <input class='form-control' type='text' id='username' placeholder='username'>
-          <button class='btn btn-lg btn-primary btn-block' onclick="update_username()">Set Username</button>
+          <button class='card-link-inverted bordered' onclick="update_username()">Set Username</button>
       <% } else { %>
         <div class="card-header">Change Username</div>
         <div class = "card-body">
           <div class='error' id='username_error'></div>
           <input class='form-control' type='text' id='username' placeholder='<%= user.username %>'>
-          <button class='btn btn-lg btn-primary btn-block' onclick="update_username()">Update Username</button>
+          <button class='card-link-inverted bordered' onclick="update_username()">Update Username</button>
       <% } %>
       </div>
     </div>
 
-    <div class="content-card">
+    <div class="card bordered shadowed">
       <% if (!user.password) { %>
         <div class="card-header">Set Password</div>
         <div class = "card-body">
@@ -110,12 +105,16 @@
           <input class='form-control' type='password' id='newPassword1' placeholder="new password">
           <input class='form-control' type='password' id='newPassword2' placeholder="new password">
           <% if (!user.password) { %>
-            <button class='btn btn-lg btn-primary btn-block' onclick="set_password()">Set Password</button>
+            <button class='card-link-inverted bordered' onclick="set_password()">Set Password</button>
           <% } else { %>
-            <button class='btn btn-lg btn-primary btn-block' onclick="update_password()">Update Password</button>
+            <button class='card-link-inverted bordered' onclick="update_password()">Update Password</button>
           <% } %>
       </div>
     </div>
+  </div>
+
+  <div class='content-container'>
+      <button style='width:100px' type="button" class="card-link-inverted bordered" href="/auth/logout">Logout</button>
   </div>
 
 </body>

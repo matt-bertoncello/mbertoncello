@@ -8,7 +8,7 @@
   </script>
 
   <% include ../../partials/header.ejs %>
-  <title><%= process.env.TITLE %> - 9 Way <%= game.getOpponent(req.user._id).username %></title>
+  <title><%= process.env.TITLE %> - 9 way <%= game.getOpponent(req.user._id).username %></title>
   <link rel="stylesheet" type="text/css" href="/stylesheets/9way.css" />
 
   <script src="/socket.io/socket.io.js"></script>
@@ -33,7 +33,11 @@
 
 <body>
 
-  <% include ../../partials/nav.ejs %>
+  <% include ../../partials/pre-nav.ejs %>
+    <li><a href='/freelance'>Freelance Projects</a></li>
+    <li><a href='/freelance/9way'>9 Way Dashboard</a></li>
+    <li><a href='/freelance/9way/new'>New Game</a></li>
+  <% include ../../partials/post-nav.ejs %>
 
   <h1>Game Id: <%= game._id %></h1>
 

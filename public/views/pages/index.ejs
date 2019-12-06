@@ -3,49 +3,31 @@
 <head>
   <% include ../partials/header.ejs %>
   <title><%= process.env.TITLE %></title>
-  <link rel="stylesheet" type="text/css" href="/stylesheets/9way.css" />
-
-  <script src="/socket.io/socket.io.js"></script>
-  <script>
-    var socket = io.connect('/');
-
-    function getNew9Way() {
-      socket.emit('getNew9Way');
-    }
-
-    socket.on('9WayBoard', function(string) {
-      document.getElementById('dynamic_9way').innerHTML = string;
-    });
-
-  </script>
-
 </head>
+<body>
 
-<body onload="getNew9Way()">
-
-  <% include ../partials/nav.ejs %>
+  <% include ../partials/pre-nav.ejs %>
+  <% include ../partials/post-nav.ejs %>
 
   <div class="jumbotron">
     <h1><%= process.env.APPLICATION_NAME %></h1>
   </div>
 
-  <div class="content-container">
-    <div class="project-card">
-      <div class="card-header" style="height: 330px;" id="dynamic_9way" onclick="getNew9Way()" alt="Click to look at more games"></div>
-      <div class="card-body">
-        <a class="btn btn-lg btn-primary btn-block" href="/9way">9 Way</a>
-      </div>
-    </div>
+  <div class="card grid bordered shadowed">
+    <a type='button' class='card-link' href="/education">Education</a>
+  </div>
 
-    <div class="project-card">
-      <img class="card-header" style="height: 330px;" src='/images/hermes.png'>
-      <div class="card-body">
-        <a class="btn btn-lg btn-primary btn-block" href="/hermes">Hermes</a>
-      </div>
-    </div>
-  <div>
+  <div class="card grid bordered shadowed">
+    <a type='button' class='card-link' href="/experience">Experience</a>
+  </div>
 
+  <div class="card grid bordered shadowed">
+    <a type='button' class='card-link' href="/competencies">Core Competencies</a>
+  </div>
 
+  <div class="card grid bordered shadowed">
+    <a type='button' class='card-link' href="/freelance">Freelance</a>
+  </div>
 
 </body>
 </html>

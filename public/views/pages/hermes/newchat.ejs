@@ -2,7 +2,7 @@
 <html>
 <head>
   <% include ../../partials/header.ejs %>
-  <title><%= process.env.TITLE %> - New Chat</title>
+  <title><%= process.env.TITLE %> - new chat</title>
   <link rel="stylesheet" type="text/css" href="/stylesheets/hermes.css" />
 
   <script src="/socket.io/socket.io.js"></script>
@@ -29,13 +29,26 @@
 
 <body>
 
-  <% include ../../partials/nav.ejs %>
-  <h1>Find User</h1>
-  <div class="tabcontent" style='max-width:300px;display:block'>
+  <% include ../../partials/pre-nav.ejs %>
+    <li><a href='/freelance'>Freelance Projects</a></li>
+    <li><a href='/freelance/hermes'>Hermes Dashboard</a></li>
+  <% include ../../partials/post-nav.ejs %>
 
-    <input class='form-control' type='text' id='username' placeholder='username'>
-    <button class='btn btn-lg btn-primary btn-block' onclick="newchat_user(document.getElementById('username').value)">Start Chat</button>
-    <div class='error' id='error_user'></div>
+  <!-- Tab links -->
+  <div class="card bordered shadowed">
+    <h1>Find Friend</h1>
+    <div class="tab">
+      <button style='width:100%' class="tablinks active" onclick="openTab(event, 'username_tab')">Username</button>
+    </div>
+
+    <!-- Tab content -->
+    <div id="username_tab" class="tabcontent" style='display:block'>
+
+      <input class='form-control' type='text' id='username' placeholder='username'>
+      <button class='card-link-inverted bordered' onclick="newchat_user(document.getElementById('username').value)">Start Chat</button>
+      <div class='error' id='error_user'></div>
+
+    </div>
 
   </div>
 

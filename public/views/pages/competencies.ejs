@@ -2,7 +2,7 @@
 <html>
 <head>
   <% include ../partials/header.ejs %>
-  <title><%= process.env.TITLE %> - Session</title>
+  <title><%= process.env.TITLE %> - competencies</title>
 </head>
 
 <body>
@@ -10,7 +10,9 @@
   <% include ../partials/pre-nav.ejs %>
   <% include ../partials/post-nav.ejs %>
 
-<h1>Session ID: <%= req.sessionID %></h1>
+  <div class="jumbotron">
+    <h1>Core Competencies</h1>
+  </div>
 
 </body>
 </html>

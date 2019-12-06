@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+  <title><%= process.env.TITLE %> - freelance</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/9way.css" />
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect('/');
+
+    function getNew9Way() {
+      socket.emit('getNew9Way');
+    }
+
+    socket.on('9WayBoard', function(string) {
+      document.getElementById('dynamic_9way').innerHTML = string;
+    });
+
+  </script>
+
+</head>
+
+<body onload="getNew9Way()">
+
+  <% include ../partials/pre-nav.ejs %>
+    <li><a href='/freelance'>Freelance Projects</a></li>
+  <% include ../partials/post-nav.ejs %>
+
+  <div class="jumbotron">
+    <h1>Freelance Projects</h1>
+  </div>
+
+  <div class="content-container">
+    <div class="card bordered shadowed">
+      <div class="card-header" style="height:330px;" id="dynamic_9way" onclick="getNew9Way()" alt="Click to look at more games"></div>
+      <div class="card-body">
+        <a type='button' class='card-link-inverted bordered' href="/freelance/9way">9 Way</a>
+      </div>
+    </div>
+
+    <div class="card bordered shadowed">
+      <img class="card-header" style="height:330px;" src='/images/hermes.png'>
+      <div class="card-body">
+        <a type='button' class='card-link-inverted bordered' href="/freelance/hermes">Hermes</a>
+      </div>
+    </div>
+  <div>
+
+
+
+</body>
+</html>

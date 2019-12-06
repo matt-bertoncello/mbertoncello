@@ -180,21 +180,10 @@ body {
   text-align: center;
 }
 
-.project-card {
+.card {
   display: inline-block;
   width: 330px;
   margin: 15px;
-  border: 1px solid black;
-  box-shadow:0 4px 10px 0 rgba(0,0,0,0.2),0 4px 20px 0 rgba(0,0,0,0.19);
-  background-color: #ffffff;
-}
-
-.content-card {
-  display: inline-grid;
-  width: 330px;
-  margin: 15px;
-  border: 1px solid black;
-  box-shadow:0 4px 10px 0 rgba(0,0,0,0.2),0 4px 20px 0 rgba(0,0,0,0.19);
   background-color: #ffffff;
 }
 
@@ -205,6 +194,8 @@ body {
 
 .card-body {
   padding: 15px;
+  display: inline-grid;
+  width:100%
 }
 
 div[alt]:hover:before {
@@ -229,4 +220,46 @@ div[alt]:hover:before {
   max-width:330px;
   margin: 0 auto;
   color:red;
+}
+
+.bordered {
+  border: 1px solid #2e6da4;
+}
+
+.shadowed {
+  box-shadow:0 4px 10px 0 rgba(0,0,0,0.2),0 4px 20px 0 rgba(0,0,0,0.19);
+}
+
+.grid {
+  display: inline-grid;
+}
+
+.card-link {
+  height: 50px;
+  width: 100%;
+  line-height: 50px;
+  transition-duration: 0.2s;
+}
+
+.card-link:hover {
+  background-color: #337ab7;
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.card-link-inverted {
+  height: 50px;
+  width: 100%;
+  line-height: 50px;
+  transition-duration: 0.2s;
+  color: #ffffff;
+  background-color: #337ab7;
+  border-radius: 10px;
+  margin-top:5px
+}
+
+.card-link-inverted:hover {
+  background-color: #ffffff;
+  text-decoration: none;
+  color: #337ab7;
 }

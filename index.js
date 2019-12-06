@@ -21,7 +21,7 @@ var nineway = require('./routes/9way');
 var hermes = require('./routes/hermes');
 
 /* Define sockets */
-var index_sock = require('./sockets/index');
+var freelance_sock = require('./sockets/freelance');
 var nineway_sock = require('./sockets/9way');
 var user_sock = require('./sockets/user');
 var hermes_sock = require('./sockets/hermes');
@@ -65,10 +65,10 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use(passport.session())
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true }))
-  .use('/auth', auth)
-  .use('/9way', nineway)
-  .use('/hermes', hermes)
   .use('/', index)
+  .use('/auth', auth)
+  .use('/freelance/9way', nineway)
+  .use('/freelance/hermes', hermes)
   .set('views', path.join(__dirname, 'public/views/pages'))
   .set('view engine', 'ejs');
 
@@ -78,7 +78,7 @@ io.use(sharedsession(mongooseSession)); // can access session from within 'io' w
 io.on('connection', function(socket){
 
   // Load socket configuration from external files.
-  index_sock.sock(socket, io);
+  freelance_sock.sock(socket, io);
   nineway_sock.sock(socket, io);
   user_sock.sock(socket, io);
   hermes_sock.sock(socket, io);

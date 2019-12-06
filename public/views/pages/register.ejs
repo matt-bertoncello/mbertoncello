@@ -10,7 +10,8 @@
 
 <body>
 
-  <% include ../partials/nav.ejs %>
+  <% include ../partials/pre-nav.ejs %>
+  <% include ../partials/post-nav.ejs %>
 
   <form class='form-signin' role='form' action='/auth/local/register' method='post'>
     <h2 class='form-signin-heading'>Please register</h2>
@@ -31,8 +32,8 @@
       <input class='form-control' type='password' name='password2' id='password2' id='inputPassword2' placeholder='password' required>
       <p class="error-text"><%= registerComment.password2 %></p>
     </div>
-    <button class='btn btn-lg btn-primary btn-block' type='submit'>REGISTER</button>
-    <a type="button" class="btn btn-lg btn-primary btn-block" href="/login">LOGIN</a>
+    <button class='card-link-inverted bordered' type='submit'>REGISTER</button>
+    <button type="button" class="card-link-inverted bordered" onclick="window.location.href='/login'">LOGIN</button>
   </form>
 
   <div style="max-width:330px;margin: 0 auto;padding:15px;">

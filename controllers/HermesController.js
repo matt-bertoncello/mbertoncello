@@ -13,10 +13,11 @@ hermesController.getChat = function(user1, user2, next) {
   }, function(err, chatRoom) {
       if (err) { throw err; }
       if (chatRoom) {  // if a chat has already been created, return that chat Id
+        console.log("chatroom: "+chatRoom)
         next(err, chatRoom);
       } else {  // if a chat hasn't already been made, create a new chatRoom
-        createChat(user1, user2, function(id) {
-          next(id);
+        createChat(user1, user2, function(err, chatRoom) {
+          next(err, chatRoom);
         })
       }
     }).populate('members', 'username').populate({ // populate messages (with most recent first) and the usernames.
