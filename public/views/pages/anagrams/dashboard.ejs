@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../../partials/header.ejs %>
+  <title><%= process.env.TITLE %> - anagrams</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/anagrams.css" />
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect('/');
+
+    function getWords(string) {
+      socket.emit('getWords', string);
+    }
+
+    socket.on('returnWords', function(array) {
+      var html = '';
+      for (var i=0; i<array.length;i++) {
+        if (array[i] != null) {
+          html += "<div class='anagrams-row'>"
+          html +=   "<div class='anagrams-header'>"
+  				html +=     "anagrams of length " + i + ":";
+          html +=   '</div>'
+  				html +=   "<div class='anagrams-content'>";
+
+          for (var j=0; j<array[i].length; j++){
+            if (j!= 0) {
+              html += ", ";
+            }
+            html += "<a href='/freelance/anagrams/"+array[i][j]+"'>"+array[i][j]+"</a>";
+          }
+
+  				html +=   "</div>";
+  				html += '</div>'
+        }
+      }
+      document.getElementById("output").innerHTML = html;
+    });
+
+  </script>
+</head>
+
+<body style="text-align:center;">
+
+  <% include ../../partials/pre-nav.ejs %>
+    <li><a href='/freelance'>Freelance Projects</a></li>
+    <li><a href='/freelance/anagrams'>Anagrams</a></li>
+  <% include ../../partials/post-nav.ejs %>
+
+  <div class='card bordered shadowed'>
+    <h2>Type a set of letters</h2>
+    <input oninput="getWords(this.value)">
+  </div>
+
+  <div class='card bordered shadowed' style='width:75%; padding-bottom:20px;'>
+    <h2>Anagrams</h2>
+    <div id='output'></div>
+  </div>
+
+  </script>
+</body>
+</html>

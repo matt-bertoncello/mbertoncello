@@ -19,12 +19,14 @@ var auth = require('./routes/auth');
 var index = require('./routes/index');
 var nineway = require('./routes/9way');
 var hermes = require('./routes/hermes');
+var anagrams = require('./routes/anagrams');
 
 /* Define sockets */
 var freelance_sock = require('./sockets/freelance');
 var nineway_sock = require('./sockets/9way');
 var user_sock = require('./sockets/user');
 var hermes_sock = require('./sockets/hermes');
+var anagrams_sock = require('./sockets/anagrams');
 
 /* Remove deprecated settings from mongoose */
 mongoose.set('useNewUrlParser', true);
@@ -69,6 +71,7 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use('/auth', auth)
   .use('/freelance/9way', nineway)
   .use('/freelance/hermes', hermes)
+  .use('/freelance/anagrams', anagrams)
   .set('views', path.join(__dirname, 'public/views/pages'))
   .set('view engine', 'ejs');
 
@@ -82,6 +85,7 @@ io.on('connection', function(socket){
   nineway_sock.sock(socket, io);
   user_sock.sock(socket, io);
   hermes_sock.sock(socket, io);
+  anagrams_sock.sock(socket, io);
 
   socket.on('disconnect', function() {
   });
