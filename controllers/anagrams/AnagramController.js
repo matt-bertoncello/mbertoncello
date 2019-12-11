@@ -5,7 +5,7 @@ var alphabetic_radix_sort = require('./alpha_radix_sort').alphabetic_radix_sort;
 
 var fs = require('fs');
 
-var wordController = {};
+var anagramController = {};
 
 class AnagramTable {
 	constructor(dictionary) {
@@ -66,6 +66,10 @@ class AnagramTable {
 		}
 
 		return anagram_list
+	}
+
+	getRandomWord() {
+		return this.array[Math.floor(Math.random()*this.array.length)];
 	}
 }
 
@@ -139,7 +143,7 @@ var anagram_table = new AnagramTable(dictionary)
 5. Sort words based on word length.
 6. Return object of words.
 */
-wordController.getWords = function(string) {
+anagramController.getWords = function(string) {
   string = string.toLowerCase();
   string = strip_nonletters(string);
 
@@ -160,4 +164,9 @@ wordController.getWords = function(string) {
   }
 }
 
-module.exports = wordController;
+// Return a random word from the anagram_table.
+anagramController.getRandomWord = function() {
+	return anagram_table.getRandomWord()[1]
+}
+
+module.exports = anagramController;

@@ -15,7 +15,7 @@
 
     socket.on('returnWords', function(array) {
       var html = '';
-      for (var i=0; i<array.length;i++) {
+      for (var i=2; i<array.length;i++) {
         if (array[i] != null) {
           html += "<div class='anagrams-row'>"
           html +=   "<div class='anagrams-header'>"
@@ -27,7 +27,7 @@
             if (j!= 0) {
               html += ", ";
             }
-            html += "<a href='/freelance/anagrams/"+array[i][j]+"'>"+array[i][j]+"</a>";
+            html += "<a href='/uni/anagrams/"+array[i][j]+"'>"+array[i][j]+"</a>";
           }
 
   				html +=   "</div>";
@@ -43,13 +43,13 @@
 <body style="text-align:center;">
 
   <% include ../../partials/pre-nav.ejs %>
-    <li><a href='/freelance'>Freelance Projects</a></li>
-    <li><a href='/freelance/anagrams'>Anagrams</a></li>
+    <li><a href='/uni'>Uni Projects</a></li>
+    <li><a href='/uni/anagrams'>Anagrams</a></li>
   <% include ../../partials/post-nav.ejs %>
 
   <div class='card bordered shadowed'>
     <h2>Type a set of letters</h2>
-    <input oninput="getWords(this.value)">
+    <input class='text-input' oninput="getWords(this.value)" placeholder= <%= random_word %>>
   </div>
 
   <div class='card bordered shadowed' style='width:75%; padding-bottom:20px;'>

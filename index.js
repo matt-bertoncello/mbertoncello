@@ -71,7 +71,7 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use('/auth', auth)
   .use('/freelance/9way', nineway)
   .use('/freelance/hermes', hermes)
-  .use('/freelance/anagrams', anagrams)
+  .use('/uni/anagrams', anagrams)
   .set('views', path.join(__dirname, 'public/views/pages'))
   .set('view engine', 'ejs');
 
