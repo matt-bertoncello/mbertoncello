@@ -2,6 +2,7 @@ var dictionary = require('./dictionary').dictionary;
 var alphabetic_binary_search = require('./alpha_binary_search').alphabetic_binary_search;
 var alphabetic_order = require('./alpha_order').alphabetic_order;
 var alphabetic_radix_sort = require('./alpha_radix_sort').alphabetic_radix_sort;
+var https = require('https');
 
 var fs = require('fs');
 
@@ -168,5 +169,31 @@ anagramController.getWords = function(string) {
 anagramController.getRandomWord = function() {
 	return anagram_table.getRandomWord()[1]
 }
+
+// Return dictionary result from searching this word.
+anagramController.getDefinition = function(word, next){
+
+	// build URL.
+	var URL = 'https://googledictionaryapi.eu-gb.mybluemix.net/?define='+word.toLowerCase()+'&lang=en'
+
+	// return value from webpage at URL.
+	var request = https.request(URL, function (res) {
+		var data = '';
+		// for each line.
+	  res.on('data', function (chunk) {
+			data += chunk;
+		});
+		// once ended.
+		res.on('end', function () {
+			next(null, data);
+		});
+	});
+	// if error.
+	request.on('error', function (e) {
+		next(e.message, null);
+	});
+
+	request.end();
+};
 
 module.exports = anagramController;
