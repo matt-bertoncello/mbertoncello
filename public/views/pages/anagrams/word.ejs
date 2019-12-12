@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../../partials/header.ejs %>
+  <title><%= process.env.TITLE %> - anagrams</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/anagrams.css" />
+
+</head>
+
+<body style="text-align:center;">
+
+  <% include ../../partials/pre-nav.ejs %>
+    <li><a href='/uni'>Uni Projects</a></li>
+    <li><a href='/uni/anagrams'>Anagrams</a></li>
+  <% include ../../partials/post-nav.ejs %>
+
+  <h1><%= word_data %></h1>
+
+</body>
+</html>
