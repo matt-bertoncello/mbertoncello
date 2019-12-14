@@ -14,8 +14,17 @@
   <script src="/socket.io/socket.io.js"></script>
   <script>
     var socket = io.connect('/');
-    <% for(var i=0; i<games.length; i++) { %>
-      socket.emit('9wayroom', <%= games[i]._id %>);
+    <% for(var i=0; i<games.yourTurn.length; i++) { %>
+      socket.emit('9wayroom', <%= games.yourTurn[i]._id %>);
+    <% } %>
+    <% for(var i=0; i<games.waiting.length; i++) { %>
+      socket.emit('9wayroom', <%= games.waiting[i]._id %>);
+    <% } %>
+    <% for(var i=0; i<games.won.length; i++) { %>
+      socket.emit('9wayroom', <%= games.won[i]._id %>);
+    <% } %>
+    <% for(var i=0; i<games.lost.length; i++) { %>
+      socket.emit('9wayroom', <%= games.lost[i]._id %>);
     <% } %>
 
     socket.on('redirect', function(destination) {
