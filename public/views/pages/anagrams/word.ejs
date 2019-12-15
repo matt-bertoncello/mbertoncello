@@ -13,7 +13,6 @@
   socket.emit('getDefinition', '<%= word %>');
 
   socket.on('returnDefinition', function(results) {
-    console.log(results);
     searching = false;
     document.getElementById('searching').style.display = 'none';
 
@@ -76,7 +75,7 @@
     <% } %>
   </div>
 
-  <div class='card bordered shadowed' style='width:75%;'>
+  <div class='card-large bordered shadowed'>
     <p style='color:grey;' id='searching'></p>
     <div id='results' style='display:none;'>
       <div id='phonetic-container' style='display:none;'>

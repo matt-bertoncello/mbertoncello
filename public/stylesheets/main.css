@@ -187,6 +187,14 @@ body {
   background-color: #ffffff;
 }
 
+.card-large {
+  display: inline-block;
+  min-width: 330px;
+  width: 75%;
+  margin: 15px;
+  background-color: #ffffff;
+}
+
 .card-header {
   width: 100%;
   padding: 15px;
@@ -268,4 +276,9 @@ div[alt]:hover:before {
   border: 0.5px solid #337ab7;
   margin-bottom: 10px;
   padding: 0px 5px;
+}
+
+.no-padding {
+  padding: 0px;
+  margin: 0px;
 }
