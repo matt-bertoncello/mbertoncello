@@ -1,7 +1,7 @@
-var hermesController = require('../controllers/HermesController');
-var userController = require('../controllers/UserController');
-var User = require("../models/User");
-var Message = require("../models/Hermes/Message");
+var hermesController = require('../../controllers/HermesController');
+var userController = require('../../controllers/UserController');
+var User = require("../../models/User");
+var Message = require("../../models/Hermes/Message");
 
 socket_router = {}
 

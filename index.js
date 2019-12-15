@@ -22,11 +22,12 @@ var hermes = require('./routes/hermes');
 var anagrams = require('./routes/anagrams');
 
 /* Define sockets */
-var freelance_sock = require('./sockets/freelance');
-var nineway_sock = require('./sockets/9way');
-var user_sock = require('./sockets/user');
-var hermes_sock = require('./sockets/hermes');
-var anagrams_sock = require('./sockets/anagrams');
+var user_sock = require('./sockets/auth/user');
+var freelance_sock = require('./sockets/freelance/freelance');
+var nineway_sock = require('./sockets/freelance/9way');
+var hermes_sock = require('./sockets/freelance/hermes');
+var anagrams_sock = require('./sockets/uni/anagrams');
+var bwt_sock = require('./sockets/uni/bwt');
 
 /* Remove deprecated settings from mongoose */
 mongoose.set('useNewUrlParser', true);
@@ -86,6 +87,7 @@ io.on('connection', function(socket){
   user_sock.sock(socket, io);
   hermes_sock.sock(socket, io);
   anagrams_sock.sock(socket, io);
+  bwt_sock.sock(socket, io);
 
   socket.on('disconnect', function() {
   });

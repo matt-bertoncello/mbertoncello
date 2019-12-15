@@ -1,6 +1,6 @@
 radixSort = {};
 
-redixSort.sort = function(array) {
+radixSort.sort = function(array) {
   return array;
 }
 

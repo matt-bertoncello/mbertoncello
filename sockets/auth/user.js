@@ -1,5 +1,5 @@
-var authController = require('../controllers/AuthController');
-var userController = require('../controllers/UserController');
+var authController = require('../../controllers/AuthController');
+var userController = require('../../controllers/UserController');
 var passport = require('passport');
 
 socket_router = {}

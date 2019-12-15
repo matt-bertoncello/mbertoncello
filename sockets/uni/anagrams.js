@@ -1,10 +1,10 @@
-var anagramController = require('../controllers/anagrams/AnagramController');
+var anagramController = require('../../controllers/anagrams/AnagramController');
 
 socket_router = {}
 
 socket_router.sock = function(socket, io) {
 
-  // Return the string HTML of a random 9way board to be displayed on the homescreen.
+  // Return a nested array of all anagrams of various lengths.
   socket.on('getAnagrams', function(string) {
     socket.emit('returnWords', anagramController.getWords(string));
   });

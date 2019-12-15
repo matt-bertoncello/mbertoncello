@@ -1,3 +1,4 @@
+var radixSort = require('./radixSort').radixSort;
 
 bwtController = {};
 

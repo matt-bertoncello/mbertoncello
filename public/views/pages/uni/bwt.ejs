@@ -2,7 +2,21 @@
 <html>
 <head>
   <% include ../../partials/header.ejs %>
-  <title><%= process.env.TITLE %> - uni projects</title>
+  <title><%= process.env.TITLE %> - bwt</title>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect('/');
+
+    function getCompression(string) {
+      socket.emit('getCompression', string);
+    }
+
+    socket.on('returnCompression', function(string) {
+      document.getElementById("output").innerHTML = string;
+    });
+    </script>
+
 </head>
 
 <body>
@@ -17,8 +31,13 @@
 
   <div class="content-container">
     <div class='card-large bordered shadowed'>
-      <h1>Input text:</h1>
-      <textarea id='input' class='text-input' style='min-width:75%;max-width:75%'></textarea>
+      <h1>Input Text:</h1>
+      <textarea id='input' class='text-input' style='min-width:75%;max-width:75%' oninput="getCompression(this.value)"></textarea>
+    </div>
+
+    <div class='card-large bordered shadowed'>
+      <h1>Compressed Output:</h1>
+      <textarea readonly id='output' class='text-input' style='min-width:75%;max-width:75%'></textarea>
     </div>
   </div>
 
