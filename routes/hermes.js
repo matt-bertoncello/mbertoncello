@@ -2,26 +2,25 @@ var express = require('express');
 var router = express.Router();
 var authController = require("../controllers/AuthController.js");
 var userController = require("../controllers/UserController.js");
-var checkAuthentication = authController.checkAuthentication;
 var hermesController = require("../controllers/HermesController.js");
 
 /* Retrieve all chat rooms for this user. */
-router.get('/', checkAuthentication, function(req,res) {
+router.get('/', authController.checkAuthentication, function(req,res) {
   hermesController.getChatRoomsForUser(req.user._id, function(err, chatRoomArray) {
     if(err) { // If there is an error, go back to homepage
       console.log(err);
       res.redirect('/');
     } else{
-      res.render('hermes/dashboard', {req: req, chatRoomArray: chatRoomArray});
+      res.render('freelance/hermes/dashboard', {req: req, chatRoomArray: chatRoomArray});
     }
   })
 });
 
 /* New ChatRoom */
-router.get('/new', checkAuthentication, (req,res) => res.render('hermes/newchat', {req: req}));
+router.get('/new', authController.checkAuthentication, (req,res) => res.render('freelance/hermes/newchat', {req: req}));
 
 /* Go To ChatRoom */
-router.get('/:username', checkAuthentication, (req,res) => {
+router.get('/:username', authController.checkAuthentication, (req,res) => {
   userController.getUserFromUsername(req.params.username, function(err, friend) {
     if (err) { // if user doesn't exist, redirect to hermes homepage
       console.log(err);
@@ -32,7 +31,7 @@ router.get('/:username', checkAuthentication, (req,res) => {
           console.log(err);
           res.redirect('/freelance/hermes');
         } else {
-          res.render('hermes/chatroom', {req: req, chatRoom: chatRoom});
+          res.render('freelance/hermes/chatroom', {req: req, chatRoom: chatRoom});
         }
       });
     }

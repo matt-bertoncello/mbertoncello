@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <% include ../partials/header.ejs %>
+  <% include ../../partials/header.ejs %>
   <% if (!user.username) { %>
     <title><%= process.env.TITLE %> - user</title>
   <% } else { %>
@@ -51,8 +51,8 @@
 
 <body style='text-align:center;'>
 
-  <% include ../partials/pre-nav.ejs %>
-  <% include ../partials/post-nav.ejs %>
+  <% include ../../partials/pre-nav.ejs %>
+  <% include ../../partials/post-nav.ejs %>
 
   <div>
     <% if (!user.username) { %>
@@ -114,7 +114,7 @@
   </div>
 
   <div class='content-container'>
-      <button style='width:100px' type="button" class="card-link-inverted bordered" href="/auth/logout">Logout</button>
+      <button style='width:100px' type="button" class="card-link-inverted bordered" onclick="window.location.href = '/auth/logout';">Logout</button>
   </div>
 
 </body>

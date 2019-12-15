@@ -13,7 +13,6 @@ hermesController.getChat = function(user1, user2, next) {
   }, function(err, chatRoom) {
       if (err) { throw err; }
       if (chatRoom) {  // if a chat has already been created, return that chat Id
-        console.log("chatroom: "+chatRoom)
         next(err, chatRoom);
       } else {  // if a chat hasn't already been made, create a new chatRoom
         createChat(user1, user2, function(err, chatRoom) {
@@ -34,9 +33,6 @@ WARNING: this will create a new chat even if one exists between the two users.
 createChat = function(user1, user2, next) {
   countController.incrementCounter('chatRoom', function(count) {
 
-    console.log(user1);
-    console.log(user2);
-
     user1_instance = crypto.createDiffieHellman(768);
     user1_key = user1_instance.generateKeys()
 
@@ -44,10 +40,6 @@ createChat = function(user1, user2, next) {
     user2_key = user2_instance.generateKeys();
 
     secret = user1_instance.computeSecret(user2_key);
-
-    console.log(user1_key.toString('hex'));
-    console.log(user2_key.toString('hex'));
-    console.log(secret.toString('hex'));
 
     chatRoom = new ChatRoom({
       _id: count,

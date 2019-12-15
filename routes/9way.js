@@ -6,12 +6,12 @@ var nineWayController = require("../controllers/9wayController.js");
 /* Dashboard */
 router.get('/', checkAuthentication, (req,res) => {
   nineWayController.get9WaysForUser(req.session.passport.user._id, function(games) { // retrieve all 9way games
-    res.render('9way/dashboard', {req: req, games: games});
+    res.render('freelance/9way/dashboard', {req: req, games: games});
   })
 });
 
 /* New Game */
-router.get('/new', checkAuthentication, (req,res) => res.render('9way/newgame', {req: req}));
+router.get('/new', checkAuthentication, (req,res) => res.render('freelance/9way/newgame', {req: req}));
 
 /* Go To Game */
 router.get('/:game', checkAuthentication, (req,res) => {
@@ -20,7 +20,7 @@ router.get('/:game', checkAuthentication, (req,res) => {
       console.log(err);
       res.redirect('/9way');
     } else {
-      res.render('9way/gameboard', {req: req, game: game});
+      res.render('freelance/9way/gameboard', {req: req, game: game});
     }
   })
 });

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../../partials/header.ejs %>
+  <title><%= process.env.TITLE %> - uni projects</title>
+</head>
+
+<body>
+
+  <% include ../../partials/pre-nav.ejs %>
+    <li><a href='/uni'>Uni Projects</a></li>
+  <% include ../../partials/post-nav.ejs %>
+
+  <div class="jumbotron">
+    <h1>Burrows-Wheeler Transform</h1>
+  </div>
+
+  <div class="content-container">
+    <div class='card-large bordered shadowed'>
+      <h1>Input text:</h1>
+      <textarea id='input' class='text-input' style='min-width:75%;max-width:75%'></textarea>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <% include ../partials/header.ejs %>
+  <% include ../../partials/header.ejs %>
   <title><%= process.env.TITLE %> - uni projects</title>
 </head>
 
 <body>
 
-  <% include ../partials/pre-nav.ejs %>
+  <% include ../../partials/pre-nav.ejs %>
     <li><a href='/uni'>Uni Projects</a></li>
-  <% include ../partials/post-nav.ejs %>
+  <% include ../../partials/post-nav.ejs %>
 
   <div class="jumbotron">
     <h1>University Projects</h1>
@@ -40,6 +40,12 @@
       </div>
       <div class="card-body">
         <a type='button' class='card-link-inverted bordered' href="/uni/anagrams">Anagrams</a>
+      </div>
+    </div>
+
+    <div class="card bordered shadowed">
+      <div class="card-body">
+        <a type='button' class='card-link-inverted bordered' href="/uni/bwt">Burrows-Wheeler Transform</a>
       </div>
     </div>
 
