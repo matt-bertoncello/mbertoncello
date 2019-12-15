@@ -7,9 +7,8 @@ router.get('/', function(req,res) { res.render('anagrams/dashboard', {req: req, 
 
 /* Search word in Oxford Dictionary and return results */
 router.get('/:word', (req,res) => {
-  anagramController.getDefinition(req.params.word, function(err, results) {
-    res.render('anagrams/word', {req: req, word_data: results});
-  });
+  var anagrams = anagramController.getPerfectAnagram(req.params.word.toLowerCase());
+  res.render('anagrams/word', {req: req, word: req.params.word.toLowerCase(), anagrams: anagrams});
 });
 
 

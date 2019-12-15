@@ -170,6 +170,18 @@ anagramController.getRandomWord = function() {
 	return anagram_table.getRandomWord()[1]
 }
 
+// Return all anagrams for word (of same length).
+anagramController.getPerfectAnagram = function(string) {
+	var perfectAnagrams = anagram_table.get_anagrams(string.toLowerCase());
+
+	// remove the input string from the perfectAnagrams list.
+	perfectAnagrams = perfectAnagrams.filter(function(value, index, arr){
+    return value != string.toLowerCase();
+	});
+
+	return perfectAnagrams;
+}
+
 // Return dictionary result from searching this word.
 anagramController.getDefinition = function(word, next){
 
@@ -183,14 +195,19 @@ anagramController.getDefinition = function(word, next){
 	  res.on('data', function (chunk) {
 			data += chunk;
 		});
-		// once ended.
+		// once data is retrieved. Attempt to convert to JSON. Return error.
 		res.on('end', function () {
-			next(null, data);
+			try {
+				next(null, JSON.parse(data)[0]);
+			}
+			catch(error) {
+				next(error, null);
+			}
 		});
 	});
 	// if error.
 	request.on('error', function (e) {
-		next(e.message, null);
+		next(e, null);
 	});
 
 	request.end();

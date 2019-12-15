@@ -8,7 +8,7 @@
   </script>
 
   <% include ../../partials/header.ejs %>
-  <title><%= process.env.TITLE %> - hermes <%= chatRoom.getChatName(req.user._id) %></title>
+  <title><%= process.env.TITLE %> - hermes '<%= chatRoom.getChatName(req.user._id) %>'</title>
   <link rel="stylesheet" type="text/css" href="/stylesheets/hermes.css" />
 
   <script src="/socket.io/socket.io.js"></script>

@@ -9,8 +9,8 @@
   <script>
     var socket = io.connect('/');
 
-    function getWords(string) {
-      socket.emit('getWords', string);
+    function getAnagrams(string) {
+      socket.emit('getAnagrams', string);
     }
 
     socket.on('returnWords', function(array) {
@@ -49,7 +49,7 @@
 
   <div class='card bordered shadowed'>
     <h2>Type a set of letters</h2>
-    <input class='text-input' oninput="getWords(this.value)" placeholder= <%= random_word %>>
+    <input class='text-input' oninput="getAnagrams(this.value)" placeholder= <%= random_word %>>
   </div>
 
   <div class='card bordered shadowed' style='width:75%; padding-bottom:20px;'>
