@@ -12,8 +12,10 @@
       socket.emit('getCompression', string);
     }
 
-    socket.on('returnCompression', function(string) {
-      document.getElementById("output").innerHTML = string;
+    socket.on('returnCompression', function(data) {
+      document.getElementById("output").innerHTML = data.string;
+      document.getElementById("input-length").innerHTML = 'Input length: '+data.inputLength;
+      document.getElementById("output-length").innerHTML = 'Output length: '+data.outputLength;
     });
     </script>
 
@@ -32,12 +34,14 @@
   <div class="content-container">
     <div class='card-large bordered shadowed'>
       <h1>Input Text:</h1>
+      <p id='input-length'>Input length: 0</p>
       <textarea id='input' class='text-input' style='min-width:75%;max-width:75%' oninput="getCompression(this.value)"></textarea>
     </div>
 
     <div class='card-large bordered shadowed'>
       <h1>Compressed Output:</h1>
-      <textarea readonly id='output' class='text-input' style='min-width:75%;max-width:75%'></textarea>
+      <p id='output-length'>Output length: 1</p>
+      <textarea readonly id='output' class='text-input' style='min-width:75%;max-width:75%'>$</textarea>
     </div>
   </div>
 
