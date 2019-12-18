@@ -1,7 +1,7 @@
 var mongoose = require("mongoose");
 var User = require("../../models/User");
 var NineWay = require("../../models/9Way/9way");
-var countController = require('../countController');
+var countController = require('../CountController');
 var userController = require('../AuthController');
 
 var nineWayController = {};

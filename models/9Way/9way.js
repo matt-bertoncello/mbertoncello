@@ -4,7 +4,7 @@ var User = require("../User");
 var getter = require("./9wayGetter");
 var setter = require("./9waySetter");
 var formatter = require("./9wayFormatter");
-var countController = require('../../controllers/countController');
+var countController = require('../../controllers/CountController');
 var userController = require('../../controllers/AuthController');
 var EMPTY = -1;
 
