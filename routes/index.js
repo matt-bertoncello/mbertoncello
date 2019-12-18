@@ -10,20 +10,20 @@ router.get('/', updateUser, function(req,res) {
   res.render('index', {req: req});
 });
 
-router.get('/freelance', updateUser, function(req,res) { res.render('freelance', {req: req}); });
-router.get('/uni', updateUser, function(req,res) { res.render('uni', {req: req}); });
+router.get('/freelance', updateUser, function(req,res) { res.render('freelance/freelance', {req: req}); });
+router.get('/uni', updateUser, function(req,res) { res.render('uni/uni', {req: req}); });
 router.get('/competencies', updateUser, function(req,res) { res.render('competencies', {req: req}); });
 router.get('/education', updateUser, function(req,res) { res.render('education', {req: req}); });
 router.get('/experience', updateUser, function(req,res) { res.render('experience', {req: req}); });
 
-router.get('/session', updateUser, function(req,res) { res.render('session', {req: req}); });
+router.get('/session', updateUser, function(req,res) { res.render('auth/session', {req: req}); });
 router.get('/webgl', updateUser, function(req,res) { res.render('webgl', {req: req}); });
 
 router.get('/user', authController.checkAuthentication, function(req,res) {
   // If the password has been updated, provide it to the ejs file, and change updatePassword to false for next load.
   req.updatedPassword = authController.updatedPassword;
   authController.updatedPassword = false;
-  res.render('user', {req: req});
+  res.render('auth/user', {req: req});
 });
 
 /* LOGIN capabilities. If user is already logged in, redirect to user page. */
@@ -34,7 +34,7 @@ router.get('/login', (req, res, next) => {
   } else {
     var comment = authController.loginComment;
     delete authController.loginComment;
-    res.render('login', {req: req, loginComment: comment});
+    res.render('auth/login', {req: req, loginComment: comment});
   }
 });
 
@@ -45,7 +45,7 @@ router.get('/register', (req, res, next) => {
   } else {
     var comment = authController.registerComment;
     authController.registerComment = { email: null, username: null, password1: null, password2: null };
-    res.render('register', {req: req, registerComment: comment});
+    res.render('auth/register', {req: req, registerComment: comment});
   }
 });
 

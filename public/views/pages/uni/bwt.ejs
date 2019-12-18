@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../../partials/header.ejs %>
+  <title><%= process.env.TITLE %> - bwt</title>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect('/');
+
+    function getCompression(string) {
+      document.getElementById("decompressed-input-length").innerHTML = 'Input length: '+document.getElementById('decompressed-input').value.length;
+      socket.emit('getCompression', string);
+    }
+
+    function getDecompression(string) {
+      document.getElementById("compressed-input-length").innerHTML = 'Input length: '+document.getElementById('compressed-input').value.length;
+      socket.emit('getDecompression', string);
+    }
+
+    socket.on('returnCompression', function(data) {
+      document.getElementById("compressed-output").innerHTML = data.string;
+      document.getElementById("compressed-output-length").innerHTML = 'Output length: '+data.outputLength;
+    });
+
+    socket.on('returnDecompression', function(data) {
+      document.getElementById("decompressed-output").innerHTML = data.string;
+      document.getElementById("decompressed-output-length").innerHTML = 'Output length: '+data.outputLength;
+    });
+
+    </script>
+
+</head>
+
+<body>
+
+  <% include ../../partials/pre-nav.ejs %>
+    <li><a href='/uni'>Uni Projects</a></li>
+  <% include ../../partials/post-nav.ejs %>
+
+  <div class="jumbotron">
+    <h1>Burrows-Wheeler Transform</h1>
+  </div>
+
+  <!-- Tab links -->
+  <div class="card-large bordered shadowed" style='min-width:450px;'>
+    <div class="tab">
+      <button style='width:50%' class="tablinks active" onclick="openTab(event, 'compression_tab')">Compress Input</button>
+      <button style='width:50%' class="tablinks" onclick="openTab(event, 'decompression_tab')">Decompress Input</button>
+    </div>
+
+    <!-- Tab content -->
+    <div id="compression_tab" class="tabcontent" style='display:block'>
+      <div class='card-large bordered shadowed'>
+        <h1>Decompressed Input:</h1>
+        <p id='decompressed-input-length'>Input length: 0</p>
+        <textarea id='decompressed-input' class='text-input' style='min-width:75%;max-width:75%' oninput="getCompression(this.value)"></textarea>
+      </div>
+
+      <div class='card-large bordered shadowed'>
+        <h1>Compressed Output:</h1>
+        <p id='compressed-output-length'>Output length: 1</p>
+        <textarea readonly id='compressed-output' class='text-input' style='min-width:75%;max-width:75%'>$</textarea>
+      </div>
+    </div>
+
+    <div id="decompression_tab" class="tabcontent">
+      <div class='card-large bordered shadowed'>
+        <h1>Compressed Input:</h1>
+        <p id='compressed-input-length'>Input length: 0</p>
+        <textarea id='compressed-input' class='text-input' style='min-width:75%;max-width:75%' oninput="getDecompression(this.value)"></textarea>
+      </div>
+
+      <div class='card-large bordered shadowed'>
+        <h1>Decompressed Output:</h1>
+        <p id='decompressed-output-length'>Output length: 0</p>
+        <textarea readonly id='decompressed-output' class='text-input' style='min-width:75%;max-width:75%'></textarea>
+      </div>
+    </div>
+  </div>
+
+<script type="text/javascript" src="/js/tabs.js"></script>
+
+</body>
+</html>

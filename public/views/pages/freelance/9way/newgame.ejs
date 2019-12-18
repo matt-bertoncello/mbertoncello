@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../../../partials/header.ejs %>
+  <title><%= process.env.TITLE %> - new 9 way</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/freelance/9way.css" />
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect('/');
+
+    socket.on('redirect', function(destination) {
+        window.location.href = destination;
+    });
+
+    function newgame_user(username) {
+      socket.emit('newgame_user', username);
+    }
+
+    function newgame_email(email) {
+      socket.emit('newgame_email', email);
+    }
+
+    socket.on('err', function(err){
+      document.getElementById(err.id).innerHTML = err.text;
+      setTimeout(function () {
+        document.getElementById(err.id).innerHTML = '';
+      }, 3*1000);
+    });
+
+  </script>
+</head>
+
+<body>
+
+  <% include ../../../partials/pre-nav.ejs %>
+    <li><a href='/freelance'>Freelance Projects</a></li>
+    <li><a href='/freelance/9way'>9 Way Dashboard</a></li>
+  <% include ../../../partials/post-nav.ejs %>
+
+  <!-- Tab links -->
+  <div class="card bordered shadowed">
+    <h1>Find Opponent</h1>
+    <div class="tab">
+      <button style='width:50%' class="tablinks active" onclick="openTab(event, 'username_tab')">Username</button>
+      <button style='width:50%' class="tablinks" onclick="openTab(event, 'email_tab')">Email</button>
+    </div>
+
+    <!-- Tab content -->
+    <div id="username_tab" class="tabcontent" style='display:block'>
+
+      <input class='form-control' type='text' id='username' placeholder='username'>
+      <button class='card-link-inverted bordered' onclick="newgame_user(document.getElementById('username').value)">Start Game</button>
+      <div class='error' id='error_user'></div>
+
+    </div>
+
+    <div id="email_tab" class="tabcontent">
+
+      <input class='form-control' type='text' id='email' placeholder='email'>
+      <button class='card-link-inverted bordered' onclick="newgame_email(document.getElementById('email').value)">Start Game</button>
+      <div class='error' id='error_email'></div>
+
+    </div>
+  </div>
+
+<script type="text/javascript" src="/js/tabs.js"></script>
+
+</body>
+</html>

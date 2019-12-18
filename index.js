@@ -17,16 +17,18 @@ require('dotenv').config();
 /* Define routes */
 var auth = require('./routes/auth');
 var index = require('./routes/index');
-var nineway = require('./routes/9way');
-var hermes = require('./routes/hermes');
-var anagrams = require('./routes/anagrams');
+var nineway = require('./routes/freelance/9way');
+var hermes = require('./routes/freelance/hermes');
+var anagrams = require('./routes/uni/anagrams');
+var bwt = require('./routes/uni/bwt');
 
 /* Define sockets */
-var freelance_sock = require('./sockets/freelance');
-var nineway_sock = require('./sockets/9way');
-var user_sock = require('./sockets/user');
-var hermes_sock = require('./sockets/hermes');
-var anagrams_sock = require('./sockets/anagrams');
+var user_sock = require('./sockets/auth/user');
+var freelance_sock = require('./sockets/freelance/freelance');
+var nineway_sock = require('./sockets/freelance/9way');
+var hermes_sock = require('./sockets/freelance/hermes');
+var anagrams_sock = require('./sockets/uni/anagrams');
+var bwt_sock = require('./sockets/uni/bwt');
 
 /* Remove deprecated settings from mongoose */
 mongoose.set('useNewUrlParser', true);
@@ -72,6 +74,7 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use('/freelance/9way', nineway)
   .use('/freelance/hermes', hermes)
   .use('/uni/anagrams', anagrams)
+  .use('/uni/bwt', bwt)
   .set('views', path.join(__dirname, 'public/views/pages'))
   .set('view engine', 'ejs');
 
@@ -86,6 +89,7 @@ io.on('connection', function(socket){
   user_sock.sock(socket, io);
   hermes_sock.sock(socket, io);
   anagrams_sock.sock(socket, io);
+  bwt_sock.sock(socket, io);
 
   socket.on('disconnect', function() {
   });

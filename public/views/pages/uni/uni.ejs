@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../../partials/header.ejs %>
+  <title><%= process.env.TITLE %> - uni projects</title>
+</head>
+
+<body>
+
+  <% include ../../partials/pre-nav.ejs %>
+    <li><a href='/uni'>Uni Projects</a></li>
+  <% include ../../partials/post-nav.ejs %>
+
+  <div class="jumbotron">
+    <h1>University Projects</h1>
+  </div>
+
+  <div class="content-container">
+
+    <div class="card bordered shadowed">
+      <div class='card-header' style='padding: 15px 15px 0px 15px; height:275px;'>
+        <div>
+          <h2 class='no-padding'>Phonetic</h2>
+          <div>
+            <p>/ˈanəɡram/</p>
+          </div>
+        </div>
+        <div>
+          <h2 class='no-padding'>Definitions</h2>
+          <div>
+            <p><b>noun</b>: A word, phrase, or name formed by rearranging the letters of another, such as spar, formed from rasp.</p>
+          </div>
+        </div>
+        <div>
+          <h2 class='no-padding'>Origin</h2>
+          <div>
+            <p class='no-padding'>Late 16th century from French anagramme or modern Latin anagramma, from Greek ana- ‘back, anew’ + gramma ‘letter’.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <a type='button' class='card-link-inverted bordered' href="/uni/anagrams">Anagrams</a>
+      </div>
+    </div>
+
+    <div class="card bordered shadowed">
+      <img class="card-header" style="height:275px;width:unset;" src='/images/BWT-mississippi.png'>
+      <div class="card-body">
+        <a type='button' class='card-link-inverted bordered' href="/uni/bwt">Burrows-Wheeler Transform</a>
+      </div>
+    </div>
+
+</body>
+</html>
