@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var checkAuthentication = require("../controllers/AuthController.js").checkAuthentication;
-var nineWayController = require("../controllers/9wayController.js");
+var checkAuthentication = require("../../controllers/AuthController.js").checkAuthentication;
+var nineWayController = require("../../controllers/9wayController.js");
 
 /* Dashboard */
 router.get('/', checkAuthentication, (req,res) => {

@@ -17,9 +17,10 @@ require('dotenv').config();
 /* Define routes */
 var auth = require('./routes/auth');
 var index = require('./routes/index');
-var nineway = require('./routes/9way');
-var hermes = require('./routes/hermes');
-var anagrams = require('./routes/anagrams');
+var nineway = require('./routes/freelance/9way');
+var hermes = require('./routes/freelance/hermes');
+var anagrams = require('./routes/uni/anagrams');
+var bwt = require('./routes/uni/bwt');
 
 /* Define sockets */
 var user_sock = require('./sockets/auth/user');
@@ -73,6 +74,7 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use('/freelance/9way', nineway)
   .use('/freelance/hermes', hermes)
   .use('/uni/anagrams', anagrams)
+  .use('/uni/bwt', bwt)
   .set('views', path.join(__dirname, 'public/views/pages'))
   .set('view engine', 'ejs');
 

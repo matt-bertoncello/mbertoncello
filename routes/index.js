@@ -12,7 +12,6 @@ router.get('/', updateUser, function(req,res) {
 
 router.get('/freelance', updateUser, function(req,res) { res.render('freelance/freelance', {req: req}); });
 router.get('/uni', updateUser, function(req,res) { res.render('uni/uni', {req: req}); });
-router.get('/uni/bwt', updateUser, function(req,res) { res.render('uni/bwt', {req: req}); });
 router.get('/competencies', updateUser, function(req,res) { res.render('competencies', {req: req}); });
 router.get('/education', updateUser, function(req,res) { res.render('education', {req: req}); });
 router.get('/experience', updateUser, function(req,res) { res.render('experience', {req: req}); });
