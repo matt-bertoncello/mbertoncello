@@ -1,4 +1,4 @@
-var hermesController = require('../../controllers/HermesController');
+var hermesController = require('../../controllers/freelance/HermesController');
 var userController = require('../../controllers/UserController');
 var User = require("../../models/User");
 var Message = require("../../models/Hermes/Message");

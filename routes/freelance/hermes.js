@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var authController = require("../../controllers/AuthController.js");
 var userController = require("../../controllers/UserController.js");
-var hermesController = require("../../controllers/HermesController.js");
+var hermesController = require("../../controllers/freelance/HermesController.js");
 
 /* Retrieve all chat rooms for this user. */
 router.get('/', authController.checkAuthentication, function(req,res) {

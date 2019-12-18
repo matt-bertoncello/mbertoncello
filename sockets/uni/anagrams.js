@@ -1,4 +1,4 @@
-var anagramController = require('../../controllers/anagrams/AnagramController');
+var anagramController = require('../../controllers/uni/anagrams/AnagramController');
 
 socket_router = {}
 

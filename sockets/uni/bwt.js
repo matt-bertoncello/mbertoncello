@@ -1,4 +1,4 @@
-var bwtController = require('../../controllers/bwt/BWTController');
+var bwtController = require('../../controllers/uni/bwt/BWTController');
 
 socket_router = {}
 

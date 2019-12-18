@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var anagramController = require('../../controllers/anagrams/AnagramController');
+var anagramController = require('../../controllers/uni/anagrams/AnagramController');
 
 /* Go to anagrams dashboard. */
 router.get('/', function(req,res) { res.render('uni/anagrams/dashboard', {req: req, random_word: anagramController.getRandomWord()}); });

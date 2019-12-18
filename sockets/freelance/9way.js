@@ -1,4 +1,4 @@
-var nineWayController = require('../../controllers/9wayController');
+var nineWayController = require('../../controllers/freelance/9wayController');
 var User = require("../../models/User");
 
 socket_router = {}
