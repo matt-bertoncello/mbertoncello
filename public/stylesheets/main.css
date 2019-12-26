@@ -195,6 +195,10 @@ body {
   background-color: #ffffff;
 }
 
+.wide {
+  width: 75%;
+}
+
 .card-header {
   width: 100%;
   padding: 15px;

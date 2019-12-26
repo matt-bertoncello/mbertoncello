@@ -24,7 +24,7 @@ class AnagramTable {
 			x += 1;
 		}
 		this.array = array;
-    console.log('[INFO] created word array');
+    console.log('[INFO] Created word array');
 	}
 	get_key(string) {
 		return alphabetic_order(string);
