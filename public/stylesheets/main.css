@@ -187,14 +187,6 @@ body {
   background-color: #ffffff;
 }
 
-.card-large {
-  display: inline-block;
-  min-width: 330px;
-  width: 75%;
-  margin: 15px;
-  background-color: #ffffff;
-}
-
 .wide {
   width: 75%;
 }

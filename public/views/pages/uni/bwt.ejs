@@ -43,7 +43,7 @@
   </div>
 
   <!-- Tab links -->
-  <div class="card-large bordered shadowed" style='min-width:450px;'>
+  <div class="card wide bordered shadowed" style='min-width:450px;'>
     <div class="tab">
       <button style='width:50%' class="tablinks active" onclick="openTab(event, 'compression_tab')">Compress Input</button>
       <button style='width:50%' class="tablinks" onclick="openTab(event, 'decompression_tab')">Decompress Input</button>
@@ -51,13 +51,13 @@
 
     <!-- Tab content -->
     <div id="compression_tab" class="tabcontent" style='display:block'>
-      <div class='card-large bordered shadowed'>
+      <div class='card wide bordered shadowed'>
         <h1>Decompressed Input:</h1>
         <p id='decompressed-input-length'>Input length: 0</p>
         <textarea id='decompressed-input' class='text-input' style='min-width:75%;max-width:75%' oninput="getCompression(this.value)"></textarea>
       </div>
 
-      <div class='card-large bordered shadowed'>
+      <div class='card wide bordered shadowed'>
         <h1>Compressed Output:</h1>
         <p id='compressed-output-length'>Output length: 1</p>
         <textarea readonly id='compressed-output' class='text-input' style='min-width:75%;max-width:75%'>$</textarea>
@@ -65,13 +65,13 @@
     </div>
 
     <div id="decompression_tab" class="tabcontent">
-      <div class='card-large bordered shadowed'>
+      <div class='card wide bordered shadowed'>
         <h1>Compressed Input:</h1>
         <p id='compressed-input-length'>Input length: 0</p>
         <textarea id='compressed-input' class='text-input' style='min-width:75%;max-width:75%' oninput="getDecompression(this.value)"></textarea>
       </div>
 
-      <div class='card-large bordered shadowed'>
+      <div class='card wide bordered shadowed'>
         <h1>Decompressed Output:</h1>
         <p id='decompressed-output-length'>Output length: 0</p>
         <textarea readonly id='decompressed-output' class='text-input' style='min-width:75%;max-width:75%'></textarea>
