@@ -187,12 +187,8 @@ body {
   background-color: #ffffff;
 }
 
-.card-large {
-  display: inline-block;
-  min-width: 330px;
+.wide {
   width: 75%;
-  margin: 15px;
-  background-color: #ffffff;
 }
 
 .card-header {
