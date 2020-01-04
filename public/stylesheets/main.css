@@ -189,6 +189,7 @@ body {
 
 .wide {
   width: 75%;
+  max-width: 900px;
 }
 
 .card-header {
