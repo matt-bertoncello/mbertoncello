@@ -93,6 +93,19 @@ userController.getUserFromEmail = function(email, next) {
   });
 }
 
+/*
+Get user from auth_token.
+*/
+userController.getUserFromAuthToken = function(auth_token, next) {
+  User.findOne({ auth_token: auth_token}, function(err, user) {
+    if (err) { throw err; }
+    if (!user) {
+      err = "[ERROR] no user found with auth_token: "+auth_token;
+    }
+    next(err, user);
+  });
+}
+
 userController.checkPasswordStrength = function(password, next) {
   if (!password) {
     err = "[ERROR] no password provided.";

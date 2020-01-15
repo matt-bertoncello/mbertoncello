@@ -56,7 +56,6 @@ Called when there is an authorization error during login.
 Will save the error for the login screen to render.
 */
 function loginError(err, user, done) {
-  console.log("Login error: "+err);
   authController.loginComment = err;
   return done(null, null, {message: err});  // null, null so passport loads failureRedirect.
 }
