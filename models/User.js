@@ -9,21 +9,21 @@ var UserSchema = new mongoose.Schema({
   username:  {type:String, unique:true, sparse:true},
   google: {
     id: String,
-    displayName: String
+    displayName: String,
   },
   facebook: {
     id: String,
-    displayName: String
+    displayName: String,
   },
   twitter: {
     id: String,
     username: String,
-    displayName: String
+    displayName: String,
   },
   github: {
     id: String,
     username: String,
-    displayName: String
+    displayName: String,
   },
   email: {type:String, unique:true, required:true},
   updated_at: { type: Date, default: Date.now },
@@ -31,7 +31,10 @@ var UserSchema = new mongoose.Schema({
   created: {type: Date, default: Date.now},
   updated: {type: Date, default: Date.now},
   password: String,
-  auth_token: {type:String, unique:true, default:uuid},
+  notify: {
+    auth_token: {type:String, unique:true, default:uuid},
+    firebase_instances: {type:[String], unique:true, default:[]},
+  },
 });
 
 // On pre-save, update the 'updated' field and check if password needs to be re-hashed.
@@ -84,6 +87,28 @@ UserSchema.methods.updatePassword = function(newPassword, next) {
         });
     });
   });
+}
+
+/*
+Add this firebase token to list of user's tokens.
+Each token refers to a unique mobile device.
+When Notify is triggered to send to this user, all tokens will be sent.
+*/
+UserSchema.methods.addFirebaseToken = function(token, next) {
+  // if token is not already saved in array, push to array.
+  if (!this.notify.firebase_instances.includes(token)) {
+    this.notify.firebase_instances.push(token);
+
+    this.save(function(err) {
+      if (err) {return next(err, false);}
+      else {
+        console.log("added firebase instance: "+token);
+        return next(null, true);
+      }
+    });
+  } else {
+    return next(null, true);
+  }
 }
 
 module.exports = mongoose.model('User', UserSchema);

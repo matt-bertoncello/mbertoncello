@@ -28,7 +28,7 @@ passport.use(new LocalStrategy(
 authController.attempt_login = function(username, password, done) {
   if (!password) {  // If no password is provided,return error.
     err = '[ERROR] No password provided';
-    return loginError(err, user, done);
+    return loginError(err, null, done);
   }
   if (authController.isEmail(username)) {  // If email
     userController.getUserFromEmail(username, function(err, user) {

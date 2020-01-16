@@ -28,14 +28,19 @@ router.get('/api/v1/login', function(req, res) {
       res.json({'message': 'error code: 101'});
       res.end();
     }
-    // If login was successful:
+    // If login was successful, responde with successful status and provide auth_token for future. Save firebase_instance_id to User.
     else {
       // create response.
       res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
-      res.json({'auth_token': user.auth_token});
+      res.json({'auth_token': user.notify.auth_token});
       res.end();
-      console.log('user logged-in via API: '+user._id)
+      console.log('user logged-in via API: '+user._id);
+
+      user.addFirebaseToken(req.headers.firebase_instance_id, function(err, success) {
+        if (err) {throw err}
+        if (!err&& !success) {throw "server error 203"}
+      });
     }
 
   });
