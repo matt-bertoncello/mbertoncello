@@ -19,7 +19,6 @@ var auth = require('./routes/auth');
 var index = require('./routes/index');
 var nineway = require('./routes/freelance/9way');
 var hermes = require('./routes/freelance/hermes');
-var notify = require('./routes/freelance/notify');
 var anagrams = require('./routes/uni/anagrams');
 var bwt = require('./routes/uni/bwt');
 
@@ -28,7 +27,6 @@ var user_sock = require('./sockets/auth/user');
 var freelance_sock = require('./sockets/freelance/freelance');
 var nineway_sock = require('./sockets/freelance/9way');
 var hermes_sock = require('./sockets/freelance/hermes');
-var notify_sock = require('./sockets/freelance/notify');
 var anagrams_sock = require('./sockets/uni/anagrams');
 var bwt_sock = require('./sockets/uni/bwt');
 
@@ -45,7 +43,7 @@ const mongoDetails = {
   password: process.env.MONGO_PASSWORD,
   cluster: process.env.MONGO_CLUSTER
 }
-const uri = 'mongodb+srv://'+mongoDetails.user+':'+mongoDetails.password+'@'+mongoDetails.cluster+'-clgtv.gcp.mongodb.net/'+mongoDetails.dbName+'?authSource=admin&retryWrites=true';
+const uri = 'mongodb+srv://'+mongoDetails.user+':'+mongoDetails.password+'@'+mongoDetails.cluster+'-'+process.env.MONGO_STRING+'.mongodb.net/'+mongoDetails.dbName+'?authSource=admin&retryWrites=true';
 
 /* Connect to mongoDB*/
 mongoose.connect(uri)
@@ -75,7 +73,6 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use('/auth', auth)
   .use('/freelance/9way', nineway)
   .use('/freelance/hermes', hermes)
-  .use('/freelance/notify', notify)
   .use('/uni/anagrams', anagrams)
   .use('/uni/bwt', bwt)
   .set('views', path.join(__dirname, 'public/views/pages'))
@@ -91,7 +88,6 @@ io.on('connection', function(socket){
   nineway_sock.sock(socket, io);
   user_sock.sock(socket, io);
   hermes_sock.sock(socket, io);
-  notify_sock.sock(socket, io);
   anagrams_sock.sock(socket, io);
   bwt_sock.sock(socket, io);
 
