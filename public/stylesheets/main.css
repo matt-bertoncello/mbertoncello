@@ -279,3 +279,9 @@ div[alt]:hover:before {
   padding: 0px;
   margin: 0px;
 }
+
+.two-column {
+  display: inline-grid;
+  vertical-align: middle;
+  margin: 0px 50px;
+}

@@ -21,23 +21,27 @@ passport.deserializeUser(function(obj, done) { done(null, obj); });
 // Update the local login strategy.
 passport.use(new LocalStrategy(
   function(username, password, done) {
-    if (!password) {  // If no password is provided,return error.
-      err = '[ERROR] No password provided';
-      return loginError(err, user, done);
-    }
-    if (authController.isEmail(username)) {  // If email
-      userController.getUserFromEmail(username, function(err, user) {
-        if (err) { return loginError(err, user, done); }
-        else { authenticate_user(user, password, done); }
-      });
-    } else {  // If username
-      userController.getUserFromUsername(username, function(err, user) {
-        if (err) { return loginError(err, user, done); }
-        authenticate_user(user, password, done);
-      });
-    }
+    authController.attempt_login(username, password, done);
   }
 ));
+
+authController.attempt_login = function(username, password, done) {
+  if (!password) {  // If no password is provided,return error.
+    err = '[ERROR] No password provided';
+    return loginError(err, null, done);
+  }
+  if (authController.isEmail(username)) {  // If email
+    userController.getUserFromEmail(username, function(err, user) {
+      if (err) { return loginError(err, user, done); }
+      else { authenticate_user(user, password, done); }
+    });
+  } else {  // If username
+    userController.getUserFromUsername(username, function(err, user) {
+      if (err) { return loginError(err, user, done); }
+      authenticate_user(user, password, done);
+    });
+  }
+}
 
 // Handle password comparison. Assume user is not null.
 function authenticate_user(user, password, done) {
@@ -52,7 +56,6 @@ Called when there is an authorization error during login.
 Will save the error for the login screen to render.
 */
 function loginError(err, user, done) {
-  console.log("Login error: "+err);
   authController.loginComment = err;
   return done(null, null, {message: err});  // null, null so passport loads failureRedirect.
 }

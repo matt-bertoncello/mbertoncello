@@ -2,34 +2,35 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcryptjs');
 var passportLocalMongoose = require('passport-local-mongoose');
 var SALT_WORK_FACTOR = 10;
+var uuid = require('uuid/v4');
 
 var UserSchema = new mongoose.Schema({
   name: String,
   username:  {type:String, unique:true, sparse:true},
   google: {
     id: String,
-    displayName: String
+    displayName: String,
   },
   facebook: {
     id: String,
-    displayName: String
+    displayName: String,
   },
   twitter: {
     id: String,
     username: String,
-    displayName: String
+    displayName: String,
   },
   github: {
     id: String,
     username: String,
-    displayName: String
+    displayName: String,
   },
   email: {type:String, unique:true, required:true},
   updated_at: { type: Date, default: Date.now },
   provider: String,
   created: {type: Date, default: Date.now},
   updated: {type: Date, default: Date.now},
-  password: String
+  password: String,
 });
 
 // On pre-save, update the 'updated' field and check if password needs to be re-hashed.
