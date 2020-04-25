@@ -15,6 +15,7 @@ router.get('/freelance/website', updateUser, function(req,res) { res.render('fre
 router.get('/uni', updateUser, function(req,res) { res.render('uni/uni', {req: req}); });
 router.get('/competencies', updateUser, function(req,res) { res.render('competencies', {req: req}); });
 router.get('/education', updateUser, function(req,res) { res.render('education', {req: req}); });
+router.get('/about', updateUser, function(req,res) { res.render('about', {req: req}); });
 router.get('/experience', updateUser, function(req,res) { res.render('experience', {req: req}); });
 
 router.get('/session', updateUser, function(req,res) { res.render('auth/session', {req: req}); });
