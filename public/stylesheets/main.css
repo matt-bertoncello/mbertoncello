@@ -708,3 +708,14 @@ div[alt]:hover:before {
   padding: 10px 10px;
   margin: 20px auto auto auto;
 }
+
+.title-thiswebsite-img {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0px;
+}
+
+.title-thiswebsite-img img {
+  width: 100px;
+  margin: 20px;
+}

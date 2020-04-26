@@ -17,6 +17,9 @@
   .nav-soften, .nav-soften a {
     color: var(--main-nav-text-colour) !important;
   }
+  .title-thiswebsite-img {
+    display: unset;
+  }
 }
 
 /* mobile */
