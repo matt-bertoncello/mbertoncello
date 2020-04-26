@@ -2,9 +2,25 @@
 <html>
 <head>
   <% include ../partials/header.ejs %>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/freelance/9way.css" />
   <title><%= process.env.TITLE %></title>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect('/');
+
+    function getNew9Way() {
+      socket.emit('getNew9Way');
+    }
+
+    socket.on('9WayBoard', function(string) {
+      document.getElementById('dynamic_9way').innerHTML = string;
+    });
+
+  </script>
 </head>
-<body>
+
+<body onload="getNew9Way()">
 
   <% include ../partials/pre-nav.ejs %>
   <% include ../partials/post-nav.ejs %>
@@ -13,31 +29,31 @@
     <div class='content'>
 
       <div class='column-container page-height'>
-        <div class='two-column'>
+        <div class='column'>
           <h1 style='margin:0;padding-top:10px;'>Matt Bertoncello</h1>
           <img class='mb-portrait' src='/images/portrait.png'>
           <p class='marketing'>
             Hello and thank you for arriving at my personal website. <a href='/projects'>Here</a>, you will find a collection of projects in various stages of completion.
           </p>
           <p class='marketing'>
-            To learn more about me, please browse my <a href='/about'>about</a> page.
+            To learn more about me, please browse my <a href='/about'>About</a> page.
           </p>
           <p class='marketing'>
             Kind regards,</br>Matt Bertoncello.
           </p>
         </div>
 
-        <div class='two-column sec-fill title-page-register'>
+        <div class='column sec-fill title-page-register'>
           <div class='title-page-card'>
             <h1>Notable Projects</h1>
             <a class='title-project-link title-project-link-notify' href='#notify'>
               <span class='title-project-link-text'>Notify</span>
             </a>
-            <a class='title-project-link title-project-link-nineway' href='#nineway'>
-              <span class='title-project-link-text'>9 Way Tic-Tac-Toe</span>
+            <a class='title-project-link title-project-link-ultimate' href='#ultimate'>
+              <span class='title-project-link-text'>Ultimate Tic-Tac-Toe</span>
             </a>
-            <a class='title-project-link title-project-link-hermes' href='#hermes'>
-              <span class='title-project-link-text'>Hermes Messanger</span>
+            <a class='title-project-link title-project-link-messenger' href='#messenger'>
+              <span class='title-project-link-text'>Messanger Service</span>
             </a>
             <a class='title-project-link title-project-link-website' href='#thiswebsite'>
               <span class='title-project-link-text'>This Website</span>
@@ -52,39 +68,68 @@
     <div class='anchor' id='notify'></div>
     <div class='content'>
       <div class='column-container page-height'>
-        <div class='two-column'>
-          column 1
-        </div>
-        <div class='two-column'>
-          column 2
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class='page-section-nineway-title'>
-    <div class='anchor' id='nineway'></div>
-    <div class='content'>
-      <div class='column-container page-height'>
-        <div class='two-column'>
-          column 1
-        </div>
-        <div class='two-column'>
-          column 2
+        <div class='column'>
+          <img class='notify-title' src='/images/notify-title.svg'>
+          <p class='marketing'>
+            Notify provides developers and organisations with secure endpoints to send customisable notifications
+            to the companion mobile application. This means you no longer have to create your own application to have
+            complete control over your notification content, aethetics and tracking. See <a href='/freelance/notify'>here</a>
+            for more information.
+          </p>
         </div>
       </div>
     </div>
   </div>
 
-  <div class='page-section-hermes-title'>
-    <div class='anchor' id='hermes'></div>
+  <div class='page-section-ultimate-title'>
+    <div class='anchor' id='ultimate'></div>
     <div class='content'>
       <div class='column-container page-height'>
-        <div class='two-column'>
-          column 1
+        <div class='column'>
+          <div class='card-ultimate-title'>
+            <div class="card-header" id="dynamic_9way" onclick="getNew9Way()" alt="Click to look at more games"></div>
+          </div>
         </div>
-        <div class='two-column'>
-          column 2
+        <div class='column'>
+          <h1 class='card-ultimate-title bold'>Ultimate Tic-Tac-Toe</h1>
+          <div class='card-ultimate-title'>
+            <p class='marketing'>
+              Ultimate Tic-Tac-Toe consists of 9 separate tic-tac-toe boards. Each turn, a player can play in one of the
+              smaller tic-tac-toe boards. This smaller board is determined based on the previous player's selection. For this reason,
+              it is a much more strategic game than the original.
+            </p>
+            <p class='marketing'>
+              Eventually, an AI will be trained to play this game against humans. Proposed solutions are minimax variants or monte-carlo simulations.
+            </p>
+            <p class='marketing'>
+              Play Ultimate Tic-Tac-Toe <a href='/freelance/9way'>here</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='page-section-messenger-title'>
+    <div class='anchor' id='messenger'></div>
+    <div class='content'>
+      <div class='column-container page-height'>
+        <div class='column hide-mobile-nav title-img-hermes'>
+          <img src='/images/hermes/hermes-white.png'>
+        </div>
+        <div class='column'>
+          <h1 class='bold'>Messenger Service</h1>
+          <p class='marketing'>
+            This instant messenging service, dubbed 'Hermes', uses sockets to communicate real-time with the NodeJS server
+            and any other clients participating in the chat. Currently, messages are stored in plain-text in the MongoDB
+            database - but the goal is to learn and implement end-to-end encryption.
+          </p>
+          <p class='marketing'>
+            Find out more about <a href='/freelance/hermes' style='font-weight:800;'>Hermes</a>.
+          </p>
+        </div>
+        <div class='column hide-mobile-nav title-img-hermes flip-x'>
+          <img src='/images/hermes/hermes-white.png'>
         </div>
       </div>
     </div>
@@ -94,11 +139,21 @@
     <div class='anchor' id='thiswebsite'></div>
     <div class='content'>
       <div class='column-container page-height'>
-        <div class='two-column'>
-          column 1
-        </div>
-        <div class='two-column'>
-          column 2
+        <div class='column'>
+          <h1 class='bold'>This Website</h1>
+          <p class='marketing'>
+            This website is hosted by <a href='https://heroku.com'>Heroku</a>. It is running off a NodeJS
+            server connected to a MongoDB databse hosted by <a href='https://www.mongodb.com/cloud/atlas'>Atlas</a>.
+            The NodeJS server renders Embedded JavaScript Templates and maintains a socket connection for specific
+            pages to enable real-time client-server communication.
+          </p>
+          <p class='marketing'>
+            I am using this website as a platform to develop hobby projects and gain experience in areas of software
+            development that cannot be taught.
+          </p>
+          <p class='marketing'>
+            Read more about this website <a href='/freelance/this-website'>here</a>.
+          </p>
         </div>
       </div>
     </div>

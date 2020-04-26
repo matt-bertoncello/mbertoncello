@@ -15,9 +15,10 @@
   --main-border-radius: 3px;
   --header-height: 50px;
 
-  --nineway-main-colour: #03a9f4;
+  --ultimate-main-colour: #03a9f4;
   --notify-main-colour: #ffce00;
-  --hermes-main-colour: #b11226;
+  --notify-sec-colour: #ffce00c0;
+  --messenger-main-colour: #dea6ab;
 }
 
 body {
@@ -95,6 +96,7 @@ body {
 
 .mb-portrait {
   width: 20vw;
+  max-width: 600px;
   border-radius: 100%;
   padding-top: 10px;
 }
@@ -568,11 +570,12 @@ div[alt]:hover:before {
   margin: 10px auto;
   width: 40vw;
   min-width: 300px;
+  max-width: 600px;
   font-size: 15px;
   font-weight: 400;
 }
 
-.two-column {
+.column {
   margin: auto;
 }
 
@@ -605,25 +608,25 @@ div[alt]:hover:before {
   background-size: 60% 60%;
 }
 
-.title-project-link-nineway {
-  background-image: url('/images/blueX.png'), url('/images/redO.png');
+.title-project-link-ultimate {
+  background-image: url('/images/ultimate/blueX.png'), url('/images/ultimate/redO.png');
   background-position: left, right;
 }
 
-.title-project-link-nineway:hover {
-  border-color: var(--nineway-main-colour);
-  color: var(--nineway-main-colour);
+.title-project-link-ultimate:hover {
+  border-color: var(--ultimate-main-colour);
+  color: var(--ultimate-main-colour);
   background-size: 60px 60px;
 }
 
-.title-project-link-hermes {
-  background-image: url('/images/hermes.png'), url('/images/hermes.png');
+.title-project-link-messenger {
+  background-image: url('/images/hermes/hermes-white.png'), url('/images/hermes/hermes-white.png');
   background-position: left, right;
 }
 
-.title-project-link-hermes:hover {
-  background-color: var(--hermes-main-colour);
-  background-size: 50px 40px;
+.title-project-link-messenger:hover {
+  background-color: var(--messenger-main-colour);
+  background-size: 50px 50px;
   color: var(--main-white);
 }
 
@@ -646,7 +649,6 @@ div[alt]:hover:before {
   margin: auto;
   width: 100%;
   padding: 20px 0px;
-  transition-duration: inherit;
 }
 
 .title-page-card {
@@ -658,23 +660,47 @@ div[alt]:hover:before {
 }
 
 .page-section-notify-title {
-  background-color: var(--notify-main-colour);
+  background-color: var(--notify-sec-colour);
 }
 
-.page-section-hermes-title {
-  background-color: var(--hermes-main-colour);
+.page-section-messenger-title {
+  background-color: var(--messenger-main-colour);
   color: var(--main-white);
 }
 
 .page-section-thiswebsite-title {
   box-shadow: inset 0px 0px 0px 5px var(--main-white);
   box-sizing: border-box; /* Include padding and border in element's width and height */
-  background-color: var(--main-nav-colour);
-  color: var(--main-white);
+  background-color: var(--corporate-bg-colour);
+  color: var(--main-nav-colour);
 }
 
-.page-section-nineway-title {
-  box-shadow: inset 0px 0px 0px 5px var(--nineway-main-colour);
+.page-section-ultimate-title {
+  box-shadow: inset 0px 0px 0px 5px var(--ultimate-main-colour);
   box-sizing: border-box; /* Include padding and border in element's width and height */
   background-color: var(--main-white);
+}
+
+.marketing a {
+  color: inherit;
+  font-weight: 700;
+}
+
+.bold {
+  font-weight: 800;
+}
+
+.flip-x {
+  transform: scaleX(-1);
+}
+
+.title-img-hermes {
+  width: 300px;
+}
+
+.card-ultimate-title {
+  border: thick solid var(--ultimate-main-colour);
+  border-radius: 12px;
+  padding: 10px 10px;
+  margin: 20px auto auto auto;
 }

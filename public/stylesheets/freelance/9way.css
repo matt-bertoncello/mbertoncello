@@ -62,13 +62,13 @@
 }
 
 .player1 {
-    background-image: url('/images/redO.png');
+    background-image: url('/images/ultimate/redO.png');
     background-size: 100%;
     background-repeat: no-repeat;
 }
 
 .player2 {
-    background-image: url('/images/blueX.png');
+    background-image: url('/images/ultimate/blueX.png');
     background-size: 100%;
     background-repeat: no-repeat;
 }

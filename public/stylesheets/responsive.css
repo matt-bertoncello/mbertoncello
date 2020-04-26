@@ -4,8 +4,8 @@
     display: none;
   }
   .column-container {
-    display: block;
-    padding-bottom: 10px;
+    flex-direction: column;
+    padding-bottom: 20px;
   }
   .content {
     width: 80vw;
