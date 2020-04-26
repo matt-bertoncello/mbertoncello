@@ -14,6 +14,10 @@
   --sec-text-colour: #ffce00;
   --main-border-radius: 3px;
   --header-height: 50px;
+
+  --nineway-main-colour: #03a9f4;
+  --notify-main-colour: #ffce00;
+  --hermes-main-colour: #b11226;
 }
 
 body {
@@ -21,6 +25,13 @@ body {
   text-align: center;
   color: var(--main-text-colour);
   font-family: Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+}
+
+.anchor {
+  display: block;
+  position: relative;
+  top: calc(0px - var(--header-height));
+  visibility: hidden;
 }
 
 #mobile-header-title {
@@ -85,6 +96,7 @@ body {
 .mb-portrait {
   width: 20vw;
   border-radius: 100%;
+  padding-top: 10px;
 }
 
 .text-title-fancy {
@@ -554,7 +566,9 @@ div[alt]:hover:before {
 
 .marketing {
   margin: 10px auto;
-  font-size: 20px;
+  width: 40vw;
+  min-width: 300px;
+  font-size: 15px;
   font-weight: 400;
 }
 
@@ -567,13 +581,72 @@ div[alt]:hover:before {
   border: 1px solid var(--main-black);
   border-radius: 3px;
   margin: 20px auto;
-  text-decoration: none !important;
-  color: var(--main-text-colour) !important;
+  width: 90%;
+  color: var(--main-text-colour);
+  transition-duration: 0.5s;
+  transition: background-size 0.5s, background-color 0.5s, transform 0.5s, color 0s;
+  background-size: 0% 0%;
+  background-repeat: no-repeat;
+}
+
+.title-project-link:hover {
+  transform: scale(1.1);
+  color: var(--main-text-colour);
+  text-decoration: none;
+}
+
+.title-project-link-notify {
+  background-image: url('/images/notify-title.svg');
+  background-position: center;
+}
+
+.title-project-link-notify:hover {
+  background-color: var(--notify-main-colour);
+  background-size: 60% 60%;
+}
+
+.title-project-link-nineway {
+  background-image: url('/images/blueX.png'), url('/images/redO.png');
+  background-position: left, right;
+}
+
+.title-project-link-nineway:hover {
+  border-color: var(--nineway-main-colour);
+  color: var(--nineway-main-colour);
+  background-size: 60px 60px;
+}
+
+.title-project-link-hermes {
+  background-image: url('/images/hermes.png'), url('/images/hermes.png');
+  background-position: left, right;
+}
+
+.title-project-link-hermes:hover {
+  background-color: var(--hermes-main-colour);
+  background-size: 50px 40px;
+  color: var(--main-white);
+}
+
+.title-project-link-website {
+  background-image: url('/images/portrait.png');
+  background-position: left;
+}
+
+.title-project-link-website:hover {
+  background-color: var(--main-nav-colour);
+  color: var(--main-nav-text-colour);
+  background-size: 60px 60px;
+}
+
+.title-project-link-notify > .title-project-link-text:hover {
+  opacity: 0;
 }
 
 .title-project-link-text {
   margin: auto;
+  width: 100%;
   padding: 20px 0px;
+  transition-duration: inherit;
 }
 
 .title-page-card {
@@ -582,4 +655,26 @@ div[alt]:hover:before {
   width: 38vw;
   padding: 24px 16px;
   margin: 0 auto;
+}
+
+.page-section-notify-title {
+  background-color: var(--notify-main-colour);
+}
+
+.page-section-hermes-title {
+  background-color: var(--hermes-main-colour);
+  color: var(--main-white);
+}
+
+.page-section-thiswebsite-title {
+  box-shadow: inset 0px 0px 0px 5px var(--main-white);
+  box-sizing: border-box; /* Include padding and border in element's width and height */
+  background-color: var(--main-nav-colour);
+  color: var(--main-white);
+}
+
+.page-section-nineway-title {
+  box-shadow: inset 0px 0px 0px 5px var(--nineway-main-colour);
+  box-sizing: border-box; /* Include padding and border in element's width and height */
+  background-color: var(--main-white);
 }
