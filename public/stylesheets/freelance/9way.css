@@ -23,7 +23,7 @@
 
 
 .dashboard-cell {
-    padding: min(20px, 3.7vw);
+    padding: min(20px, 3.3vw);
     border: thin solid black;
 }
 
