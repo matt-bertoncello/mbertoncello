@@ -23,8 +23,7 @@
 
 
 .dashboard-cell {
-    width:6vh;
-    height:6vh;
+    padding: min(20px, 3.3vw);
     border: thin solid black;
 }
 
@@ -63,13 +62,13 @@
 }
 
 .player1 {
-    background-image: url('/images/redO.png');
+    background-image: url('/images/ultimate/redO.png');
     background-size: 100%;
     background-repeat: no-repeat;
 }
 
 .player2 {
-    background-image: url('/images/blueX.png');
+    background-image: url('/images/ultimate/blueX.png');
     background-size: 100%;
     background-repeat: no-repeat;
 }
@@ -157,7 +156,6 @@ table, tr, td, tbody {
 
 .game-card-header {
   word-wrap: break-word;
-  width: 55vh;
 }
 
 @media only screen and (max-width: 800px) {
