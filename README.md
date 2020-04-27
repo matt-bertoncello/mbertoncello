@@ -17,3 +17,7 @@ See website [here](https://mbertoncello.herokuapp.com).
 * 9 Way Tic-Tac-Toe game.
 * Hermes instant messaging project.
 * This website.
+
+## Authors
+
+* **Matt Bertoncello** - *Lead Developer* - [matt-bertoncello](https://github.com/matt-bertoncello)
