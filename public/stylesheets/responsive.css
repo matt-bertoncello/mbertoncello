@@ -1,7 +1,7 @@
 /* mobile-nav */
 @media only screen and (max-width: 767px) {
   .hide-mobile-nav {
-    display: none;
+    display: none !important;
   }
   .column-container {
     flex-direction: column;
@@ -20,12 +20,15 @@
   .title-thiswebsite-img {
     display: unset;
   }
+  .title-thiswebsite-img img {
+    width: 50px;
+  }
 }
 
 /* mobile */
 @media only screen and (max-width: 479px) {
   .hide-mobile {
-    display: none;
+    display: none !important;
   }
   .title-page-register {
     float: unset;
@@ -50,7 +53,7 @@
     width: 750px;
   }
   .hide-desktop-nav {
-    display: none;
+    display: none !important;
   }
 }
 

@@ -624,8 +624,8 @@ div[alt]:hover:before {
 }
 
 .title-project-link-messenger {
-  background-image: url('/images/hermes/hermes-white.png'), url('/images/hermes/hermes-white.png');
-  background-position: left, right;
+  background-image: url('/images/hermes/hermes-white.png');
+  background-position: left;
 }
 
 .title-project-link-messenger:hover {
@@ -698,8 +698,9 @@ div[alt]:hover:before {
   transform: scaleX(-1);
 }
 
-.title-img-hermes {
-  width: 300px;
+.title-img-hermes img {
+  width: 20vw;
+  max-width: 250px;
 }
 
 .card-ultimate-title {
@@ -712,7 +713,6 @@ div[alt]:hover:before {
 .title-thiswebsite-img {
   display: flex;
   flex-direction: column;
-  padding: 20px 0px;
 }
 
 .title-thiswebsite-img img {
