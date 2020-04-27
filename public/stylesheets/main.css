@@ -736,3 +736,10 @@ div[alt]:hover:before {
   width: 100px;
   margin: 20px;
 }
+
+.social-login {
+  width: 38vw;
+  min-width: 300px;
+  max-width: 400px;
+  padding: 15px;
+}
