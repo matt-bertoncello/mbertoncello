@@ -23,6 +23,10 @@
   .title-thiswebsite-img img {
     width: 50px;
   }
+  #button-scroll-to-top {
+    width: 30px;
+    border-width: 1px;
+  }
 }
 
 /* mobile */
