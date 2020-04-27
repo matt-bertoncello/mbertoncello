@@ -1,22 +1,22 @@
 var mongoose = require("mongoose");
 var User = require("../../models/User");
-var NineWay = require("../../models/9Way/9way");
+var Ultimate = require("../../models/Ultimate/Ultimate");
 var countController = require('../CountController');
 var userController = require('../AuthController');
 
-var nineWayController = {};
+var ultimateController = {};
 
 /*
 First, increment the count of 9way games. Use the new count as the game's _id.
 Create new 9way game and save to mongoose database.
 */
-nineWayController.createGame = function(player1, player2, next) {
-  countController.incrementCounter('9way', function(count){
-    nineWay = new NineWay({
+ultimateController.createGame = function(player1, player2, next) {
+  countController.incrementCounter('ultimate', function(count){
+    ultimate = new Ultimate({
       _id: count,
       player: [player1, player2]
     });
-    nineWay.save(function(err) {
+    ultimate.save(function(err) {
       if (err) console.log(err);
     });
 
@@ -25,14 +25,14 @@ nineWayController.createGame = function(player1, player2, next) {
 }
 
 /*
-Retrieve the 9Way game with the corresponding gameId.
+Retrieve the Ultimate game with the corresponding gameId.
 */
-nineWayController.get9Way = function(id, next) {
-  NineWay.findOne({
+ultimateController.getUltimate = function(id, next) {
+  Ultimate.findOne({
     _id: id
   }, function(err, game) {
       if (!game) {  // if no game retrieved, provide error.
-        err = "[ERROR] no 9Way game found with _id: "+id;
+        err = "[ERROR] no Ultimate game found with _id: "+id;
       }
 
       next(err, game);
@@ -42,8 +42,8 @@ nineWayController.get9Way = function(id, next) {
 /*
 Retrive all 9way games that this user is a player
 */
-nineWayController.get9WaysForUser = function(id, next) {
-  NineWay.find({
+ultimateController.getUltimatesForUser = function(id, next) {
+  Ultimate.find({
     player: id
   }, function(err, games) {
     if (err) {
@@ -81,15 +81,15 @@ nineWayController.get9WaysForUser = function(id, next) {
 /*
 Get random mongoose game
 */
-nineWayController.getRandomGame = function(next) {
+ultimateController.getRandomGame = function(next) {
   // Get the count of all 9ways
-  NineWay.countDocuments().exec(function (err, count) {
+  Ultimate.countDocuments().exec(function (err, count) {
 
     // Get a random entry
     var random = Math.floor(Math.random() * count)
 
     // Again query all 9ways but only fetch one offset by our random #.
-    NineWay.findOne().skip(random).exec(
+    Ultimate.findOne().skip(random).exec(
       function (err, result) {
         next(err, result)
       })
@@ -97,4 +97,4 @@ nineWayController.getRandomGame = function(next) {
 }
 
 
-module.exports = nineWayController;
+module.exports = ultimateController;

@@ -28,6 +28,23 @@ body {
   font-family: Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
 }
 
+html {
+  scroll-behavior: smooth;  /* smooth scrolling */
+}
+
+#button-scroll-to-top {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  mix-blend-mode: darken;
+  border: thick solid var(--main-black);
+  width: 50px;
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: none;
+}
+
 .anchor {
   display: block;
   position: relative;
@@ -718,4 +735,11 @@ div[alt]:hover:before {
 .title-thiswebsite-img img {
   width: 100px;
   margin: 20px;
+}
+
+.social-login {
+  width: 38vw;
+  min-width: 300px;
+  max-width: 400px;
+  padding: 15px;
 }

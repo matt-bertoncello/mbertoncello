@@ -17,7 +17,7 @@ require('dotenv').config();
 /* Define routes */
 var auth = require('./routes/auth');
 var index = require('./routes/index');
-var nineway = require('./routes/freelance/9way');
+var ultimate = require('./routes/freelance/ultimate');
 var hermes = require('./routes/freelance/hermes');
 var anagrams = require('./routes/uni/anagrams');
 var bwt = require('./routes/uni/bwt');
@@ -25,7 +25,7 @@ var bwt = require('./routes/uni/bwt');
 /* Define sockets */
 var user_sock = require('./sockets/auth/user');
 var freelance_sock = require('./sockets/freelance/freelance');
-var nineway_sock = require('./sockets/freelance/9way');
+var ultimate_sock = require('./sockets/freelance/ultimate');
 var hermes_sock = require('./sockets/freelance/hermes');
 var anagrams_sock = require('./sockets/uni/anagrams');
 var bwt_sock = require('./sockets/uni/bwt');
@@ -71,7 +71,7 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use(bodyParser.urlencoded({ extended: true }))
   .use('/', index)
   .use('/auth', auth)
-  .use('/freelance/9way', nineway)
+  .use('/freelance/ultimate', ultimate)
   .use('/freelance/hermes', hermes)
   .use('/uni/anagrams', anagrams)
   .use('/uni/bwt', bwt)
@@ -85,7 +85,7 @@ io.on('connection', function(socket){
 
   // Load socket configuration from external files.
   freelance_sock.sock(socket, io);
-  nineway_sock.sock(socket, io);
+  ultimate_sock.sock(socket, io);
   user_sock.sock(socket, io);
   hermes_sock.sock(socket, io);
   anagrams_sock.sock(socket, io);

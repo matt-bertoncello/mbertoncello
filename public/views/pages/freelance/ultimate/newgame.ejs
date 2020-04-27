@@ -2,8 +2,8 @@
 <html>
 <head>
   <% include ../../../partials/header.ejs %>
-  <title><%= process.env.TITLE %> - new 9 way</title>
-  <link rel="stylesheet" type="text/css" href="/stylesheets/freelance/9way.css" />
+  <title><%= process.env.TITLE %> - new ultimate</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/freelance/ultimate.css" />
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
@@ -14,11 +14,11 @@
     });
 
     function newgame_user(username) {
-      socket.emit('newgame_user', username);
+      socket.emit('ultimate-newgame-user', username);
     }
 
     function newgame_email(email) {
-      socket.emit('newgame_email', email);
+      socket.emit('ultimate-newgame-email', email);
     }
 
     socket.on('err', function(err){
@@ -35,7 +35,7 @@
 
   <% include ../../../partials/pre-nav.ejs %>
     <li><a href='/freelance'>Freelance Projects</a></li>
-    <li><a href='/freelance/9way'>9 Way Dashboard</a></li>
+    <li><a href='/freelance/ultimate'>Ultimate Dashboard</a></li>
   <% include ../../../partials/post-nav.ejs %>
 
   <!-- Tab links -->

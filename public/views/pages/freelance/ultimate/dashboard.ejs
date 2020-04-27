@@ -8,37 +8,37 @@
   </script>
 
   <% include ../../../partials/header.ejs %>
-  <title><%= process.env.TITLE %> - 9 way</title>
-  <link rel="stylesheet" type="text/css" href="/stylesheets/freelance/9way.css" />
+  <title><%= process.env.TITLE %> - ultimate</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/freelance/ultimate.css" />
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
     var socket = io.connect('/');
     <% for(var i=0; i<games.yourTurn.length; i++) { %>
-      socket.emit('9wayroom', <%= games.yourTurn[i]._id %>);
+      socket.emit('ultimate-room', <%= games.yourTurn[i]._id %>);
     <% } %>
     <% for(var i=0; i<games.waiting.length; i++) { %>
-      socket.emit('9wayroom', <%= games.waiting[i]._id %>);
+      socket.emit('ultimate-room', <%= games.waiting[i]._id %>);
     <% } %>
     <% for(var i=0; i<games.won.length; i++) { %>
-      socket.emit('9wayroom', <%= games.won[i]._id %>);
+      socket.emit('ultimate-room', <%= games.won[i]._id %>);
     <% } %>
     <% for(var i=0; i<games.lost.length; i++) { %>
-      socket.emit('9wayroom', <%= games.lost[i]._id %>);
+      socket.emit('ultimate-room', <%= games.lost[i]._id %>);
     <% } %>
 
     socket.on('redirect', function(destination) {
       window.location.href = destination;
     });
 
-    socket.on('updategame', function(){
+    socket.on('ultimate-game-update', function(){
       location.reload();
     })
   </script>
 
   <% populate = function(gamesArray) { %>
     <% for(var i=0; i<gamesArray.length; i++) { %>
-      <div class="game-card" onclick="window.location.href = '/freelance/9way/<%= gamesArray[i]._id %>'">
+      <div class="game-card" onclick="window.location.href = '/freelance/ultimate/<%= gamesArray[i]._id %>'">
         <h4 class="game-card-header"><%= gamesArray[i].player[0].username %> vs <%= gamesArray[i].player[1].username %></h4>
         <%- gamesArray[i].getBoardHTML(user._id) %>
       </div>
@@ -51,12 +51,12 @@
 
   <% include ../../../partials/pre-nav.ejs %>
     <li><a href='/freelance'>Freelance Projects</a></li>
-    <li><a href='/freelance/9way'>9 Way Dashboard</a></li>
-    <li><a href='/freelance/9way/new'>New Game</a></li>
+    <li><a href='/freelance/ultimate'>Ultimate Dashboard</a></li>
+    <li><a href='/freelance/ultimate/new'>New Game</a></li>
   <% include ../../../partials/post-nav.ejs %>
 
-  <h1>9 Way Dashboard</h1>
-  <a type='button' href='/freelance/9way/new'>New Game</a>
+  <h1>Ultimate Tic-Tac-Toe Dashboard</h1>
+  <a type='button' href='/freelance/ultimate/new'>New Game</a>
 
   <div>
     <% if (games.yourTurn.length > 0) { %>

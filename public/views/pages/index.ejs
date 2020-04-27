@@ -2,25 +2,25 @@
 <html>
 <head>
   <% include ../partials/header.ejs %>
-  <link rel="stylesheet" type="text/css" href="/stylesheets/freelance/9way.css" />
+  <link rel="stylesheet" type="text/css" href="/stylesheets/freelance/ultimate.css" />
   <title><%= process.env.TITLE %></title>
 
   <script src="/socket.io/socket.io.js"></script>
   <script>
     var socket = io.connect('/');
 
-    function getNew9Way() {
-      socket.emit('getNew9Way');
+    function getNewUltimateBoard() {
+      socket.emit('get-new-ultimate');
     }
 
-    socket.on('9WayBoard', function(string) {
-      document.getElementById('dynamic_9way').innerHTML = string;
+    socket.on('ultimate-board', function(string) {
+      document.getElementById('dynamic_ultimate').innerHTML = string;
     });
 
   </script>
 </head>
 
-<body onload="getNew9Way()">
+<body onload="getNewUltimateBoard()">
 
   <% include ../partials/pre-nav.ejs %>
   <% include ../partials/post-nav.ejs %>
@@ -88,7 +88,9 @@
       <div class='column-container page-height'>
         <div class='column'>
           <div class='card-ultimate-title'>
-            <div class="card-header" id="dynamic_9way" onclick="getNew9Way()" alt="Click to look at more games"></div>
+            <div class="card-header" id="dynamic_ultimate" onclick="getNewUltimateBoard()" alt="Click to look at more games">
+              <img style='width:min(59.4vw, 360px)' src="/images/ultimate/redO.png">
+            </div>
           </div>
         </div>
         <div class='column'>
@@ -103,7 +105,7 @@
               Eventually, an AI will be trained to play this game against humans. Proposed solutions are minimax variants or monte-carlo simulations.
             </p>
             <p class='marketing'>
-              Play Ultimate Tic-Tac-Toe <a href='/freelance/9way'>here</a>.
+              Play Ultimate Tic-Tac-Toe <a href='/freelance/ultimate'>here</a>.
             </p>
           </div>
         </div>

@@ -175,12 +175,7 @@ table, tr, td, tbody {
         font-size: 12px;
     }
     .table-div {
-        width: 85vw;
-        padding-bottom: 10vw;
-    }
-    .table-div {
         padding: 5px 10px 10px 5px;
-        width: 100%;
     }
     .main-text-div {
         width: inherit;
