@@ -19,6 +19,7 @@
   --notify-main-colour: #ffce00;
   --notify-sec-colour: #ffce00c0;
   --messenger-main-colour: #dea6ab;
+  --portfolio-main-colour: #cbb7e390;
 }
 
 body {
@@ -589,7 +590,7 @@ div[alt]:hover:before {
 
 .marketing {
   margin: 10px auto;
-  width: 40vw;
+  width: 35vw;
   min-width: 300px;
   max-width: 600px;
   font-size: 15px;
@@ -638,6 +639,7 @@ div[alt]:hover:before {
   border-color: var(--ultimate-main-colour);
   color: var(--ultimate-main-colour);
   background-size: 60px 60px;
+  font-weight: 700;
 }
 
 .title-project-link-messenger {
@@ -660,6 +662,14 @@ div[alt]:hover:before {
   background-color: var(--main-nav-colour);
   color: var(--main-nav-text-colour);
   background-size: 60px 60px;
+}
+
+.title-project-link-portfolio:hover {
+  background-color: var(--portfolio-main-colour);
+  background-size: 50px 50px;
+  border-color: var(--main-white);
+  color: var(--main-nav-colour);
+  font-weight: 700;
 }
 
 .title-project-link-notify > .title-project-link-text:hover {
@@ -702,6 +712,13 @@ div[alt]:hover:before {
   background-color: var(--main-white);
 }
 
+.page-section-portfolio-title {
+  box-shadow: inset 0px 0px 0px 5px var(--main-white);
+  box-sizing: border-box; /* Include padding and border in element's width and height */
+  background-color: var(--portfolio-main-colour);
+  color: var(--main-nav-colour)
+}
+
 .marketing a {
   color: inherit;
   font-weight: 700;
@@ -725,6 +742,14 @@ div[alt]:hover:before {
   border-radius: 12px;
   padding: 10px 10px;
   margin: 20px auto auto auto;
+}
+
+.card-portfolio-title {
+  border: thick solid var(--portfolio-main-colour);
+  border-radius: 50px;
+  padding: 30px 30px;
+  margin: 20px auto auto auto;
+  background-color: var(--main-white);
 }
 
 .title-thiswebsite-img {
