@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+  <title><%= process.env.TITLE %> - portfolio</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/ultimate.css" />
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect('/');
+
+    function getNewUltimateBoard() {
+      socket.emit('get-new-ultimate');
+    }
+
+    socket.on('ultimate-board', function(string) {
+      document.getElementById('dynamic_ultimate').innerHTML = string;
+    });
+
+  </script>
+
+</head>
+
+<body>
+
+  <% include ../partials/pre-nav.ejs %>
+  <% include ../partials/post-nav.ejs %>
+
+  <div class="jumbotron">
+    <h1>University Projects</h1>
+  </div>
+
+  <div class="content-container">
+
+    <div class="card bordered shadowed">
+      <div class='card-header' style='padding: 15px 15px 0px 15px; height:275px;'>
+        <div>
+          <h2 class='no-padding'>Phonetic</h2>
+          <div>
+            <p>/ˈanəɡram/</p>
+          </div>
+        </div>
+        <div>
+          <h2 class='no-padding'>Definitions</h2>
+          <div>
+            <p><b>noun</b>: A word, phrase, or name formed by rearranging the letters of another, such as spar, formed from rasp.</p>
+          </div>
+        </div>
+        <div>
+          <h2 class='no-padding'>Origin</h2>
+          <div>
+            <p class='no-padding'>Late 16th century from French anagramme or modern Latin anagramma, from Greek ana- ‘back, anew’ + gramma ‘letter’.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <a type='button' class='card-link-inverted bordered' href="/anagrams">Anagrams</a>
+      </div>
+    </div>
+
+    <div class="card bordered shadowed">
+      <img class="card-header" style="height:275px;width:unset;" src='/images/BWT-mississippi.png'>
+      <div class="card-body">
+        <a type='button' class='card-link-inverted bordered' href="/bwt">Burrows-Wheeler Transform</a>
+      </div>
+    </div>
+
+    <div class="card bordered shadowed" style='width:unset;'>
+      <div class="card-header" id="dynamic_ultimate" onclick="getNewUltimateBoard()" alt="Click to look at more games">
+        <img style='width:min(59.4vw, 360px)' src="/images/ultimate/redO.png">
+      </div>
+      <div class="card-body">
+        <a type='button' class='card-link-inverted bordered' href="/ultimate">Ultimate Tic-Tac-Toe</a>
+      </div>
+    </div>
+
+    <div class="card bordered shadowed">
+      <img class="card-header" style="height:330px;" src='/images/hermes/hermes-black.png'>
+      <div class="card-body">
+        <a type='button' class='card-link-inverted bordered' href="/hermes">Hermes</a>
+      </div>
+    </div>
+
+    <div class="card bordered shadowed">
+      <img class="card-header" style="height:330px;" src='/images/notify.png'>
+      <div class="card-body">
+        <a type='button' class='card-link-inverted bordered' href="/notify" target="_blank" rel="noreferrer">Notify</a>
+      </div>
+    </div>
+
+    <div class="card bordered shadowed">
+      <img class="card-header" style="height:330px;" src='/images/monitor_with_code.jpg'>
+      <div class="card-body">
+        <a type='button' class='card-link-inverted bordered' href="/this-website">This Website</a>
+      </div>
+    </div>
+
+</body>
+<script>getNewUltimateBoard()</script>
+</html>

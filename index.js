@@ -16,15 +16,18 @@ require('dotenv').config();
 
 /* Define routes */
 var auth = require('./routes/auth');
+var about = require('./routes/about');
 var index = require('./routes/index');
 var ultimate = require('./routes/ultimate');
 var hermes = require('./routes/hermes');
 var anagrams = require('./routes/anagrams');
 var bwt = require('./routes/bwt');
+var notify = require('./routes/notify');
+var this_website = require('./routes/this_website');
 
 /* Define sockets */
 var user_sock = require('./sockets/auth/user');
-var freelance_sock = require('./sockets/freelance');
+var portfolio_sock = require('./sockets/portfolio');
 var ultimate_sock = require('./sockets/ultimate');
 var hermes_sock = require('./sockets/hermes');
 var anagrams_sock = require('./sockets/anagrams');
@@ -71,9 +74,12 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use(bodyParser.urlencoded({ extended: true }))
   .use('/', index)
   .use('/auth', auth)
+  .use('/about', about)
   .use('/ultimate', ultimate)
   .use('/hermes', hermes)
   .use('/anagrams', anagrams)
+  .use('/this-website', this_website)
+  .use('/notify', notify)
   .use('/bwt', bwt)
   .set('views', path.join(__dirname, 'public/views/pages'))
   .set('view engine', 'ejs');
@@ -84,7 +90,7 @@ io.use(sharedsession(mongooseSession)); // can access session from within 'io' w
 io.on('connection', function(socket){
 
   // Load socket configuration from external files.
-  freelance_sock.sock(socket, io);
+  portfolio_sock.sock(socket, io);
   ultimate_sock.sock(socket, io);
   user_sock.sock(socket, io);
   hermes_sock.sock(socket, io);
