@@ -5,22 +5,13 @@ var authController = require("../controllers/AuthController.js");
 var userController = require("../controllers/UserController.js");
 require('dotenv').config();
 
+/* display title page. user does not need to be logged in. */
 router.get('/', updateUser, function(req,res) {
   req.session.host = process.env.APPLICATION_NAME;
   res.render('index', {req: req});
 });
 
-router.get('/freelance', updateUser, function(req,res) { res.render('freelance/freelance', {req: req}); });
-router.get('/freelance/website', updateUser, function(req,res) { res.render('freelance/website', {req: req}); });
-router.get('/uni', updateUser, function(req,res) { res.render('uni/uni', {req: req}); });
-router.get('/competencies', updateUser, function(req,res) { res.render('competencies', {req: req}); });
-router.get('/education', updateUser, function(req,res) { res.render('education', {req: req}); });
-router.get('/about', updateUser, function(req,res) { res.render('about', {req: req}); });
-router.get('/experience', updateUser, function(req,res) { res.render('experience', {req: req}); });
-
-router.get('/session', updateUser, function(req,res) { res.render('auth/session', {req: req}); });
-router.get('/webgl', updateUser, function(req,res) { res.render('webgl', {req: req}); });
-
+/* if logged in, load user page. */
 router.get('/user', authController.checkAuthentication, function(req,res) {
   // If the password has been updated, provide it to the ejs file, and change updatePassword to false for next load.
   req.updatedPassword = authController.updatedPassword;
@@ -50,6 +41,9 @@ router.get('/register', (req, res, next) => {
     res.render('auth/register', {req: req, registerComment: comment});
   }
 });
+
+/* display portfolio page. user does not need to be logged in. */
+router.get('/portfolio', updateUser, function(req,res) { res.render('portfolio', {req: req}); });
 
 function updateSession(req, res, next) {
   next();

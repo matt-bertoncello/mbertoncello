@@ -16,19 +16,22 @@ require('dotenv').config();
 
 /* Define routes */
 var auth = require('./routes/auth');
+var about = require('./routes/about');
 var index = require('./routes/index');
-var ultimate = require('./routes/freelance/ultimate');
-var hermes = require('./routes/freelance/hermes');
-var anagrams = require('./routes/uni/anagrams');
-var bwt = require('./routes/uni/bwt');
+var ultimate = require('./routes/ultimate');
+var hermes = require('./routes/hermes');
+var anagrams = require('./routes/anagrams');
+var bwt = require('./routes/bwt');
+var notify = require('./routes/notify');
+var this_website = require('./routes/this_website');
 
 /* Define sockets */
 var user_sock = require('./sockets/auth/user');
-var freelance_sock = require('./sockets/freelance/freelance');
-var ultimate_sock = require('./sockets/freelance/ultimate');
-var hermes_sock = require('./sockets/freelance/hermes');
-var anagrams_sock = require('./sockets/uni/anagrams');
-var bwt_sock = require('./sockets/uni/bwt');
+var portfolio_sock = require('./sockets/portfolio');
+var ultimate_sock = require('./sockets/ultimate');
+var hermes_sock = require('./sockets/hermes');
+var anagrams_sock = require('./sockets/anagrams');
+var bwt_sock = require('./sockets/bwt');
 
 /* Remove deprecated settings from mongoose */
 mongoose.set('useNewUrlParser', true);
@@ -71,10 +74,13 @@ app.use(express.static(path.join(__dirname, 'public')))
   .use(bodyParser.urlencoded({ extended: true }))
   .use('/', index)
   .use('/auth', auth)
-  .use('/freelance/ultimate', ultimate)
-  .use('/freelance/hermes', hermes)
-  .use('/uni/anagrams', anagrams)
-  .use('/uni/bwt', bwt)
+  .use('/about', about)
+  .use('/ultimate', ultimate)
+  .use('/hermes', hermes)
+  .use('/anagrams', anagrams)
+  .use('/this-website', this_website)
+  .use('/notify', notify)
+  .use('/bwt', bwt)
   .set('views', path.join(__dirname, 'public/views/pages'))
   .set('view engine', 'ejs');
 
@@ -84,7 +90,7 @@ io.use(sharedsession(mongooseSession)); // can access session from within 'io' w
 io.on('connection', function(socket){
 
   // Load socket configuration from external files.
-  freelance_sock.sock(socket, io);
+  portfolio_sock.sock(socket, io);
   ultimate_sock.sock(socket, io);
   user_sock.sock(socket, io);
   hermes_sock.sock(socket, io);

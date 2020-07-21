@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+  if(performance.navigation.type == 2){
+     location.reload(true);
+  }
+  </script>
+
+  <% include ../../partials/header.ejs %>
+  <title><%= process.env.TITLE %> - hermes</title>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/hermes.css" />
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect('/');
+
+    <% for(var i=0; i<chatRoomArray.length; i++) { %>
+      socket.emit('chatroom', <%= chatRoomArray[i]._id %>);
+    <% } %>
+
+    socket.on('redirect', function(destination) {
+        window.location.href = destination;
+    });
+
+    socket.on('render_message', function(obj){
+      render_message('chatRoom'+obj.chatRoom, obj.message);
+    });
+
+    function render_card(chatRoom) {
+      var div = document.createElement("div");
+      div.setAttribute('class', 'card-chatroom');
+      div.setAttribute('onClick', "window.location.href = '/hermes/"+chatRoom.chatName+"'");
+      div.innerHTML = "<h4>"+chatRoom.chatName+"</h4>\n";
+      div.innerHTML += "<div id='chatRoom"+chatRoom._id+"'></div>\n";
+      document.getElementById("chatRoom_card_wrapper").appendChild(div);
+    }
+
+    function render_message(id, message) {
+      var html = "<div>\n";
+      html += "<span class='username'>"+message.user.username+"</span>\n";
+      html += "<span class='text'>"+message.text+"</span>\n";
+      html += "</div>\n";
+      html += "<div class='date'>"+new Date(message.created).toLocaleString('en-GB')+"</div>";
+      document.getElementById(id).innerHTML = html;
+    }
+
+  </script>
+</head>
+
+<body style="text-align:center;">
+
+  <% include ../../partials/pre-nav.ejs %>
+    <li><a href='/portfolio'>Portfolio</a></li>
+    <li><a href='/hermes/new'>New Chat</a></li>
+  <% include ../../partials/post-nav.ejs %>
+
+  <h1>Hermes Dashboard</h1>
+  <a type='button' style="display:block;" href='/hermes/new'>New Chat</a>
+
+  <div id="chatRoom_card_wrapper"></div>
+
+  <script>
+  <% for(var i=0; i<chatRoomArray.length; i++) { %>
+    render_card({
+      _id: '<%= chatRoomArray[i]._id %>',
+      chatName: '<%= chatRoomArray[i].getChatName(req.user._id) %>',
+    });
+    <% if(chatRoomArray[i].getMostRecentMessage()) { %>
+      render_message("chatRoom<%= chatRoomArray[i]._id %>", {
+        text: '<%= chatRoomArray[i].getMostRecentMessage().text %>',
+        user: {username: '<%= chatRoomArray[i].getMostRecentMessage().user.username %>' },
+        created: '<%= chatRoomArray[i].getMostRecentMessage().created %>',
+      });
+    <% } %>
+  <% } %>
+  </script>
+</body>
+</html>
