@@ -315,6 +315,7 @@ html {
 
 .content-container {
   text-align: center;
+  padding: 15px;
 }
 
 .card {
@@ -352,10 +353,6 @@ div[alt]:hover:before {
 .content-centered {
   display: inline-table;
   text-align: left;
-}
-
-.content-container {
-  padding: 15px;
 }
 
 .error-text {
@@ -667,7 +664,6 @@ div[alt]:hover:before {
 .title-project-link-portfolio:hover {
   background-color: var(--portfolio-main-colour);
   background-size: 50px 50px;
-  border-color: var(--main-white);
   color: var(--main-nav-colour);
   font-weight: 700;
 }
@@ -717,6 +713,12 @@ div[alt]:hover:before {
   box-sizing: border-box; /* Include padding and border in element's width and height */
   background-color: var(--portfolio-main-colour);
   color: var(--main-nav-colour)
+}
+
+.title-project-link-portfolio-text {
+  background-color: var(--main-white);
+  border-radius: 20px;
+  padding: 10px 20px;
 }
 
 .marketing a {

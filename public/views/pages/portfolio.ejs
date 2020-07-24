@@ -6,22 +6,11 @@
   <link rel="stylesheet" type="text/css" href="/stylesheets/ultimate.css" />
 
   <script src="/socket.io/socket.io.js"></script>
-  <script>
-    var socket = io.connect('/');
-
-    function getNewUltimateBoard() {
-      socket.emit('get-new-ultimate');
-    }
-
-    socket.on('ultimate-board', function(string) {
-      document.getElementById('dynamic_ultimate').innerHTML = string;
-    });
-
-  </script>
+  <script src="/js/dynamicUltimateThumbnailManager.js"></script>
 
 </head>
 
-<body>
+<body onload="getNewUltimateBoard()">
 
   <% include ../partials/pre-nav.ejs %>
   <% include ../partials/post-nav.ejs %>
