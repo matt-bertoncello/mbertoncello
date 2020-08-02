@@ -770,3 +770,31 @@ div[alt]:hover:before {
   max-width: 400px;
   padding: 15px;
 }
+
+.column-about {
+  padding: 10px 0px;
+}
+
+.title-about {
+  font-weight: 900;
+}
+
+.subtitle-about {
+  font-weight: 700;
+}
+
+.page-section-1 {
+  background-color: #b7e3cb;
+}
+
+.page-section-2 {
+  background-color: #cbb7e3;
+}
+
+.page-section-3 {
+  background-color: #ffce0090;
+}
+
+.page-section-4 {
+  background-color: var(--corporate-bg-colour);
+}
