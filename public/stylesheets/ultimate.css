@@ -15,6 +15,14 @@
     display:inline-block;
 }
 
+.board-ultimate-portfolio table {
+  margin: auto;
+}
+
+.board-ultimate-portfolio .dashboard-cell {
+  padding: 9px;
+}
+
 .cell {
     width:4vw;
     height:4vw;
