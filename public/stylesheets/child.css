@@ -1,0 +1,536 @@
+.navbar-mb {
+  background-color: var(--main-nav-colour);
+  border: none;
+  width: 100%;
+  position: fixed;
+  margin-bottom: 0px;
+  color: var(--main-nav-text-colour);
+}
+
+.navbar-mb a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.mb-portrait {
+  width: 20vw;
+  max-width: 600px;
+  border-radius: 100%;
+  padding-top: 10px;
+}
+
+.jumbotron-mb {
+  padding-top: 2vw;
+  padding-bottom: 2vw;
+  margin: auto;
+  background-color: var(--main-bg-colour);
+  color: var(--main-text-colour);
+}
+
+.mobile-title-two {
+  color: var(--main-text-colour);
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid var(--main-nav-colour);
+  background-color: var(--sec-nav-colour);
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: var(--corporate-bg-colour);
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: var(--main-nav-colour);
+  color: var(--main-nav-text-colour);
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid var(--main-nav-colour);
+  border-top: none;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+.wide {
+  width: 75%;
+  max-width: 900px;
+}
+
+.error-text {
+  max-width:330px;
+  margin: 0 auto;
+  color:red;
+}
+
+.sub-image {
+  height: 200px;
+}
+
+.title-project-link {
+  display: flex;
+  border: 1px solid var(--main-black);
+  border-radius: 3px;
+  margin: 20px auto;
+  width: 90%;
+  color: var(--main-text-colour);
+  transition-duration: 0.5s;
+  transition: background-size 0.5s, background-color 0.5s, transform 0.5s, color 0s;
+  background-size: 0% 0%;
+  background-repeat: no-repeat;
+}
+
+.title-project-link:hover {
+  transform: scale(1.1);
+  color: var(--main-text-colour);
+  text-decoration: none;
+}
+
+.title-project-link-notify {
+  background-image: url('/images/notify-title.svg');
+  background-position: center;
+}
+
+.title-project-link-notify:hover {
+  background-color: var(--notify-main-colour);
+  background-size: 60% 60%;
+}
+
+.title-project-link-ultimate {
+  background-image: url('/images/ultimate/blueX.png'), url('/images/ultimate/redO.png');
+  background-position: left, right;
+}
+
+.title-project-link-ultimate:hover {
+  border-color: var(--ultimate-main-colour);
+  color: var(--ultimate-main-colour);
+  background-size: 60px 60px;
+  font-weight: 700;
+}
+
+.title-project-link-messenger {
+  background-image: url('/images/hermes/hermes-white.png');
+  background-position: left;
+}
+
+.title-project-link-messenger:hover {
+  background-color: var(--messenger-main-colour);
+  background-size: 50px 50px;
+  color: var(--main-white);
+}
+
+.title-project-link-website {
+  background-image: url('/images/portrait.png');
+  background-position: left;
+}
+
+.title-project-link-website:hover {
+  background-color: var(--main-nav-colour);
+  color: var(--main-nav-text-colour);
+  background-size: 60px 60px;
+}
+
+.title-project-link-portfolio:hover {
+  background-color: var(--portfolio-main-colour);
+  background-size: 50px 50px;
+  color: var(--main-nav-colour);
+  font-weight: 700;
+}
+
+.title-project-link-notify > .title-project-link-text:hover {
+  opacity: 0;
+}
+
+.title-project-link-text {
+  margin: auto;
+  width: 100%;
+  padding: 20px 0px;
+}
+
+.title-page-card {
+  min-width: 300px;
+  max-width: 400px;
+  width: 38vw;
+  padding: 24px 16px;
+  margin: 0 auto;
+}
+
+.page-section-notify-title {
+  background-color: var(--notify-sec-colour);
+}
+
+.page-section-messenger-title {
+  background-color: var(--messenger-main-colour);
+  color: var(--main-white);
+}
+
+.page-section-thiswebsite-title {
+  box-shadow: inset 0px 0px 0px 5px var(--main-white);
+  box-sizing: border-box; /* Include padding and border in element's width and height */
+  background-color: var(--corporate-bg-colour);
+  color: var(--main-nav-colour);
+}
+
+.page-section-ultimate-title {
+  box-shadow: inset 0px 0px 0px 5px var(--ultimate-main-colour);
+  box-sizing: border-box; /* Include padding and border in element's width and height */
+  background-color: var(--main-white);
+}
+
+.page-section-portfolio-title {
+  box-shadow: inset 0px 0px 0px 5px var(--main-white);
+  box-sizing: border-box; /* Include padding and border in element's width and height */
+  background-color: var(--portfolio-main-colour);
+  color: var(--main-nav-colour)
+}
+
+.title-project-link-portfolio-text {
+  background-color: var(--main-white);
+  border-radius: 20px;
+  padding: 10px 20px;
+}
+
+.marketing a {
+  color: inherit;
+  font-weight: 700;
+}
+
+.bold {
+  font-weight: 800;
+}
+
+.flip-x {
+  transform: scaleX(-1);
+}
+
+.title-img-hermes img {
+  width: 20vw;
+  max-width: 250px;
+}
+
+.card-ultimate-title {
+  border: thick solid var(--ultimate-main-colour);
+  border-radius: 12px;
+  padding: 10px 10px;
+  margin: 20px auto auto auto;
+}
+
+.card-portfolio-titlepage {
+  border: thick solid var(--portfolio-main-colour);
+  border-radius: 50px;
+  padding: 30px 30px;
+  margin: 20px auto auto auto;
+  background-color: var(--main-white);
+}
+
+.title-thiswebsite-img {
+  display: flex;
+  flex-direction: column;
+}
+
+.title-thiswebsite-img img {
+  width: 100px;
+  margin: 20px;
+}
+
+.social-login {
+  width: 38vw;
+  min-width: 300px;
+  max-width: 400px;
+  padding: 15px;
+}
+
+.column-about {
+  padding: 10px 0px;
+}
+
+.title-about {
+  font-weight: 900;
+}
+
+.subtitle-about {
+  font-weight: 700;
+}
+
+.page-section-1 {
+  background-color: var(--background-1-colour);
+}
+
+.page-section-2 {
+  background-color: #cbb7e3;
+}
+
+.page-section-3 {
+  background-color: var(--background-3-colour);
+}
+
+.page-section-4 {
+  background-color: var(--corporate-bg-colour);
+}
+
+.form-label-mb {
+  float: left;
+  margin-left: 5px;
+}
+
+.marketing {
+  margin: 10px auto;
+  width: 35vw;
+  min-width: 300px;
+  max-width: 600px;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.form-note {
+  font-size: 12px;
+  text-align: left;
+  padding: 9px 0px 0px 0px;
+  margin: auto;
+}
+
+
+.title-page-register {
+  margin: auto;
+  width: fit-content;
+}
+
+.highlight-page-section {
+  background-color: var(--corporate-bg-colour);
+}
+
+.mb-text {
+  height:15px;
+  color:#CCCC00;
+  vertical-align:middle;
+  padding:0px 5px;
+}
+
+.rounded {
+  border-radius: 20px;
+}
+
+.content-centered {
+  display: inline-table;
+  text-align: left;
+}
+
+.banner {
+  height: 50px;
+  line-height: 50px;
+  font-size: 20px;
+  background-color: black;
+  color: white;
+  opacity: 75%;
+  margin: 10px 20px;
+}
+
+div[alt]:hover:before {
+  content: attr(alt);
+  color: black;
+  background-color: yellow;
+  border: 1px solid black;
+  padding: 2px 15px;
+  position: absolute;
+}
+
+.card-link-red {
+  transition-duration: 0.2s;
+  color: var(--main-white);
+  background-color: red;
+  border-radius: 10px;
+}
+
+.card-link-red:hover {
+  background-color: var(--main-white);
+  text-decoration: none;
+  color: red;
+}
+
+/* The alert message box */
+.alert {
+  display: none;
+  width: 100%;
+  padding: 15px;
+  background-color: #f44336; /* Red */
+  color: white;
+  text-align:center;
+  position: fixed;
+}
+
+
+.form-signin {
+  min-width: 300px;
+  max-width: 400px;
+  width: 38vw;
+  padding: 24px 16px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.jumbotron-portfolio {
+  background-color: var(--portfolio-main-colour);
+}
+
+.card-portrait-portfoliopage {
+  margin: auto;
+  width: max(370px, 50vw);
+  color: var(--main-nav-colour);
+}
+
+.card-portfolio {
+  width: 300px;
+  vertical-align: middle;
+  margin: 15px;
+  transition-duration: 0.1s;
+}
+
+.card-portfolio-footer {
+  height: 50px;
+  padding: 5px 1px 0px 0px;
+}
+
+.card-portfolio-footer-element {
+  margin: auto 1px;
+  border: 1px var(--main-theme-colour) solid;
+  border-radius: 12px;
+  padding: 0px 5px;
+  background-color: var(--main-white);
+  color: var(--main-black);
+}
+
+.card-portfolio-title-container {
+  height: 75px;
+  display: flex;
+}
+
+.card-portfolio-title {
+  padding: 0px;
+  margin: auto;
+}
+
+.card-portfolio-body-container {
+  display: flex;
+  height: 200px;
+}
+
+.card-portfolio-image {
+  height: 100%;
+  margin: auto;
+}
+
+.card-portfolio-header-element {
+  border: 1px var(--main-theme-colour) solid;
+  color: var(--main-black);
+  background-color: var(--main-white);
+}
+
+.card-portfolio-header-element-type {
+  float: left;
+  border-left: unset;
+  border-top: unset;
+  border-radius: 12px 0px;
+}
+
+.card-portfolio-header-element-type-uni {
+  background-color: lightgrey;
+}
+
+.card-portfolio-header-element-type-freelance {
+  background-color: var(--main-nav-colour);
+  color: var(--main-white);
+}
+
+.card-portfolio-header-element-completed,
+.card-portfolio-header-element-featured {
+  float: left;
+  border-top: unset;
+  border-radius: 0px 0px 12px 12px;
+}
+
+.card-portfolio-header-element-featured {
+  background-color: #ff4c4c;
+  color: var(--main-white);
+}
+
+.card-portfolio-header-element-completed-true {
+  background-color: var(--background-1-colour);
+}
+
+.card-portfolio-header-element-completed-false {
+  background-color: var(--background-3-colour);
+}
+
+.card-portfolio-header-element-year {
+  float: right;
+  border-right: unset;
+  border-top: unset;
+  border-radius: 0px 12px;
+}
+
+.card-portfolio-hermes:hover {
+  background-color: var(--messenger-main-colour);
+  color: var(--main-white);
+}
+
+.card-portfolio-notify:hover {
+  background-color: var(--notify-main-colour);
+}
+
+.card-portfolio-ultimate:hover {
+  background-color: var(--ultimate-main-colour);
+  color: var(--main-white);
+}
+
+.card-portfolio-this-website:hover {
+  background-color: var(--portfolio-main-colour);
+}
+
+.card-portfolio-bwt:hover,
+.card-portfolio-anagrams:hover {
+  background-color: var(--corporate-bg-colour);
+}
